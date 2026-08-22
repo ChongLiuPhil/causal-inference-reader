@@ -1,0 +1,4 @@
+build/
+tmp/
+references.bib.blg
+.DS_Store
