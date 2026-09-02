@@ -1,0 +1,35 @@
+schema_version: 1
+id: causal-inference-reader
+repository: ChongLiuPhil/causal-inference-reader
+
+title:
+  zh: 因果推理深度读本
+  en: Causal Inference Reader
+
+kind: book-project
+status: active
+
+areas:
+  - causation
+  - philosophy-of-science
+
+topics:
+  - causal-inference
+  - potential-outcomes
+  - structural-causal-models
+  - causal-discovery
+  - transportability
+  - causal-machine-learning
+
+source_of_truth:
+  overview: README.md
+  manuscript: main.tex
+  bibliography: references.bib
+
+website:
+  metadata: website.yaml
+  default_publish: false
+
+notes: >
+  Private project metadata for organizing the academic knowledge system.
+  Public website content must be explicitly approved through website.yaml.
