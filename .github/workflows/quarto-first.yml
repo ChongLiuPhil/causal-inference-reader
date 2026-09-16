@@ -42,6 +42,8 @@ jobs:
           test -f main.tex
           python scripts/build_web_source.py
           python scripts/migrate_to_quarto.py
+          echo "Converted @-token context:"
+          grep -R -n -C 2 -E '@(author|hzhao|lazymark|mbits)' manuscript || true
           python scripts/check_quarto_source.py
           quarto render --to html
           test -s _book/index.html
