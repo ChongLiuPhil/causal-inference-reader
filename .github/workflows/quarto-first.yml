@@ -35,15 +35,27 @@ jobs:
             texlive-xetex texlive-latex-extra texlive-lang-chinese texlive-pictures \
             fonts-noto-cjk dvisvgm
 
-      - name: Generate and freeze canonical QMD sources
+      - name: Generate intermediate QMD and SVG assets
         shell: bash
         run: |
-          set -euo pipefail
+          set -euxo pipefail
           test -f main.tex
           python scripts/build_web_source.py
-          python scripts/migrate_to_quarto.py
-          python scripts/check_quarto_source.py
+          test -d web-manuscript
+          test "$(find web-manuscript -maxdepth 1 -name '*.qmd' | wc -l)" -eq 17
+          test -d web-assets
 
+      - name: Freeze canonical QMD sources
+        shell: bash
+        run: |
+          set -euxo pipefail
+          python scripts/migrate_to_quarto.py
+
+      - name: Validate frozen canonical sources
+        shell: bash
+        run: |
+          set -euxo pipefail
+          python scripts/check_quarto_source.py
           test -f _quarto.yml
           test -f index.qmd
           test -f references.qmd
@@ -59,6 +71,10 @@ jobs:
           test "$(find manuscript -maxdepth 1 -name '*.qmd' | wc -l)" -eq 17
           find assets -type f -print -quit | grep -q .
 
+      - name: Verify migration layer is removed
+        shell: bash
+        run: |
+          set -euxo pipefail
           test ! -e main.tex
           test ! -e bookstyle.tex
           test ! -d chapters
@@ -70,7 +86,7 @@ jobs:
 
       - name: Commit canonical Quarto sources and remove migration layer
         run: |
-          set -euo pipefail
+          set -euxo pipefail
           git add -A
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
