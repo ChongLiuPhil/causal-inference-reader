@@ -233,7 +233,15 @@ for pattern in (
 
 bib = (root / "references.bib").read_text(encoding="utf-8")
 bibkeys = set(re.findall(r"@[A-Za-z]+\s*\{\s*([^,\s]+)", bib))
-cited = set(re.findall(r"(?<![\w@])@([A-Za-z0-9_:.+-]+)", text))
+# Validate unambiguous Pandoc bracket citations only. Bare @tokens can be ordinary
+# handles/usernames in prose or code; Quarto/Pandoc remains responsible for
+# interpreting narrative citations during the full render.
+citation_groups = re.findall(r"\[[^\]\n]*@[^\]\n]+\]", text)
+cited = {
+    key
+    for group in citation_groups
+    for key in re.findall(r"(?<![\w@])@([A-Za-z0-9_:.+-]+)", group)
+}
 missing_keys = sorted(key for key in cited if key not in bibkeys)
 if missing_keys:
     errors.append("missing bibliography keys: " + ", ".join(missing_keys[:30]))
@@ -248,7 +256,7 @@ if errors:
     for error in errors:
         print(f"- {error}", file=sys.stderr)
     raise SystemExit(1)
-print(f"Validated {len(files)} manuscript files and {len(cited)} citation keys.")
+print(f"Validated {len(files)} manuscript files and {len(cited)} bracket citation keys.")
 '''
     scripts = ROOT / "scripts"
     scripts.mkdir(exist_ok=True)
