@@ -42,18 +42,31 @@ jobs:
           test -f main.tex
           python scripts/build_web_source.py
           python scripts/migrate_to_quarto.py
-          echo "Converted @-token context:"
-          grep -R -n -C 2 -E '@(author|hzhao|lazymark|mbits)' manuscript || true
           python scripts/check_quarto_source.py
-          quarto render --to html
-          test -s _book/index.html
-          test -s _book/manuscript/01-questions.html
-          test -s _book/manuscript/04-potential-outcomes-identification.html
-          test -s _book/manuscript/07-design-estimation.html
-          test -s _book/manuscript/11-synthesis-open-problems.html
-          test -s _book/manuscript/appendix-A-comparative-topics.html
-          find _book/assets -type f -print -quit | grep -q .
-          ! grep -R -E 'WEBTABLE|WEBTIKZ|begin\{tikzpicture\}|web-assets/' _book --include='*.html'
+
+          test -f _quarto.yml
+          test -f index.qmd
+          test -f references.qmd
+          test -f references.bib
+          test -f book.css
+          test -d manuscript
+          test -d assets
+          test -f manuscript/01-questions.qmd
+          test -f manuscript/04-potential-outcomes-identification.qmd
+          test -f manuscript/07-design-estimation.qmd
+          test -f manuscript/11-synthesis-open-problems.qmd
+          test -f manuscript/appendix-A-comparative-topics.qmd
+          test "$(find manuscript -maxdepth 1 -name '*.qmd' | wc -l)" -eq 17
+          find assets -type f -print -quit | grep -q .
+
+          test ! -e main.tex
+          test ! -e bookstyle.tex
+          test ! -d chapters
+          test ! -d web-manuscript
+          test ! -d web-assets
+          test ! -e scripts/build_web_source.py
+          test ! -e scripts/migrate_to_quarto.py
+          test ! -e .github/workflows/quarto-first.yml
 
       - name: Commit canonical Quarto sources and remove migration layer
         run: |
