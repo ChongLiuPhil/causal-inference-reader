@@ -1,0 +1,76 @@
+name: Validate and Publish Book Reader
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "chapters/**"
+      - "references.bib"
+      - "scripts/**"
+      - "book.css"
+      - "_quarto.yml"
+      - "index.qmd"
+      - "references.qmd"
+      - "因果推理深度读本.pdf"
+      - ".github/workflows/publish-book.yml"
+  push:
+    branches: [main]
+    paths:
+      - "chapters/**"
+      - "references.bib"
+      - "scripts/**"
+      - "book.css"
+      - "_quarto.yml"
+      - "index.qmd"
+      - "references.qmd"
+      - "因果推理深度读本.pdf"
+      - ".github/workflows/publish-book.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Quarto and TinyTeX
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          tinytex: true
+
+      - name: Install web figure TeX packages
+        run: tlmgr install standalone ctex pgf xcolor fandol
+
+      - name: Generate web manuscript from canonical LaTeX
+        run: python3 scripts/build_web_source.py
+
+      - name: Render HTML book
+        run: quarto render --to html
+
+      - name: Validate reader output
+        run: |
+          test -s _book/index.html
+          test -s _book/web-manuscript/01-questions.html
+          test -s _book/web-manuscript/11-synthesis-open-problems.html
+          test -s _book/web-manuscript/appendix-D-primary-reading.html
+          ! grep -R -E 'WEBTABLE|WEBTIKZ|begin\{tikzpicture\}' _book --include='*.html'
+
+      - name: Upload rendered reader
+        uses: actions/upload-artifact@v7
+        with:
+          name: causal-inference-reader-html
+          path: _book/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Publish HTML reader to GitHub Pages branch
+        if: github.ref == 'refs/heads/main'
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+          render: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
