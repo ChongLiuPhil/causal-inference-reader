@@ -38,9 +38,34 @@ jobs:
       - name: Run intermediate source generator
         shell: bash
         run: |
-          set -euxo pipefail
+          set -uo pipefail
           test -f main.tex
-          python scripts/build_web_source.py
+          rm -f migration-error.log migration-generator.log
+          set +e
+          python scripts/build_web_source.py > migration-generator.log 2>&1
+          status=$?
+          set -e
+          cat migration-generator.log
+          if [ "$status" -ne 0 ]; then
+            {
+              printf 'generator_exit=%s\n' "$status"
+              cat migration-generator.log
+            } > migration-error.log
+            exit "$status"
+          fi
+          rm -f migration-generator.log
+
+      - name: Persist generator failure diagnostic
+        if: failure()
+        shell: bash
+        run: |
+          set -euxo pipefail
+          test -f migration-error.log
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f migration-error.log
+          git commit -m "Capture migration generator failure"
+          git push origin HEAD:book-reader-site
 
       - name: Verify intermediate QMD and SVG assets
         shell: bash
