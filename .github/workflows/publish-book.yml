@@ -1,33 +1,37 @@
-name: Validate and Publish Book Reader
+name: Validate and Publish Quarto Book
 
 on:
   workflow_dispatch:
   pull_request:
     paths:
-      - "chapters/**"
+      - "manuscript/**"
+      - "assets/**"
       - "references.bib"
-      - "scripts/**"
       - "book.css"
       - "_quarto.yml"
       - "index.qmd"
       - "references.qmd"
-      - "因果推理深度读本.pdf"
+      - "scripts/check_quarto_source.py"
       - ".github/workflows/publish-book.yml"
   push:
     branches: [main]
     paths:
-      - "chapters/**"
+      - "manuscript/**"
+      - "assets/**"
       - "references.bib"
-      - "scripts/**"
       - "book.css"
       - "_quarto.yml"
       - "index.qmd"
       - "references.qmd"
-      - "因果推理深度读本.pdf"
+      - "scripts/check_quarto_source.py"
       - ".github/workflows/publish-book.yml"
 
 permissions:
   contents: write
+
+concurrency:
+  group: quarto-book-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build-deploy:
@@ -36,32 +40,34 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v7
 
-      - name: Set up Quarto and TinyTeX
+      - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
-        with:
-          tinytex: true
 
-      - name: Install CJK fonts and web figure TeX packages
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y fonts-fandol
-          tlmgr install standalone ctex pgf xcolor
+      - name: Validate canonical sources
+        run: python scripts/check_quarto_source.py
 
-      - name: Generate web manuscript from canonical LaTeX
-        run: python3 scripts/build_web_source.py
-
-      - name: Render HTML book
+      - name: Render complete HTML book
         run: quarto render --to html
 
       - name: Validate reader output
+        shell: bash
         run: |
+          set -euo pipefail
           test -s _book/index.html
-          test -s _book/web-manuscript/01-questions.html
-          test -s _book/web-manuscript/11-synthesis-open-problems.html
-          test -s _book/web-manuscript/appendix-D-primary-reading.html
-          ! grep -R -E 'WEBTABLE|WEBTIKZ|begin\{tikzpicture\}' _book --include='*.html'
+          test -s _book/manuscript/01-questions.html
+          test -s _book/manuscript/04-potential-outcomes-identification.html
+          test -s _book/manuscript/07-design-estimation.html
+          test -s _book/manuscript/11-synthesis-open-problems.html
+          test -s _book/manuscript/appendix-A-comparative-topics.html
+          test -s _book/references.html
+          find _book/assets -type f -print -quit | grep -q .
+          grep -R -q 'MathJax' _book --include='*.html'
+          grep -R -q 'role="doc-biblioref"' _book --include='*.html'
+          grep -q 'nav-page-next' _book/manuscript/04-potential-outcomes-identification.html
+          grep -q 'nav-page-previous' _book/manuscript/04-potential-outcomes-identification.html
+          ! grep -R -E 'WEBTABLE|WEBTIKZ|begin\{tikzpicture\}|web-assets/' _book --include='*.html'
 
-      - name: Upload rendered reader
+      - name: Upload rendered book for inspection
         uses: actions/upload-artifact@v7
         with:
           name: causal-inference-reader-html
@@ -69,8 +75,8 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
-      - name: Publish HTML reader to GitHub Pages branch
-        if: github.ref == 'refs/heads/main'
+      - name: Publish verified HTML to GitHub Pages branch
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
