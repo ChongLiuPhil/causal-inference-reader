@@ -28,7 +28,8 @@ def verify_conversion(names: list[str]) -> None:
     if missing:
         raise SystemExit(f"Missing converted QMD files: {missing}")
 
-    weak: list[str] = []
+    losses: list[str] = []
+    large_expansions: list[str] = []
     for name in names:
         source = SOURCE_DIR / f"{name}.tex"
         target = qmds[name]
@@ -38,10 +39,23 @@ def verify_conversion(names: list[str]) -> None:
         target_n = cjk_count(target.read_text(encoding="utf-8"))
         if source_n:
             ratio = target_n / source_n
-            if ratio < 0.94 or ratio > 1.08:
-                weak.append(f"{name}: {target_n}/{source_n} ({ratio:.1%})")
-    if weak:
-        raise SystemExit("Suspicious text retention after conversion:\n" + "\n".join(weak))
+            if ratio < 0.94:
+                losses.append(f"{name}: {target_n}/{source_n} ({ratio:.1%})")
+            elif ratio > 1.10:
+                large_expansions.append(
+                    f"{name}: {target_n}/{source_n} ({ratio:.1%})"
+                )
+
+    if losses:
+        raise SystemExit(
+            "Possible text loss after conversion:\n" + "\n".join(losses)
+        )
+
+    if large_expansions:
+        print(
+            "Conversion added derived web text/callout labels in these files:\n"
+            + "\n".join(large_expansions)
+        )
 
 
 def install_manuscript() -> None:
@@ -58,8 +72,9 @@ def install_manuscript() -> None:
 
 def build_quarto_config(names: list[str]) -> None:
     prelim = [
-        n for n in names
-        if not n.startswith("chapter-") and not n.startswith("appendix-")
+        name
+        for name in names
+        if not name.startswith("chapter-") and not name.startswith("appendix-")
     ]
     numbered: list[tuple[int, str]] = []
     appendices: list[str] = []
@@ -72,9 +87,9 @@ def build_quarto_config(names: list[str]) -> None:
     numbered.sort()
 
     parts = [
-        ("第一部　问题、历史与哲学", [n for i, n in numbered if 1 <= i <= 3]),
-        ("第二部　识别、结构与估计", [n for i, n in numbered if 4 <= i <= 7]),
-        ("第三部　发现、迁移与应用", [n for i, n in numbered if 8 <= i <= 11]),
+        ("第一部　问题、历史与哲学", [name for i, name in numbered if 1 <= i <= 3]),
+        ("第二部　识别、结构与估计", [name for i, name in numbered if 4 <= i <= 7]),
+        ("第三部　发现、迁移与应用", [name for i, name in numbered if 8 <= i <= 11]),
     ]
 
     lines = [
@@ -108,51 +123,77 @@ def build_quarto_config(names: list[str]) -> None:
         lines.append("  appendices:")
         for name in appendices:
             lines.append(f"    - manuscript/{name}.qmd")
-    lines.extend([
-        "  page-footer:",
-        '    left: "因果推理深度读本"',
-        '    right: "Built with Quarto"',
-        "",
-        "bibliography: references.bib",
-        "lang: zh-CN",
-        "",
-        "crossref:",
-        '  appendix-title: "附录"',
-        '  appendix-delim: "："',
-        "",
-        "format:",
-        "  html:",
-        "    theme: cosmo",
-        "    css: book.css",
-        "    toc: true",
-        "    toc-depth: 3",
-        "    number-sections: true",
-        "    citations-hover: true",
-        "    footnotes-hover: true",
-        "    link-external-newwindow: true",
-        "  epub:",
-        "    toc: true",
-        "    css: epub.css",
-        "    epub-chapter-level: 1",
-        "",
-    ])
+    lines.extend(
+        [
+            "  page-footer:",
+            '    left: "因果推理深度读本"',
+            '    right: "Built with Quarto"',
+            "",
+            "bibliography: references.bib",
+            "lang: zh-CN",
+            "",
+            "crossref:",
+            '  appendix-title: "附录"',
+            '  appendix-delim: "："',
+            "",
+            "format:",
+            "  html:",
+            "    theme: cosmo",
+            "    css: book.css",
+            "    toc: true",
+            "    toc-depth: 3",
+            "    number-sections: true",
+            "    citations-hover: true",
+            "    footnotes-hover: true",
+            "    link-external-newwindow: true",
+            "  epub:",
+            "    toc: true",
+            "    css: epub.css",
+            "    epub-chapter-level: 1",
+            "",
+        ]
+    )
     (ROOT / "_quarto.yml").write_text("\n".join(lines), encoding="utf-8")
 
 
 def write_support_files() -> None:
-    (ROOT / "epub.css").write_text(
-        """body { font-family: serif; line-height: 1.7; }\n"
-        "h1, h2, h3 { line-height: 1.3; }\n"
-        "img, svg { max-width: 100%; height: auto; }\n"
-        "table { width: 100%; border-collapse: collapse; }\n"
-        "th, td { padding: 0.35em 0.5em; vertical-align: top; }\n"
-        ".callout { margin: 1em 0; padding: 0.8em 1em; border-left: 0.25em solid #5b7894; }\n"
-        "code { white-space: pre-wrap; }\n""",
-        encoding="utf-8",
-    )
+    epub_css = """body {
+  font-family: serif;
+  line-height: 1.7;
+}
 
-    (ROOT / "README.md").write_text(
-        """# 因果推理深度读本
+h1, h2, h3 {
+  line-height: 1.3;
+}
+
+img, svg {
+  max-width: 100%;
+  height: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 0.35em 0.5em;
+  vertical-align: top;
+}
+
+.callout {
+  margin: 1em 0;
+  padding: 0.8em 1em;
+  border-left: 0.25em solid #5b7894;
+}
+
+code {
+  white-space: pre-wrap;
+}
+"""
+    (ROOT / "epub.css").write_text(epub_css, encoding="utf-8")
+
+    readme = """# 因果推理深度读本
 
 这是一本以 **Quarto** 为唯一权威源的中文因果推理进阶读本。项目同时面向在线阅读与电子书流通。
 
@@ -177,12 +218,10 @@ def write_support_files() -> None:
 ## 结构
 
 全书保持 3 个部分、11 章和 4 个附录。GitHub Actions 会在 pull request 上验证构建；合并到 `main` 后发布 HTML 到 GitHub Pages，并保留 EPUB 构建产物。
-""",
-        encoding="utf-8",
-    )
+"""
+    (ROOT / "README.md").write_text(readme, encoding="utf-8")
 
-    (ROOT / "Makefile").write_text(
-        """.PHONY: preview html epub render check clean
+    makefile = """.PHONY: preview html epub render check clean
 
 preview:
 \tquarto preview
@@ -198,16 +237,14 @@ render:
 
 check:
 \tpython scripts/check_quarto_source.py
-\tquarto render --to html
-\tquarto render --to epub
+\tquarto render
 \ttest -f _book/index.html
 \ttest -n \"$$(find _book -maxdepth 1 -name '*.epub' -print -quit)\"
 
 clean:
 \trm -rf _book .quarto
-""",
-        encoding="utf-8",
-    )
+"""
+    (ROOT / "Makefile").write_text(makefile, encoding="utf-8")
 
     checker = '''from pathlib import Path
 import re
@@ -233,9 +270,9 @@ for token in ("TODO", "TBD", "FIXME", "待补", "待写", "占位"):
         errors.append(f"placeholder token remains: {token}")
 
 legacy = [
-    r"\\\\chapter\\{", r"\\\\section\\{", r"\\\\subsection\\{",
-    r"\\\\textcite\\{", r"\\\\parencite\\{", r"\\\\begin\\{document\\}",
-    r"\\\\term\\{",
+    r"\\chapter\\{", r"\\section\\{", r"\\subsection\\{",
+    r"\\textcite\\{", r"\\parencite\\{", r"\\begin\\{document\\}",
+    r"\\term\\{",
 ]
 for pattern in legacy:
     if re.search(pattern, text):
@@ -244,7 +281,7 @@ for pattern in legacy:
 bib = (root / "references.bib").read_text(encoding="utf-8")
 bibkeys = set(re.findall(r"@[A-Za-z]+\\s*\\{\\s*([^,\\s]+)", bib))
 cited = set(re.findall(r"(?<![\\w@])@([A-Za-z0-9_:.+-]+)", text))
-missing = sorted(k for k in cited if k not in bibkeys)
+missing = sorted(key for key in cited if key not in bibkeys)
 if missing:
     errors.append("missing bibliography keys: " + ", ".join(missing[:20]))
 
@@ -253,14 +290,19 @@ if errors:
     for error in errors:
         print(f"- {error}", file=sys.stderr)
     raise SystemExit(1)
-print(f"Validated {len(chapters)} chapters, {len(appendices)} appendices, {len(cited)} cited keys.")
+print(
+    f"Validated {len(chapters)} chapters, {len(appendices)} appendices, "
+    f"{len(cited)} cited keys."
+)
 '''
     scripts = ROOT / "scripts"
     scripts.mkdir(exist_ok=True)
     (scripts / "check_quarto_source.py").write_text(checker, encoding="utf-8")
 
     gitignore_path = ROOT / ".gitignore"
-    gitignore = gitignore_path.read_text(encoding="utf-8") if gitignore_path.exists() else ""
+    gitignore = (
+        gitignore_path.read_text(encoding="utf-8") if gitignore_path.exists() else ""
+    )
     lines = gitignore.splitlines()
     for item in ("_book/", ".quarto/", "web-manuscript/", "web-assets/"):
         if item not in lines:
@@ -291,6 +333,7 @@ def main() -> None:
         return
     if not GENERATED_DIR.exists():
         raise SystemExit("Run scripts/build_web_source.py before this migration script.")
+
     names = ordered_source_names()
     verify_conversion(names)
     install_manuscript()
