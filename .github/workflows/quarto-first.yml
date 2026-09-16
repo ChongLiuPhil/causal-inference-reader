@@ -1,47 +1,63 @@
-name: Quarto Migration
+name: One-time Quarto Migration
 
 on:
   workflow_dispatch:
   push:
-    branches:
-      - book-reader-site
+    branches: [book-reader-site]
+    paths:
+      - "scripts/migrate_to_quarto.py"
+      - "scripts/build_web_source.py"
+      - ".github/workflows/quarto-first.yml"
 
 permissions:
   contents: write
+
+concurrency:
+  group: quarto-one-time-migration
+  cancel-in-progress: true
 
 jobs:
   migrate:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Migrate manuscript to canonical Quarto sources
-        shell: bash
+      - name: Install one-time migration dependencies
         run: |
-          set -euo pipefail
-
-          if [ ! -f main.tex ]; then
-            echo "Repository is already Quarto-first."
-            exit 0
-          fi
-
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             texlive-xetex texlive-latex-extra texlive-lang-chinese texlive-pictures \
-            fonts-noto-cjk pdf2svg
+            fonts-noto-cjk dvisvgm
 
+      - name: Generate and freeze canonical QMD sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f main.tex
           python scripts/build_web_source.py
           python scripts/migrate_to_quarto.py
           python scripts/check_quarto_source.py
+          quarto render --to html
+          test -s _book/index.html
+          test -s _book/manuscript/01-questions.html
+          test -s _book/manuscript/04-potential-outcomes-identification.html
+          test -s _book/manuscript/07-design-estimation.html
+          test -s _book/manuscript/11-synthesis-open-problems.html
+          test -s _book/manuscript/appendix-A-comparative-topics.html
+          find _book/assets -type f -print -quit | grep -q .
+          ! grep -R -E 'WEBTABLE|WEBTIKZ|begin\{tikzpicture\}|web-assets/' _book --include='*.html'
 
+      - name: Commit canonical Quarto sources and remove migration layer
+        run: |
+          set -euo pipefail
           git add -A
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Make Quarto the canonical book source"
+          git commit -m "Make manuscript QMD the canonical book source"
           git push origin HEAD:book-reader-site
