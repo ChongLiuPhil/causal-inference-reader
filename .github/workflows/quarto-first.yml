@@ -35,15 +35,25 @@ jobs:
             texlive-xetex texlive-latex-extra texlive-lang-chinese texlive-pictures \
             fonts-noto-cjk dvisvgm
 
-      - name: Generate intermediate QMD and SVG assets
+      - name: Run intermediate source generator
         shell: bash
         run: |
           set -euxo pipefail
           test -f main.tex
           python scripts/build_web_source.py
+
+      - name: Verify intermediate QMD and SVG assets
+        shell: bash
+        run: |
+          set -euxo pipefail
           test -d web-manuscript
-          test "$(find web-manuscript -maxdepth 1 -name '*.qmd' | wc -l)" -eq 17
+          find web-manuscript -maxdepth 1 -name '*.qmd' -print
+          qmd_count="$(find web-manuscript -maxdepth 1 -name '*.qmd' | wc -l)"
+          echo "Generated QMD count: ${qmd_count}"
+          test "${qmd_count}" -eq 17
           test -d web-assets
+          find web-assets -type f -print
+          find web-assets -type f -print -quit | grep -q .
 
       - name: Freeze canonical QMD sources
         shell: bash
