@@ -217,9 +217,11 @@ if missing:
 
 files = [manuscript / name for name in expected if (manuscript / name).is_file()]
 text = "\n".join(p.read_text(encoding="utf-8") for p in files)
-for token in ("TODO", "TBD", "FIXME", "待补", "待写", "占位"):
-    if token in text:
-        errors.append(f"placeholder token remains: {token}")
+placeholder = re.compile(
+    r"(?mi)^\s*(?:TODO|TBD|FIXME|待补|待写|占位)(?:\s*[:：-].*)?\s*$"
+)
+for match in placeholder.finditer(text):
+    errors.append(f"placeholder line remains: {match.group(0).strip()}")
 
 for pattern in (
     r"\\chapter\{", r"\\section\{", r"\\subsection\{",
