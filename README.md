@@ -4,11 +4,27 @@
 
 本书采用“3个主部、11章正文、4个附录”的结构。第11章作为全书综合与结论接续第三部分，不再单独占用一个只有一章的主部。每章围绕3至4个大型论证单元展开，并以完整算例、失败诊断、图表、学习目标和章末自测把概念、识别、估计与应用连成可复核的分析过程。附录另收20组综合练习参考分析、核心原始文献精读指南、术语与学习路径，书末提供参考文献和主题索引。`main.tex` 是唯一权威入口。
 
+## 在线阅读
+
+本项目同时提供 Quarto Book 网页阅读层，结构与 [What Remains Human](https://github.com/ChongLiuPhil/What-Remains-Human-Epistemic-Agency-and-Human-Value-in-the-Age-of-AI) 项目的在线书籍模式一致：章节侧栏、页面目录、前后章跳转、悬停引文、响应式公式与移动端阅读由 Quarto 负责。
+
+网页正文不维护第二份手稿。`scripts/build_web_source.py` 每次构建时从权威的 `chapters/*.tex` 自动生成 `web-manuscript/*.qmd`，把 TikZ 图转换为 SVG，并继续使用同一个 `references.bib`。生成目录均被 `.gitignore` 忽略，因此 LaTeX/PDF 与网页不会产生两套需要人工同步的正文。
+
+本地构建网页需要 Quarto、XeLaTeX 与 `dvisvgm`：
+
+```sh
+python3 scripts/build_web_source.py
+quarto render --to html
+```
+
+HTML 输出位于 `_book/`。合并到 `main` 后，`.github/workflows/publish-book.yml` 会重新生成网页源、验证 HTML，并将成品发布到 `gh-pages`；计划阅读地址为 <https://chongliuphil.github.io/causal-inference-reader/>。Pull Request 阶段只验证和上传 HTML artifact，不会公开部署。
+
 ## 构建要求
 
 - TeX Live 2026 或兼容版本
 - XeLaTeX、latexmk、Biber、MakeIndex
 - `ctex`、`biblatex-gb7714-2015`、TikZ、`tcolorbox`
+- 网页构建另需 Quarto 与 `dvisvgm`
 - 验收脚本只使用系统自带的 perl、grep、awk、comm 等工具，无需额外安装 ripgrep 之类的外部依赖
 
 ## 构建
@@ -25,6 +41,9 @@ make pdf
 - `bookstyle.tex`：版式、字体、教学框、图形、引文与索引设置。
 - `chapters/`：全书文稿；`frontmatter-`、`chapter-`、`appendix-` 前缀分别标识前置页、11章主线正文和4个附录。
 - `references.bib`：唯一书目数据库。
+- `_quarto.yml`、`index.qmd`、`book.css`：在线阅读版的结构与屏幕排版。
+- `scripts/build_web_source.py`：从 LaTeX 自动生成 Quarto 网页源与 SVG 图形。
+- `.github/workflows/publish-book.yml`：验证网页并在 `main` 上发布 GitHub Pages。
 - `因果推理深度读本.pdf`：通过验收的最终成品，可由 `make pdf` 重新生成。
 
 ## 编辑约定
@@ -33,6 +52,7 @@ make pdf
 - 文献只在 `references.bib` 中维护，正文采用 `\textcite`、`\parencite`。
 - 新术语首次出现时使用 `\term{术语}`，以便生成主题索引。
 - 核心事实优先引用原著、正式论文、出版社或作者机构存档；争议性评价必须标明其论证身份。
+- `web-manuscript/` 与 `web-assets/tikz/` 是构建产物，不应直接编辑或提交；网页问题应回到 LaTeX 源或转换脚本修复。
 
 ## 成品范围
 
