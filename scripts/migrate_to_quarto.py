@@ -9,308 +9,261 @@ SOURCE_DIR = ROOT / "chapters"
 GENERATED_DIR = ROOT / "web-manuscript"
 MANUSCRIPT_DIR = ROOT / "manuscript"
 
+SOURCES = [
+    ("frontmatter-preface", "frontmatter-preface"),
+    ("frontmatter-guide", "frontmatter-guide"),
+    ("chapter-01-questions", "01-questions"),
+    ("chapter-02-history", "02-history"),
+    ("chapter-03-philosophies", "03-philosophies"),
+    ("chapter-04-potential-outcomes-identification", "04-potential-outcomes-identification"),
+    ("chapter-05-scm-graphs", "05-scm-graphs"),
+    ("chapter-06-identification-calculus", "06-identification-calculus"),
+    ("chapter-07-design-estimation", "07-design-estimation"),
+    ("chapter-08-discovery", "08-discovery"),
+    ("chapter-09-transportability", "09-transportability"),
+    ("chapter-10-causal-ml-applications", "10-causal-ml-applications"),
+    ("chapter-11-synthesis-open-problems", "11-synthesis-open-problems"),
+    ("appendix-A-comparative-topics", "appendix-A-comparative-topics"),
+    ("appendix-B-glossary-learning", "appendix-B-glossary-learning"),
+    ("appendix-C-exercises", "appendix-C-exercises"),
+    ("appendix-D-primary-reading", "appendix-D-primary-reading"),
+]
+
 
 def cjk_count(text: str) -> int:
     return len(re.findall(r"[\u3400-\u4dbf\u4e00-\u9fff]", text))
 
 
-def ordered_source_names() -> list[str]:
-    main = (ROOT / "main.tex").read_text(encoding="utf-8")
-    inputs = re.findall(r"\\(?:input|include)\{chapters/([^}]+)\}", main)
-    if not inputs:
-        raise SystemExit("Could not recover chapter order from main.tex")
-    return [Path(p if p.endswith(".tex") else p + ".tex").stem for p in inputs]
-
-
-def verify_conversion(names: list[str]) -> None:
-    qmds = {p.stem: p for p in GENERATED_DIR.glob("*.qmd")}
-    missing = [name for name in names if name not in qmds]
-    if missing:
-        raise SystemExit(f"Missing converted QMD files: {missing}")
-
+def verify_conversion() -> None:
+    missing: list[str] = []
     losses: list[str] = []
-    large_expansions: list[str] = []
-    for name in names:
-        source = SOURCE_DIR / f"{name}.tex"
-        target = qmds[name]
-        if not source.exists():
-            raise SystemExit(f"Missing source file: {source}")
+    for source_stem, output_stem in SOURCES:
+        source = SOURCE_DIR / f"{source_stem}.tex"
+        target = GENERATED_DIR / f"{output_stem}.qmd"
+        if not source.exists() or not target.exists():
+            missing.append(f"{source_stem} -> {output_stem}")
+            continue
         source_n = cjk_count(source.read_text(encoding="utf-8"))
         target_n = cjk_count(target.read_text(encoding="utf-8"))
-        if source_n:
-            ratio = target_n / source_n
-            if ratio < 0.94:
-                losses.append(f"{name}: {target_n}/{source_n} ({ratio:.1%})")
-            elif ratio > 1.10:
-                large_expansions.append(
-                    f"{name}: {target_n}/{source_n} ({ratio:.1%})"
-                )
-
+        if source_n and target_n / source_n < 0.94:
+            losses.append(
+                f"{source_stem}: {target_n}/{source_n} ({target_n / source_n:.1%})"
+            )
+    if missing:
+        raise SystemExit("Missing converted QMD files:\n" + "\n".join(missing))
     if losses:
-        raise SystemExit(
-            "Possible text loss after conversion:\n" + "\n".join(losses)
-        )
-
-    if large_expansions:
-        print(
-            "Conversion added derived web text/callout labels in these files:\n"
-            + "\n".join(large_expansions)
-        )
+        raise SystemExit("Possible text loss after conversion:\n" + "\n".join(losses))
 
 
 def install_manuscript() -> None:
     if MANUSCRIPT_DIR.exists():
         shutil.rmtree(MANUSCRIPT_DIR)
     GENERATED_DIR.rename(MANUSCRIPT_DIR)
+
+    for qmd in MANUSCRIPT_DIR.glob("*.qmd"):
+        text = qmd.read_text(encoding="utf-8")
+        text = text.replace("../web-assets/", "../assets/")
+        qmd.write_text(text, encoding="utf-8")
+
     web_assets = ROOT / "web-assets"
+    assets = ROOT / "assets"
+    if assets.exists():
+        shutil.rmtree(assets)
     if web_assets.exists():
-        assets = ROOT / "assets"
-        if assets.exists():
-            shutil.rmtree(assets)
         web_assets.rename(assets)
+    else:
+        assets.mkdir(parents=True, exist_ok=True)
 
 
-def build_quarto_config(names: list[str]) -> None:
-    prelim = [
-        name
-        for name in names
-        if not name.startswith("chapter-") and not name.startswith("appendix-")
-    ]
-    numbered: list[tuple[int, str]] = []
-    appendices: list[str] = []
-    for name in names:
-        match = re.match(r"chapter-(\d+)-", name)
-        if match:
-            numbered.append((int(match.group(1)), name))
-        elif name.startswith("appendix-"):
-            appendices.append(name)
-    numbered.sort()
+def write_quarto_config() -> None:
+    content = '''project:
+  type: book
+  output-dir: _book
+  resources:
+    - assets/**
 
-    parts = [
-        ("第一部　问题、历史与哲学", [name for i, name in numbered if 1 <= i <= 3]),
-        ("第二部　识别、结构与估计", [name for i, name in numbered if 4 <= i <= 7]),
-        ("第三部　发现、迁移与应用", [name for i, name in numbered if 8 <= i <= 11]),
-    ]
+book:
+  title: "因果推理深度读本"
+  subtitle: "从哲学问题到现代形式方法"
+  author: "ChongLiuPhil"
+  site-url: https://chongliuphil.github.io/causal-inference-reader/
+  repo-url: https://github.com/ChongLiuPhil/causal-inference-reader
+  repo-branch: main
+  repo-actions: [edit, issue, source]
+  search: true
+  page-navigation: true
+  chapters:
+    - index.qmd
+    - manuscript/frontmatter-preface.qmd
+    - manuscript/frontmatter-guide.qmd
+    - part: "第一部　问题、历史与哲学"
+      chapters:
+        - manuscript/01-questions.qmd
+        - manuscript/02-history.qmd
+        - manuscript/03-philosophies.qmd
+    - part: "第二部　识别、结构与估计"
+      chapters:
+        - manuscript/04-potential-outcomes-identification.qmd
+        - manuscript/05-scm-graphs.qmd
+        - manuscript/06-identification-calculus.qmd
+        - manuscript/07-design-estimation.qmd
+    - part: "第三部　发现、迁移与应用"
+      chapters:
+        - manuscript/08-discovery.qmd
+        - manuscript/09-transportability.qmd
+        - manuscript/10-causal-ml-applications.qmd
+        - manuscript/11-synthesis-open-problems.qmd
+    - references.qmd
+  appendices:
+    - manuscript/appendix-A-comparative-topics.qmd
+    - manuscript/appendix-B-glossary-learning.qmd
+    - manuscript/appendix-C-exercises.qmd
+    - manuscript/appendix-D-primary-reading.qmd
+  page-footer:
+    left: "因果推理深度读本"
+    right: "Built with Quarto"
 
-    lines = [
-        "project:",
-        "  type: book",
-        "  output-dir: _book",
-        "",
-        "book:",
-        '  title: "因果推理深度读本"',
-        '  subtitle: "从哲学、潜在结果与结构因果模型到发现、迁移与因果机器学习"',
-        '  author: "ChongLiuPhil"',
-        "  site-url: https://chongliuphil.github.io/causal-inference-reader/",
-        "  repo-url: https://github.com/ChongLiuPhil/causal-inference-reader",
-        "  repo-branch: main",
-        "  repo-actions: [edit, issue, source]",
-        "  search: true",
-        "  page-navigation: true",
-        "  downloads: [epub]",
-        "  chapters:",
-        "    - index.qmd",
-    ]
-    for name in prelim:
-        lines.append(f"    - manuscript/{name}.qmd")
-    for title, chapter_names in parts:
-        lines.append(f'    - part: "{title}"')
-        lines.append("      chapters:")
-        for name in chapter_names:
-            lines.append(f"        - manuscript/{name}.qmd")
-    lines.append("    - references.qmd")
-    if appendices:
-        lines.append("  appendices:")
-        for name in appendices:
-            lines.append(f"    - manuscript/{name}.qmd")
-    lines.extend(
-        [
-            "  page-footer:",
-            '    left: "因果推理深度读本"',
-            '    right: "Built with Quarto"',
-            "",
-            "bibliography: references.bib",
-            "lang: zh-CN",
-            "",
-            "crossref:",
-            '  appendix-title: "附录"',
-            '  appendix-delim: "："',
-            "",
-            "format:",
-            "  html:",
-            "    theme: cosmo",
-            "    css: book.css",
-            "    toc: true",
-            "    toc-depth: 3",
-            "    number-sections: true",
-            "    citations-hover: true",
-            "    footnotes-hover: true",
-            "    link-external-newwindow: true",
-            "  epub:",
-            "    toc: true",
-            "    css: epub.css",
-            "    epub-chapter-level: 1",
-            "",
-        ]
-    )
-    (ROOT / "_quarto.yml").write_text("\n".join(lines), encoding="utf-8")
+bibliography: references.bib
+lang: zh-CN
+
+crossref:
+  appendix-title: "附录"
+  appendix-delim: "："
+
+format:
+  html:
+    theme: cosmo
+    css: book.css
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    number-depth: 3
+    citations-hover: true
+    footnotes-hover: true
+    html-math-method: mathjax
+    link-external-newwindow: true
+'''
+    (ROOT / "_quarto.yml").write_text(content, encoding="utf-8")
 
 
-def write_support_files() -> None:
-    epub_css = """body {
-  font-family: serif;
-  line-height: 1.7;
-}
+def write_index() -> None:
+    content = '''# 因果推理深度读本 {.unnumbered}
 
-h1, h2, h3 {
-  line-height: 1.3;
-}
+## 从哲学问题到现代形式方法 {.unnumbered}
 
-img, svg {
-  max-width: 100%;
-  height: auto;
-}
+这是一部面向高年级本科生与硕士生的中文深度自学型读本。主线从因果概念与哲学问题出发，进入潜在结果、结构因果模型、图形识别与研究设计，再延伸到因果发现、可迁移性、因果机器学习和跨学科应用。
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+本网站与未来其他输出格式都以仓库中的 `manuscript/*.qmd` 为唯一正文源；引用数据来自 `references.bib`，图片资源位于 `assets/`，网页样式位于 `book.css`。
 
-th, td {
-  padding: 0.35em 0.5em;
-  vertical-align: top;
-}
+[开始阅读前言](manuscript/frontmatter-preface.qmd) · [如何使用本书](manuscript/frontmatter-guide.qmd) · [GitHub 源码](https://github.com/ChongLiuPhil/causal-inference-reader)
 
-.callout {
-  margin: 1em 0;
-  padding: 0.8em 1em;
-  border-left: 0.25em solid #5b7894;
-}
+### 三条阅读路径 {.unnumbered}
 
-code {
-  white-space: pre-wrap;
-}
-"""
-    (ROOT / "epub.css").write_text(epub_css, encoding="utf-8")
+**哲学路径**：第1至第3章与第11章。重点关注因果概念、反事实、机制、干预与解释。
 
-    readme = """# 因果推理深度读本
+**统计与社会科学路径**：第1章、第4至第7章、第9章与第10章。重点关注估计目标、识别、研究设计、估计和迁移。
 
-这是一本以 **Quarto** 为唯一权威源的中文因果推理进阶读本。项目同时面向在线阅读与电子书流通。
+**计算机与人工智能路径**：第1、5、6、8、9、10、11章。重点关注图模型、因果发现、分布变化、因果机器学习与部署边界。
+'''
+    (ROOT / "index.qmd").write_text(content, encoding="utf-8")
 
-## 阅读与输出
 
-- 在线版：<https://chongliuphil.github.io/causal-inference-reader/>
-- HTML：`quarto render --to html`
-- EPUB：`quarto render --to epub`
-- 全部格式：`quarto render`
+def write_readme() -> None:
+    content = '''# 因果推理深度读本
+
+这是一个 Quarto 在线书项目。`manuscript/*.qmd` 是唯一 canonical 正文源；`references.bib`、`assets/`、`book.css` 与 QMD 共同组成书籍源文件。
+
+- 在线版：https://chongliuphil.github.io/causal-inference-reader/
+- 本地 HTML 构建：`quarto render --to html`
 - 本地预览：`quarto preview`
 
-正文位于 `manuscript/*.qmd`，章节结构由 `_quarto.yml` 统一管理，引用继续使用 `references.bib`。不再维护 LaTeX 版正文，也不维护 LaTeX→QMD 的同步层。
+当前 CI 只构建 HTML。Pull request 会验证完整 HTML 构建但不会部署正式网站；合并或 push 到 `main` 后由 GitHub Actions 构建完整 `_book/` 并部署 GitHub Pages。
 
-## 编辑原则
+未来如增加 EPUB、PDF 或 DOCX，也必须从完全相同的 `manuscript/*.qmd` 正文生成，不维护第二份正文。
+'''
+    (ROOT / "README.md").write_text(content, encoding="utf-8")
 
-- `manuscript/*.qmd` 是唯一正文源。
-- 数学公式使用 Quarto/Pandoc Markdown 中的数学标记（如 `$...$` 与 `$$...$$`）；这不意味着项目仍以 LaTeX 文档为源。
-- 引用使用 Pandoc/Quarto citation 语法，并统一指向 `references.bib`。
-- 网页阅读样式位于 `book.css`，EPUB 样式位于 `epub.css`。
-- 修改后运行 `make check`，同时验证 HTML 与 EPUB。
 
-## 结构
-
-全书保持 3 个部分、11 章和 4 个附录。GitHub Actions 会在 pull request 上验证构建；合并到 `main` 后发布 HTML 到 GitHub Pages，并保留 EPUB 构建产物。
-"""
-    (ROOT / "README.md").write_text(readme, encoding="utf-8")
-
-    makefile = """.PHONY: preview html epub render check clean
-
-preview:
-\tquarto preview
-
-html:
-\tquarto render --to html
-
-epub:
-\tquarto render --to epub
-
-render:
-\tquarto render
-
-check:
-\tpython scripts/check_quarto_source.py
-\tquarto render
-\ttest -f _book/index.html
-\ttest -n \"$$(find _book -maxdepth 1 -name '*.epub' -print -quit)\"
-
-clean:
-\trm -rf _book .quarto
-"""
-    (ROOT / "Makefile").write_text(makefile, encoding="utf-8")
-
-    checker = '''from pathlib import Path
+def write_checker() -> None:
+    content = r'''from pathlib import Path
 import re
 import sys
 
 root = Path(__file__).resolve().parents[1]
 manuscript = root / "manuscript"
-files = sorted(manuscript.glob("*.qmd"))
-chapters = sorted(manuscript.glob("chapter-*.qmd"))
-appendices = sorted(manuscript.glob("appendix-*.qmd"))
+expected = [
+    "frontmatter-preface.qmd",
+    "frontmatter-guide.qmd",
+    "01-questions.qmd",
+    "02-history.qmd",
+    "03-philosophies.qmd",
+    "04-potential-outcomes-identification.qmd",
+    "05-scm-graphs.qmd",
+    "06-identification-calculus.qmd",
+    "07-design-estimation.qmd",
+    "08-discovery.qmd",
+    "09-transportability.qmd",
+    "10-causal-ml-applications.qmd",
+    "11-synthesis-open-problems.qmd",
+    "appendix-A-comparative-topics.qmd",
+    "appendix-B-glossary-learning.qmd",
+    "appendix-C-exercises.qmd",
+    "appendix-D-primary-reading.qmd",
+]
 errors = []
+missing = [name for name in expected if not (manuscript / name).is_file()]
+if missing:
+    errors.append("missing manuscript files: " + ", ".join(missing))
 
-if len(chapters) != 11:
-    errors.append(f"expected 11 chapters, found {len(chapters)}")
-if len(appendices) != 4:
-    errors.append(f"expected 4 appendices, found {len(appendices)}")
-if len(files) < 17:
-    errors.append(f"expected at least 17 manuscript QMD files, found {len(files)}")
-
-text = "\\n".join(p.read_text(encoding="utf-8") for p in files)
+files = [manuscript / name for name in expected if (manuscript / name).is_file()]
+text = "\n".join(p.read_text(encoding="utf-8") for p in files)
 for token in ("TODO", "TBD", "FIXME", "待补", "待写", "占位"):
     if token in text:
         errors.append(f"placeholder token remains: {token}")
 
-legacy = [
-    r"\\chapter\\{", r"\\section\\{", r"\\subsection\\{",
-    r"\\textcite\\{", r"\\parencite\\{", r"\\begin\\{document\\}",
-    r"\\term\\{",
-]
-for pattern in legacy:
+for pattern in (
+    r"\\chapter\{", r"\\section\{", r"\\subsection\{",
+    r"\\textcite\{", r"\\parencite\{", r"\\begin\{document\}",
+    r"WEBTABLE\d+", r"WEBTIKZ\d+", r"web-assets/",
+):
     if re.search(pattern, text):
-        errors.append(f"legacy document-level LaTeX remains: {pattern}")
+        errors.append(f"legacy migration markup remains: {pattern}")
 
 bib = (root / "references.bib").read_text(encoding="utf-8")
-bibkeys = set(re.findall(r"@[A-Za-z]+\\s*\\{\\s*([^,\\s]+)", bib))
-cited = set(re.findall(r"(?<![\\w@])@([A-Za-z0-9_:.+-]+)", text))
-missing = sorted(key for key in cited if key not in bibkeys)
-if missing:
-    errors.append("missing bibliography keys: " + ", ".join(missing[:20]))
+bibkeys = set(re.findall(r"@[A-Za-z]+\s*\{\s*([^,\s]+)", bib))
+cited = set(re.findall(r"(?<![\w@])@([A-Za-z0-9_:.+-]+)", text))
+missing_keys = sorted(key for key in cited if key not in bibkeys)
+if missing_keys:
+    errors.append("missing bibliography keys: " + ", ".join(missing_keys[:30]))
+
+asset_refs = set(re.findall(r"\.\./assets/([^\s\"')>]+)", text))
+for rel in sorted(asset_refs):
+    if not (root / "assets" / rel).exists():
+        errors.append(f"missing asset: assets/{rel}")
 
 if errors:
     print("Quarto source validation failed:", file=sys.stderr)
     for error in errors:
         print(f"- {error}", file=sys.stderr)
     raise SystemExit(1)
-print(
-    f"Validated {len(chapters)} chapters, {len(appendices)} appendices, "
-    f"{len(cited)} cited keys."
-)
+print(f"Validated {len(files)} manuscript files and {len(cited)} citation keys.")
 '''
     scripts = ROOT / "scripts"
     scripts.mkdir(exist_ok=True)
-    (scripts / "check_quarto_source.py").write_text(checker, encoding="utf-8")
+    (scripts / "check_quarto_source.py").write_text(content, encoding="utf-8")
 
-    gitignore_path = ROOT / ".gitignore"
-    gitignore = (
-        gitignore_path.read_text(encoding="utf-8") if gitignore_path.exists() else ""
-    )
-    lines = gitignore.splitlines()
-    for item in ("_book/", ".quarto/", "web-manuscript/", "web-assets/"):
+
+def update_gitignore() -> None:
+    path = ROOT / ".gitignore"
+    existing = path.read_text(encoding="utf-8") if path.exists() else ""
+    lines = [line for line in existing.splitlines() if line not in {"web-manuscript/", "web-assets/"}]
+    for item in ("_book/", ".quarto/", "tmp/"):
         if item not in lines:
             lines.append(item)
-    gitignore_path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
+    path.write_text("\n".join(lines).rstrip() + "\n", encoding="utf-8")
 
 
-def remove_legacy_files() -> None:
+def remove_legacy() -> None:
     if SOURCE_DIR.exists():
         shutil.rmtree(SOURCE_DIR)
     for relative in (
@@ -318,9 +271,10 @@ def remove_legacy_files() -> None:
         "bookstyle.tex",
         "project.yaml",
         "website.yaml",
-        "因果推理深度读本.pdf",
+        "epub.css",
         "scripts/build_web_source.py",
-        ".github/workflows/publish-book.yml",
+        "scripts/migrate_to_quarto.py",
+        ".github/workflows/quarto-first.yml",
     ):
         path = ROOT / relative
         if path.exists():
@@ -334,13 +288,15 @@ def main() -> None:
     if not GENERATED_DIR.exists():
         raise SystemExit("Run scripts/build_web_source.py before this migration script.")
 
-    names = ordered_source_names()
-    verify_conversion(names)
+    verify_conversion()
     install_manuscript()
-    build_quarto_config(names)
-    write_support_files()
-    remove_legacy_files()
-    print(f"Migrated {len(names)} manuscript files to canonical Quarto sources.")
+    write_quarto_config()
+    write_index()
+    write_readme()
+    write_checker()
+    update_gitignore()
+    remove_legacy()
+    print(f"Migrated {len(SOURCES)} source files to canonical manuscript/*.qmd.")
 
 
 if __name__ == "__main__":
