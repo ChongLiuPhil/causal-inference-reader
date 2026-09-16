@@ -1,0 +1,24 @@
+generator_exit=1
+Traceback (most recent call last):
+  File "/home/runner/work/causal-inference-reader/causal-inference-reader/scripts/build_web_source.py", line 377, in <module>
+    main()
+  File "/home/runner/work/causal-inference-reader/causal-inference-reader/scripts/build_web_source.py", line 364, in main
+    prepared, replacements = preprocess(text, label_map, slug)
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/causal-inference-reader/causal-inference-reader/scripts/build_web_source.py", line 306, in preprocess
+    text, figures = extract_tikz(text, slug)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/causal-inference-reader/causal-inference-reader/scripts/build_web_source.py", line 292, in extract_tikz
+    return pattern.sub(repl, text), replacements
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/causal-inference-reader/causal-inference-reader/scripts/build_web_source.py", line 289, in repl
+    replacements[marker] = render_tikz(match.group(0), name)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/causal-inference-reader/causal-inference-reader/scripts/build_web_source.py", line 278, in render_tikz
+    run(["dvisvgm", "--no-fonts", "--output", str(svg), str(xdv)], cwd=work)
+  File "/home/runner/work/causal-inference-reader/causal-inference-reader/scripts/build_web_source.py", line 72, in run
+    raise RuntimeError(f"Command failed: {joined}\n{proc.stdout}\n{proc.stderr}")
+RuntimeError: Command failed: dvisvgm --no-fonts --output /home/runner/work/causal-inference-reader/causal-inference-reader/web-assets/tikz/03-philosophies-01.svg /home/runner/work/causal-inference-reader/causal-inference-reader/tmp/web-tikz/03-philosophies-01/figure.xdv
+
+ERROR: option --output: string argument 'pattern' expected
+
