@@ -35,11 +35,15 @@
 
 \term{X-learner}先用两个结果模型为处理组和对照组构造插补效应，再分别建模并按倾向得分组合，常适合处理组规模高度不平衡的情形\parencite{kunzel2019}。优势依赖结果模型和组合方式，不是所有数据上的统一最优。
 
-\term{R-learner}从Robinson残差化出发，估计
+\term{R-learner}从Robinson残差化出发。令
 \[
-Y-m(X)\approx\{A-e(X)\}\tau(X),
+\ell(X)=E(Y\mid X),\qquad e(X)=P(A=1\mid X),
 \]
-通过对正交化残差的损失最小化学习 $\tau(X)$\parencite{nie2021}。它把异质性学习与正交得分结合，减少干扰函数估计误差的影响。
+则其基本残差关系可写为
+\[
+Y-\ell(X)\approx\{A-e(X)\}\tau(X).
+\]
+R-learner通过对这组正交化残差的损失最小化学习 $\tau(X)$\parencite{nie2021}。这里的 $\ell(X)$ 与第\ref{ch:design-estimation}章DML部分的结果干扰函数角色一致；$e(X)$ 则沿用倾向得分的常见记号。它把异质性学习与正交得分结合，减少干扰函数估计误差的一阶影响。
 
 元学习器是组织现有预测算法的模板，不自带因果有效性。处理和结果模型应交叉拟合，超参数选择应以与因果目标相关的损失为准，并检查重叠。
 
