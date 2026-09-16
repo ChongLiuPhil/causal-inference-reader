@@ -1,6 +1,9 @@
 # Project build directories
 build/
 tmp/
+_book/
+web-manuscript/
+web-assets/tikz/
 
 # LaTeX build artifacts
 *.aux
