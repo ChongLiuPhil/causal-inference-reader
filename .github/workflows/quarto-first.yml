@@ -41,6 +41,16 @@ jobs:
           set -uo pipefail
           test -f main.tex
           rm -f migration-error.log migration-generator.log
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("scripts/build_web_source.py")
+          text = path.read_text(encoding="utf-8")
+          old = 'run(["dvisvgm", "--no-fonts", "--output", str(svg), str(xdv)], cwd=work)'
+          new = 'run(["dvisvgm", "--no-fonts", f"--output={svg}", str(xdv)], cwd=work)'
+          if old not in text:
+              raise SystemExit("Expected dvisvgm invocation not found")
+          path.write_text(text.replace(old, new, 1), encoding="utf-8")
+          PY
           set +e
           python scripts/build_web_source.py > migration-generator.log 2>&1
           status=$?
