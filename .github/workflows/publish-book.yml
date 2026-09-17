@@ -1,5 +1,6 @@
 name: Validate and Publish Quarto Book
 
+# Canonical body source: manuscript/*.qmd. PRs validate only; main publishes.
 on:
   workflow_dispatch:
   pull_request:
