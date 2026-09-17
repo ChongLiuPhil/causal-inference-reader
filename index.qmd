@@ -4,9 +4,9 @@
 
 这是一部面向高年级本科生与硕士生的中文深度自学型读本。主线从因果概念与哲学问题出发，进入潜在结果、结构因果模型、图形识别与研究设计，再延伸到因果发现、可迁移性、因果机器学习和跨学科应用。
 
-网页版本用于连续阅读、章节导航、公式与引文查阅；排版定稿仍以仓库中的 LaTeX 与 PDF 为权威版本。网页正文由现有 `chapters/*.tex` 自动生成，不维护第二份独立书稿。
+本网站与未来其他输出格式都以仓库中的 `manuscript/*.qmd` 为唯一正文源；引用数据来自 `references.bib`，图片资源位于 `assets/`，网页样式位于 `book.css`。
 
-[开始阅读前言](web-manuscript/frontmatter-preface.qmd) · [如何使用本书](web-manuscript/frontmatter-guide.qmd) · [下载 PDF](因果推理深度读本.pdf) · [GitHub 源码](https://github.com/ChongLiuPhil/causal-inference-reader)
+[开始阅读前言](manuscript/frontmatter-preface.qmd) · [如何使用本书](manuscript/frontmatter-guide.qmd) · [GitHub 源码](https://github.com/ChongLiuPhil/causal-inference-reader)
 
 ### 三条阅读路径 {.unnumbered}
 
@@ -15,5 +15,3 @@
 **统计与社会科学路径**：第1章、第4至第7章、第9章与第10章。重点关注估计目标、识别、研究设计、估计和迁移。
 
 **计算机与人工智能路径**：第1、5、6、8、9、10、11章。重点关注图模型、因果发现、分布变化、因果机器学习与部署边界。
-
-> 在线版的目标不是替代 PDF，而是提供更适合屏幕阅读的目录、前后章跳转、悬停引文、响应式公式和移动端排版。

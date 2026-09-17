@@ -2,50 +2,60 @@ project:
   type: book
   output-dir: _book
   resources:
-    - 因果推理深度读本.pdf
+    - assets/**
 
 book:
   title: "因果推理深度读本"
   subtitle: "从哲学问题到现代形式方法"
-  description: "一部从因果哲学、潜在结果与结构因果模型延伸到因果发现、可迁移性与因果机器学习的中文深度读本。"
-  page-navigation: true
-  search: true
+  author: "ChongLiuPhil"
+  site-url: https://chongliuphil.github.io/causal-inference-reader/
   repo-url: https://github.com/ChongLiuPhil/causal-inference-reader
-  repo-actions: [source, issue]
+  repo-branch: main
+  repo-actions: [edit, issue, source]
+  search: true
+  page-navigation: true
   chapters:
     - index.qmd
-    - web-manuscript/frontmatter-preface.qmd
-    - web-manuscript/frontmatter-guide.qmd
-    - part: "因果概念、历史与哲学"
+    - manuscript/frontmatter-preface.qmd
+    - manuscript/frontmatter-guide.qmd
+    - part: "第一部　问题、历史与哲学"
       chapters:
-        - web-manuscript/01-questions.qmd
-        - web-manuscript/02-history.qmd
-        - web-manuscript/03-philosophies.qmd
-    - part: "现代因果推断的形式基础"
+        - manuscript/01-questions.qmd
+        - manuscript/02-history.qmd
+        - manuscript/03-philosophies.qmd
+    - part: "第二部　识别、结构与估计"
       chapters:
-        - web-manuscript/04-potential-outcomes-identification.qmd
-        - web-manuscript/05-scm-graphs.qmd
-        - web-manuscript/06-identification-calculus.qmd
-        - web-manuscript/07-design-estimation.qmd
-    - part: "发现、迁移、机器学习与应用"
+        - manuscript/04-potential-outcomes-identification.qmd
+        - manuscript/05-scm-graphs.qmd
+        - manuscript/06-identification-calculus.qmd
+        - manuscript/07-design-estimation.qmd
+    - part: "第三部　发现、迁移与应用"
       chapters:
-        - web-manuscript/08-discovery.qmd
-        - web-manuscript/09-transportability.qmd
-        - web-manuscript/10-causal-ml-applications.qmd
-        - web-manuscript/11-synthesis-open-problems.qmd
+        - manuscript/08-discovery.qmd
+        - manuscript/09-transportability.qmd
+        - manuscript/10-causal-ml-applications.qmd
+        - manuscript/11-synthesis-open-problems.qmd
     - references.qmd
   appendices:
-    - web-manuscript/appendix-A-comparative-topics.qmd
-    - web-manuscript/appendix-B-glossary-learning.qmd
-    - web-manuscript/appendix-C-exercises.qmd
-    - web-manuscript/appendix-D-primary-reading.qmd
+    - manuscript/appendix-A-comparative-topics.qmd
+    - manuscript/appendix-B-glossary-learning.qmd
+    - manuscript/appendix-C-exercises.qmd
+    - manuscript/appendix-D-primary-reading.qmd
+  page-footer:
+    left: "因果推理深度读本"
+    right: "Built with Quarto"
 
 bibliography: references.bib
 lang: zh-CN
 
+crossref:
+  appendix-title: "附录"
+  appendix-delim: "："
+
 format:
   html:
     theme: cosmo
+    css: book.css
     toc: true
     toc-depth: 3
     number-sections: true
@@ -53,8 +63,4 @@ format:
     citations-hover: true
     footnotes-hover: true
     html-math-method: mathjax
-    css: book.css
-
-crossref:
-  appendix-title: "附录"
-  appendix-delim: "："
+    link-external-newwindow: true
