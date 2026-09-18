@@ -12,8 +12,22 @@ book:
   repo-url: https://github.com/ChongLiuPhil/causal-inference-reader
   repo-branch: main
   repo-actions: [edit, issue, source]
+  repo-link-target: _blank
+  reader-mode: true
+  back-to-top-navigation: true
+  bread-crumbs: true
+  open-graph: true
   search: true
   page-navigation: true
+  sidebar:
+    header: "**本书目录**"
+    style: docked
+    collapse-level: 1
+    tools:
+      - icon: github
+        href: "https://github.com/ChongLiuPhil/causal-inference-reader"
+    footer: |
+      [报告问题](https://github.com/ChongLiuPhil/causal-inference-reader/issues/new)
   chapters:
     - index.qmd
     - manuscript/frontmatter-preface.qmd
@@ -42,10 +56,16 @@ book:
     - manuscript/appendix-C-exercises.qmd
     - manuscript/appendix-D-primary-reading.qmd
   page-footer:
-    left: "因果推理深度读本"
-    right: "Built with Quarto"
+    border: true
+    left: "《因果推理深度读本》开放 Web Edition · 持续修订"
+    right:
+      - text: "报告问题"
+        href: "https://github.com/ChongLiuPhil/causal-inference-reader/issues/new"
+      - text: "GitHub"
+        href: "https://github.com/ChongLiuPhil/causal-inference-reader"
 
 bibliography: references.bib
+reference-section-title: "本章参考文献"
 lang: zh-CN
 
 crossref:
@@ -57,10 +77,12 @@ format:
     theme: cosmo
     css: book.css
     toc: true
+    toc-title: "本章目录"
     toc-depth: 3
     number-sections: true
     number-depth: 3
     citations-hover: true
     footnotes-hover: true
+    code-copy: false
     html-math-method: mathjax
     link-external-newwindow: true
