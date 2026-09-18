@@ -1,5 +1,11 @@
 # 因果推理深度读本
 
+<!-- bilingual-home-intro -->
+> **English:** An advanced Chinese self-study reader that connects the philosophy of causation with potential outcomes, structural causal models, causal discovery, transportability, and causal machine learning.
+>
+> **中文：** 一部中文深度自学型读本，将因果哲学、潜在结果、结构因果模型、因果发现、可迁移性与因果机器学习贯通起来。
+<!-- /bilingual-home-intro -->
+
 本项目是一部面向高年级本科生与硕士生的中文深度自学型读本。主线贯通因果哲学、潜在结果、结构因果模型、因果发现、可迁移性与因果机器学习；中国哲学、自由意志和量子因果作为比较性专题附录处理。
 
 本书采用“3个主部、11章正文、4个附录”的结构。第11章作为全书综合与结论接续第三部分，不再单独占用一个只有一章的主部。每章围绕3至4个大型论证单元展开，并以完整算例、失败诊断、图表、学习目标和章末自测把概念、识别、估计与应用连成可复核的分析过程。附录另收20组综合练习参考分析、核心原始文献精读指南、术语与学习路径，书末提供参考文献和主题索引。`main.tex` 是唯一权威入口。
