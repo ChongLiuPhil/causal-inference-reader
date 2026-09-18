@@ -59,6 +59,9 @@ jobs:
           find _book/assets -type f -print -quit | grep -q .
           grep -R -q 'MathJax' _book --include='*.html'
           grep -R -q 'role="doc-biblioref"' _book --include='*.html'
+          grep -q '本书目录' _book/index.html
+          grep -q '本章目录' _book/manuscript/04-potential-outcomes-identification.html
+          grep -q '本章参考文献' _book/manuscript/04-potential-outcomes-identification.html
           grep -q 'nav-page-next' _book/manuscript/04-potential-outcomes-identification.html
           grep -q 'nav-page-previous' _book/manuscript/04-potential-outcomes-identification.html
           ! grep -R -E 'WEBTABLE|WEBTIKZ|begin\\{tikzpicture\\}|web-assets/' _book --include='*.html'
