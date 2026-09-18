@@ -4,22 +4,29 @@
 
 ## CURRENT_STAGE
 
-Authorial/pedagogical alignment + Web Edition form alignment; GitHub Pages source binding remains an external blocker for public verification.
+Authorial/pedagogical alignment and Web Edition form alignment are implemented and CI-validated; public GitHub Pages source binding remains the external blocker.
 
 ## CURRENT_OBJECTIVE
 
-把作者刚确认的项目性质、问题导向哲学观和出版形式参考写入稳定治理，并验证新的 Quarto Web Edition 配置不会破坏全书 HTML 构建。
+保持新的项目定位与阅读形式稳定，并完成公共在线读本的首次可访问性验收。
 
 ## PRIMARY_BLOCKER
 
-仓库侧尚无新的代码 blocker。此前公共 Pages 的最终可访问性仍等待仓库 Settings → Pages 将 Source 设为 `gh-pages` / `(root)`，因此本轮形式改动即使 main CI green，也不能在公网验证完成前宣告 production completion。
+仓库内没有未解决的内容或构建 blocker。PR #6 已验证：
+
+- 项目性质明确为学习整合、问题组织与作者判断；
+- 哲学研究与哲学史/思想史/思想研究的功能区分进入稳定治理；
+- “本书目录 / 本章目录 / 本章参考文献”实际出现在渲染 HTML；
+- reader mode、长文宽度与响应式数学/表格/图形配置可完整 render。
+
+公共 Pages 最终可访问性仍等待仓库 Settings → Pages 将 Source 设为 `gh-pages` / `(root)`。
 
 ## IMMEDIATE_NEXT_ACTION
 
-1. 验证 `align-authorial-philosophy-and-publication-form` 的 governance/source checks 和完整 HTML render。
-2. 检查“本书目录 / 本章目录 / reader mode / 参考文献收束区 / 响应式公式表格”是否正常生成。
-3. PR green 后合并到 `main`。
-4. Pages source binding 完成后，对公共站点做最终读者路径验收。
+1. 在仓库 Settings → Pages 中确认 Build and deployment → Source 为 “Deploy from a branch”。
+2. Branch 选择 `gh-pages`，folder 选择 `/(root)`，保存。
+3. 重新验证公共首页、章节 1/4/7/11、附录、数学、引文、图片、目录标签与前后导航。
+4. 公网验收后转入正常内容维护。
 
 ## HANDOFF POINTERS
 
