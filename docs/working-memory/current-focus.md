@@ -4,26 +4,26 @@
 
 ## CURRENT_STAGE
 
-QMD-first + HARC-lite 已合并到 `main`；GitHub Pages source binding 待完成。
+Authorial/pedagogical alignment + Web Edition form alignment; GitHub Pages source binding remains an external blocker for public verification.
 
 ## CURRENT_OBJECTIVE
 
-完成公共在线读本的首次可访问性验收，然后转入正常维护。
+把作者刚确认的项目性质、问题导向哲学观和出版形式参考写入稳定治理，并验证新的 Quarto Web Edition 配置不会破坏全书 HTML 构建。
 
 ## PRIMARY_BLOCKER
 
-`main` production run #29 已通过 governance、canonical source、完整 Quarto render、reader-output、artifact、`gh-pages` bootstrap 和 Quarto publish。仓库公开元数据为 `has_pages: true`，且 `gh-pages` 已包含完整渲染站点；但公共 URL 仍无法被外部抓取器读取，且 `gh-pages` push 未产生 Pages build/deployment 记录。
-
-当前最可能的剩余账户级配置是 GitHub Pages Source 尚未设为 `gh-pages` / `(root)`。
+仓库侧尚无新的代码 blocker。此前公共 Pages 的最终可访问性仍等待仓库 Settings → Pages 将 Source 设为 `gh-pages` / `(root)`，因此本轮形式改动即使 main CI green，也不能在公网验证完成前宣告 production completion。
 
 ## IMMEDIATE_NEXT_ACTION
 
-1. 在仓库 Settings → Pages 中确认 Build and deployment → Source 为 “Deploy from a branch”。
-2. Branch 选择 `gh-pages`，folder 选择 `/(root)`，保存。
-3. 重新验证公共首页、章节 1/4/7/11、附录、数学、引文、图片和前后导航。
+1. 验证 `align-authorial-philosophy-and-publication-form` 的 governance/source checks 和完整 HTML render。
+2. 检查“本书目录 / 本章目录 / reader mode / 参考文献收束区 / 响应式公式表格”是否正常生成。
+3. PR green 后合并到 `main`。
+4. Pages source binding 完成后，对公共站点做最终读者路径验收。
 
 ## HANDOFF POINTERS
 
 - Task Plan: `docs/working-memory/task-plan.md`
 - Stable decisions: `core/DECISION_LOG.md`
+- Content positioning: `core/CONTENT_CORE.md`
 - Build/publish rules: `core/FORM_CORE.md`
