@@ -1,6 +1,7 @@
 name: Validate and Publish Quarto Book
 
 # Canonical body source: manuscript/*.qmd. PRs validate only; main publishes.
+# The first main publish bootstraps gh-pages automatically if the branch is absent.
 on:
   workflow_dispatch:
   pull_request:
