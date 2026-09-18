@@ -18,17 +18,6 @@ on:
       - ".github/workflows/publish-book.yml"
   push:
     branches: [main]
-    paths:
-      - "manuscript/**"
-      - "assets/**"
-      - "references.bib"
-      - "book.css"
-      - "_quarto.yml"
-      - "index.qmd"
-      - "references.qmd"
-      - "scripts/check_project_state.py"
-      - "scripts/check_quarto_source.py"
-      - ".github/workflows/publish-book.yml"
 
 permissions:
   contents: write
