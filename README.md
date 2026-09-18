@@ -1,45 +1,43 @@
-# 因果推理深度读本
+# Causal Inference Reader
 
-<!-- bilingual-home-intro -->
-> **English:** An advanced Chinese self-study reader that connects the philosophy of causation with potential outcomes, structural causal models, causal discovery, transportability, and causal machine learning.
->
-> **中文：** 一部中文深度自学型读本，将因果哲学、潜在结果、结构因果模型、因果发现、可迁移性与因果机器学习贯通起来。
-<!-- /bilingual-home-intro -->
+[English](README.md) | [中文](README.zh-CN.md)
 
-本项目是一部面向高年级本科生与硕士生的中文深度自学型读本。主线贯通因果哲学、潜在结果、结构因果模型、因果发现、可迁移性与因果机器学习；中国哲学、自由意志和量子因果作为比较性专题附录处理。
+This project is an advanced Chinese-language self-study reader for senior undergraduates and master's students. Its main line connects the philosophy of causation, potential outcomes, structural causal models, causal discovery, transportability, and causal machine learning; Chinese philosophy, free will, and quantum causation are treated as comparative thematic appendices.
 
-本书采用“3个主部、11章正文、4个附录”的结构。第11章作为全书综合与结论接续第三部分，不再单独占用一个只有一章的主部。每章围绕3至4个大型论证单元展开，并以完整算例、失败诊断、图表、学习目标和章末自测把概念、识别、估计与应用连成可复核的分析过程。附录另收20组综合练习参考分析、核心原始文献精读指南、术语与学习路径，书末提供参考文献和主题索引。`main.tex` 是唯一权威入口。
+The book uses a structure of **3 main parts, 11 core chapters, and 4 appendices**. Chapter 11 serves as the synthesis and conclusion following Part III rather than forming a separate one-chapter part. Each chapter is organized around three to four large argumentative units and links concepts, identification, estimation, and application into an auditable analytical process through worked examples, failure diagnosis, figures, learning objectives, and end-of-chapter self-tests. The appendices additionally include reference analyses for 20 integrated exercises, a close-reading guide to major primary sources, terminology and learning pathways, followed by references and a subject index. `main.tex` is the single authoritative entry point.
 
-## 构建要求
+## Build requirements
 
-- TeX Live 2026 或兼容版本
-- XeLaTeX、latexmk、Biber、MakeIndex
-- `ctex`、`biblatex-gb7714-2015`、TikZ、`tcolorbox`
-- 验收脚本只使用系统自带的 perl、grep、awk、comm 等工具，无需额外安装 ripgrep 之类的外部依赖
+- TeX Live 2026 or a compatible version
+- XeLaTeX, latexmk, Biber, MakeIndex
+- `ctex`, `biblatex-gb7714-2015`, TikZ, `tcolorbox`
+- The acceptance scripts use only system-provided tools such as perl, grep, awk, and comm; no extra dependency such as ripgrep is required.
 
-## 构建
+## Build
 
 ```sh
 make pdf
 ```
 
-最终文件生成在 `因果推理深度读本.pdf`。运行 `make watch` 可在源文件变化时自动增量重编译。运行 `make check` 会重新确认成品存在、全书位于12万至13.5万汉字、主线正文位于9万至11万汉字，主线恰有11章且每章不少于6,500汉字，并把正文层级控制在30至40个一级节和90至115个二级节；每个一级节不少于1,200汉字，每个二级节不少于500汉字。全书实际引用220条独立来源；自动文献验收要求全书不少于210条、每章不少于17条，并保证正文引文与书目一一闭合。检查还覆盖书目字段、未解析引用、缺字、控制字符、损坏公式、Unicode特殊横线和排版溢出。此外，`make check` 校验交叉引用闭合（所有 `\label` 唯一、`\ref`/`\cref` 均能解析）与索引一致性（`\term`/`\index` 条目不含未转义特殊字符、同一术语不存在多种索引写法）。运行 `make clean` 会删除中间构建文件、临时检查文件和零散日志，但保留已验收的成品PDF。
+The final file is generated as `因果推理深度读本.pdf`. Run `make watch` for incremental rebuilding when source files change. Run `make check` to reconfirm that the final artifact exists; that the book contains 120,000–135,000 Chinese characters overall and 90,000–110,000 Chinese characters in the core chapters; that the main text contains exactly 11 chapters with at least 6,500 Chinese characters per chapter; and that the hierarchy remains within 30–40 first-level sections and 90–115 second-level sections, with at least 1,200 Chinese characters per first-level section and at least 500 per second-level section.
 
-## 项目结构
+The book currently cites 220 independent sources. Automated reference acceptance requires at least 210 sources overall and at least 17 per chapter, while ensuring one-to-one closure between in-text citations and bibliography entries. The checks also cover bibliography fields, unresolved citations, missing glyphs, control characters, damaged formulas, special Unicode dashes, and typesetting overflow. In addition, `make check` verifies cross-reference closure (all `\label` values unique and all `\ref`/`\cref` references resolvable) and index consistency (`\term`/`\index` entries contain no unescaped special characters and the same term is not indexed under multiple spellings). Running `make clean` removes intermediate build files, temporary check files, and miscellaneous logs while preserving the accepted final PDF.
 
-- `main.tex`：唯一编译入口与全书顺序。
-- `bookstyle.tex`：版式、字体、教学框、图形、引文与索引设置。
-- `chapters/`：全书文稿；`frontmatter-`、`chapter-`、`appendix-` 前缀分别标识前置页、11章主线正文和4个附录。
-- `references.bib`：唯一书目数据库。
-- `因果推理深度读本.pdf`：通过验收的最终成品，可由 `make pdf` 重新生成。
+## Project structure
 
-## 编辑约定
+- `main.tex`: the single compilation entry point and the authoritative book order.
+- `bookstyle.tex`: layout, fonts, pedagogical boxes, figures, citations, and index settings.
+- `chapters/`: the book manuscript; the `frontmatter-`, `chapter-`, and `appendix-` prefixes identify front matter, the 11 core chapters, and the 4 appendices.
+- `references.bib`: the single bibliography database.
+- `因果推理深度读本.pdf`: the accepted final artifact, reproducible with `make pdf`.
 
-- `main.tex` 是唯一入口；全部文稿位于 `chapters/`，并以内容类别和章节编号命名。
-- 文献只在 `references.bib` 中维护，正文采用 `\textcite`、`\parencite`。
-- 新术语首次出现时使用 `\term{术语}`，以便生成主题索引。
-- 核心事实优先引用原著、正式论文、出版社或作者机构存档；争议性评价必须标明其论证身份。
+## Editing conventions
 
-## 成品范围
+- `main.tex` is the only entry point; all manuscript text lives in `chapters/`, named by content type and chapter number.
+- References are maintained only in `references.bib`; the text uses `\textcite` and `\parencite`.
+- Use `\term{term}` when a new term first appears so that it enters the subject index.
+- For core factual claims, prefer original works, formal publications, publishers, or author/institutional archives; contested evaluations must clearly identify their argumentative status.
 
-本书不包含程序代码。公式用于说明估计目标与识别逻辑，而不是替代统计学证明。附录中的跨文化、自由意志和量子因果内容属于比较研究，不被表述为现代因果推断主线的历史先声。
+## Scope of the final artifact
+
+The book contains no programming code. Formulas are used to explain estimands and identification logic rather than to replace statistical proofs. The cross-cultural, free-will, and quantum-causation appendices are comparative studies and are not presented as historical precursors of the modern causal-inference tradition.
