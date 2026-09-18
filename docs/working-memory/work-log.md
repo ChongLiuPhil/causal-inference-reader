@@ -8,3 +8,9 @@
 - 迁移期间修复了 dvisvgm 调用兼容性问题。
 - 开始参考 Human–AI Research Collaboration Protocol 建立项目适配的 HARC-lite 协作层。
 - 协作升级明确不复制第二套正文，不把上游 HARC 的双语/完整 framework 审批结构机械套入本书。
+
+## 2026-09-18 — QMD-first main integration
+
+- PR #3 通过完整 HTML validation 后已 squash 合并到 `main`。
+- 首次 main production run #23 的 source、render、reader-output 与 artifact 检查均成功；最终 gh-pages publish 因远端分支尚未初始化而失败。
+- PR #4 已补充自动 gh-pages bootstrap，并在 PR 级 governance 与完整 Quarto HTML 检查中通过。
