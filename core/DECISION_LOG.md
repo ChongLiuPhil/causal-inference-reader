@@ -32,3 +32,21 @@
 **决定：** 参考 `ChongLiuPhil/Human-AI-Research-Collaboration-Protocol` 建立项目适配的 HARC-lite 协作层，采用“仓库状态高于聊天记忆、零上下文接管、CONTENT/FORM/PROTOCOL/SOURCE 路由、Decision Log、Working Memory、高影响不确定性不猜测”等机制；不复制第二套正文，也不宣称完整 HARC conformance。  
 **上游参考 commit：** `e741c43c5cd158c43910e3832c7d757226717a97`  
 **状态：** implemented and CI-validated on `main`.
+
+## 2026-09-18 — D006
+
+**分类：** CONTENT / PROTOCOL  
+**决定：** 本项目主要是一部学习型、整合型、问题驱动的因果推理读本，不要求把全书包装成作者原创理论。作者性的核心在于问题设置、材料组织、概念区分、解释重心和最终哲学判断；AI 可以广泛参与检索、综合、重构和起草，但这些高影响判断及最终公开版本需由作者审核和承担。  
+**状态：** active project decision; implemented and CI-validated through PR #6.
+
+## 2026-09-18 — D007
+
+**分类：** CONTENT  
+**决定：** 本书明确区分哲学研究、哲学史研究、思想史研究与思想研究。人物和历史材料可以为哲学问题提供资源，但“研究前人的思想”本身不等于完成哲学研究。教学组织继续坚持问题先于人物、先重构论证再评价，并与 `epistemology-textbook` 已采用的问题驱动方向保持一致。  
+**状态：** active project decision; implemented and CI-validated through PR #6.
+
+## 2026-09-18 — D008
+
+**分类：** FORM  
+**决定：** Web Edition 与未来电子出版/排版形式参考作者的 `What-Remains-Human-Epistemic-Agency-and-Human-Value-in-the-Age-of-AI` 和 `epistemology-textbook` 项目：同一 QMD 源、左侧全书目录、右侧本章目录、稳定长文宽度、响应式数学/表格/图形、明确参考文献收束区，以及未来多格式由同一源生成。参考项目特有的私有部署、评论系统或研究治理不自动复制。  
+**状态：** active project decision; implemented and CI-validated through PR #6.

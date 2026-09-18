@@ -18,3 +18,12 @@
 - main production run #29 全部成功，包括 governance、canonical source、完整 render、reader-output、artifact、首次 `gh-pages` bootstrap 和 Quarto publish。
 - `gh-pages` 最新提交 `9dd013b9567fb622f5d70560ea61dee696a31eee` 为 “Built site for gh-pages”，站点树包含首页、章节 1/4/7/11、附录、references、MathJax/citation/navigation HTML 和图形资产。
 - 仓库公开元数据显示 `has_pages: true`；但外部公共 URL 仍无法抓取，且未观察到 `gh-pages` Pages build/deployment 记录。当前 handoff blocker 转为仓库 Settings → Pages 的 source binding。
+
+## 2026-09-18 — Authorial and Web Edition alignment
+
+- 作者确认本项目首先是学习过程中的材料整合、问题组织与判断性梳理，不要求把全书包装成原创理论体系。
+- 稳定治理明确：哲学研究不等于研究前代哲学家的思想；哲学研究、哲学史、思想史和思想研究彼此相关但任务不同。
+- AI 可广泛参与检索、核验、综合、重构和起草；全书问题设置、解释权重与会被读者理解为作者哲学立场的高影响判断仍需作者审核。
+- 出版形式参考 `What-Remains-Human-Epistemic-Agency-and-Human-Value-in-the-Age-of-AI` 与 `epistemology-textbook`，但不复制其项目特有部署/评论/治理。
+- Web Edition 增加“本书目录”“本章目录”、reader mode、返回顶部、面包屑、持续修订页脚和“本章参考文献”收束区；长文、数学、表格和图形响应式 CSS 同步调整。
+- PR #6 的 governance、canonical source、完整 HTML render、reader-output 和新增导航/参考文献标签断言均通过。

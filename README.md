@@ -4,7 +4,13 @@
 
 This project is an advanced Chinese-language self-study reader connecting the philosophy of causation, potential outcomes, structural causal models, causal discovery, transportability, and causal machine learning. Chinese philosophy, free will, and quantum causation are treated as comparative thematic appendices.
 
-The repository uses Quarto and a repository-backed collaboration model. Book content, project decisions, current work state, and publishing rules all have explicit canonical locations.
+## Project character
+
+The book is primarily a structured record of continued learning, synthesis, and problem-driven organization rather than an attempt to present every part as an original authorial theory. Its authorial contribution lies especially in problem selection, organization of materials, conceptual distinctions, interpretive emphasis, and final judgment.
+
+AI can assist with retrieval, verification, synthesis, argument reconstruction, drafting, and technical maintenance. The book's central questions, interpretive weighting, philosophical judgments, and final public version remain subject to the author's review.
+
+The project also adopts a problem-driven view of philosophy. Philosophical research is not identical with studying what earlier philosophers thought. History of philosophy, intellectual history, history of ideas, and direct philosophical inquiry can inform one another, but they perform different tasks. Historical material is used to clarify questions, reconstruct arguments, compare conceptual frameworks, and test answers rather than to substitute the study of figures for philosophy itself.
 
 ## Online book
 
@@ -19,6 +25,12 @@ https://chongliuphil.github.io/causal-inference-reader/
 - `book.css`: current HTML styling.
 
 The project currently builds HTML only. Any future EPUB, PDF, or DOCX output must be rendered from the same QMD body.
+
+## Reading and publication form
+
+The Web Edition and future electronic publication formats take design cues from the author's other Quarto book projects, especially `What-Remains-Human-Epistemic-Agency-and-Human-Value-in-the-Age-of-AI` and `epistemology-textbook`.
+
+The shared principles are a single QMD source, book-level and chapter-level navigation, stable long-form reading width, responsive math/tables/figures, inspectable citations, and future multi-format consistency. Project-specific private deployment, commenting, or governance systems are not copied automatically.
 
 ## Collaboration onboarding
 
