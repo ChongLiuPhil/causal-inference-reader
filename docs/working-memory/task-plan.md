@@ -8,15 +8,13 @@
 - WM-T002 — 使 QMD-first migration PR #3 可合并并通过完整 HTML validation — COMPLETED
 - WM-T003 — 修复首次 main Pages 发布的 gh-pages bootstrap 并完成生产分支发布 — COMPLETED
 - WM-T004 — 实际验证公共站点首页、章节 1/4/7/11、附录、数学、引文、图片和前后导航 — BLOCKED / WAITING-PAGES-SOURCE
-- WM-T005 — 对齐项目性质、问题导向哲学观与作者其他 Quarto book 的出版形式 — IN-PROGRESS
+- WM-T005 — 对齐项目性质、问题导向哲学观与作者其他 Quarto book 的出版形式 — COMPLETED
 
 ## NEXT ACTIONS
 
-1. 运行 WM-T005 的 governance/source/full HTML checks。
-2. 验证新版 reader-facing Quarto 配置。
-3. WM-T005 PR green 后合并。
-4. 人类在 GitHub Settings → Pages 中确认 Source = “Deploy from a branch”，Branch = `gh-pages`，folder = `/(root)`。
-5. 公网可访问后完成 WM-T004 逐页验收。
+1. 人类在 GitHub Settings → Pages 中确认 Source = “Deploy from a branch”，Branch = `gh-pages`，folder = `/(root)`。
+2. 公网可访问后完成 WM-T004 逐页验收。
+3. 验收后转入正常内容维护，并按新的作者审核规则继续扩写或整理。
 
 ## BLOCKERS
 
