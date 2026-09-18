@@ -81,6 +81,15 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+      - name: Ensure GitHub Pages branch exists
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
+            git push origin HEAD:refs/heads/gh-pages
+          fi
+
       - name: Publish verified HTML to GitHub Pages branch
         if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
         uses: quarto-dev/quarto-actions/publish@v2
