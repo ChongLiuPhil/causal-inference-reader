@@ -4,22 +4,22 @@
 
 ## ACTIVE TASKS
 
-- WM-T001 — 建立 HARC-lite 项目治理层并清理会误导后续协作的旧 LaTeX 构建残留 — IN-PROGRESS
-- WM-T002 — 使 PR #3 在 canonical QMD 状态上通过完整 HTML validation 并可合并 — TODO
-- WM-T003 — 合并到 `main` 后确认生产发布 workflow green — TODO
+- WM-T001 — 建立 HARC-lite 项目治理层并清理误导协作的旧 LaTeX 构建残留 — VALIDATED / PENDING-MERGE
+- WM-T002 — 使 QMD-first migration PR #3 可合并并通过完整 HTML validation — COMPLETED
+- WM-T003 — 修复首次 main Pages 发布的 gh-pages bootstrap 并完成生产部署 — IN-PROGRESS
 - WM-T004 — 实际验证公共站点首页、章节 1/4/7/11、附录、数学、引文、图片和前后导航 — TODO
 
 ## NEXT ACTIONS
 
-1. 运行 project governance checks。
-2. 运行完整 Quarto HTML validation。
-3. 以 stacked PR 审查治理升级，不把它误认为已进入 `main`。
-4. 返回并完成 PR #3 / production 闭环。
+1. 合并 PR #4。
+2. 观察 main 的完整 Quarto + Pages workflow。
+3. 验证 `gh-pages` 产物和公共站点。
+4. 生产验证完成后把当前阶段转为正常维护。
 
 ## BLOCKERS
 
-- PR #3 当前仍未完成正式 merge/deploy 闭环。
-- 公共 GitHub Pages 在 main 发布前不能作为完成证据。
+- 首次 main run #23 的 source/render/reader checks 全部成功，但 publish 因远端不存在 `gh-pages` 失败。
+- PR #4 已加入自动创建 `gh-pages` 的修复；尚需 main push 实测。
 
 ## PENDING HUMAN DECISIONS / CLARIFICATIONS
 
@@ -32,10 +32,12 @@
 
 ## TODO / BACKLOG
 
+- 在生产发布稳定后评估将 publish job 的 write permission 与 PR validation 的 read-only permission 进一步拆分。
 - 评估是否加入 issue templates / CODEOWNERS。
 - 正式 release 后完善版本化引用元数据。
 - 如未来启用 PDF/EPUB/DOCX，先更新 Form Core 和 Decision Log，再从同一 QMD 增加输出配置。
 
 ## SYNC DEFECTS
 
-- `main` 尚未反映当前 QMD-first migration branch。
+- 当前 `main` 已是 QMD-first，但尚未包含 HARC-lite 协作层。
+- 公共 Pages 尚未完成首次成功发布验证。
