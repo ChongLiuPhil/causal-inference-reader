@@ -1,6 +1,7 @@
 name: Validate and Publish Quarto Book
 
 # Canonical body source: manuscript/*.qmd. PRs validate only; main publishes.
+# The first main publish bootstraps gh-pages automatically if the branch is absent.
 on:
   workflow_dispatch:
   pull_request:
@@ -12,20 +13,11 @@ on:
       - "_quarto.yml"
       - "index.qmd"
       - "references.qmd"
+      - "scripts/check_project_state.py"
       - "scripts/check_quarto_source.py"
       - ".github/workflows/publish-book.yml"
   push:
     branches: [main]
-    paths:
-      - "manuscript/**"
-      - "assets/**"
-      - "references.bib"
-      - "book.css"
-      - "_quarto.yml"
-      - "index.qmd"
-      - "references.qmd"
-      - "scripts/check_quarto_source.py"
-      - ".github/workflows/publish-book.yml"
 
 permissions:
   contents: write
@@ -43,6 +35,9 @@ jobs:
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Validate project governance
+        run: python scripts/check_project_state.py
 
       - name: Validate canonical sources
         run: python scripts/check_quarto_source.py
@@ -66,7 +61,7 @@ jobs:
           grep -R -q 'role="doc-biblioref"' _book --include='*.html'
           grep -q 'nav-page-next' _book/manuscript/04-potential-outcomes-identification.html
           grep -q 'nav-page-previous' _book/manuscript/04-potential-outcomes-identification.html
-          ! grep -R -E 'WEBTABLE|WEBTIKZ|begin\{tikzpicture\}|web-assets/' _book --include='*.html'
+          ! grep -R -E 'WEBTABLE|WEBTIKZ|begin\\{tikzpicture\\}|web-assets/' _book --include='*.html'
 
       - name: Upload rendered book for inspection
         uses: actions/upload-artifact@v7
@@ -75,6 +70,15 @@ jobs:
           path: _book/
           if-no-files-found: error
           retention-days: 14
+
+      - name: Ensure GitHub Pages branch exists
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! git ls-remote --exit-code --heads origin gh-pages >/dev/null 2>&1; then
+            git push origin HEAD:refs/heads/gh-pages
+          fi
 
       - name: Publish verified HTML to GitHub Pages branch
         if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'

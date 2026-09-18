@@ -1,27 +1,6 @@
-# Project build directories
-build/
-tmp/
+# Quarto build output
 _book/
-web-assets/tikz/
-
-# LaTeX build artifacts
-*.aux
-*.bbl
-*.bcf
-*.blg
-*.fdb_latexmk
-*.fls
-*.idx
-*.ilg
-*.ind
-*.lof
-*.log
-*.lot
-*.out
-*.run.xml
-*.synctex.gz
-*.toc
-references.bib.blg
+.quarto/
 
 # OS / editors
 .DS_Store
@@ -45,4 +24,3 @@ Thumbs.db
 ~$*.docx
 ~$*.xlsx
 ~$*.pptx
-.quarto/

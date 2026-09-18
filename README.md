@@ -2,48 +2,58 @@
 
 [English](README.md) | [中文](README.zh-CN.md)
 
-This project is an advanced Chinese-language self-study reader for senior undergraduates and master's students. Its main line connects the philosophy of causation, potential outcomes, structural causal models, causal discovery, transportability, and causal machine learning; Chinese philosophy, free will, and quantum causation are treated as comparative thematic appendices.
+This project is an advanced Chinese-language self-study reader connecting the philosophy of causation, potential outcomes, structural causal models, causal discovery, transportability, and causal machine learning. Chinese philosophy, free will, and quantum causation are treated as comparative thematic appendices.
 
-The book uses **3 main parts, 11 core chapters, and 4 appendices**. Chapter 11 serves as the synthesis and conclusion following Part III. The text emphasizes auditable links among concepts, estimands, identification assumptions, estimation, failure diagnosis, and application.
+The repository uses Quarto and a repository-backed collaboration model. Book content, project decisions, current work state, and publishing rules all have explicit canonical locations.
+
+## Online book
+
+https://chongliuphil.github.io/causal-inference-reader/
 
 ## Canonical source
 
 - `manuscript/*.qmd`: the only canonical body source.
-- `references.bib`: the bibliography database.
-- `assets/`: static book assets.
+- `references.bib`: bibliography.
+- `assets/`: static assets.
 - `_quarto.yml`: book order and Quarto configuration.
 - `book.css`: current HTML styling.
 
-The project currently builds HTML only. Any future EPUB, PDF, or DOCX output must be rendered from the same QMD body rather than from a second manuscript.
+The project currently builds HTML only. Any future EPUB, PDF, or DOCX output must be rendered from the same QMD body.
 
-## Build
+## Collaboration onboarding
+
+A new human collaborator or AI Agent should begin with:
+
+1. `START_HERE.md`
+2. `HARC_MANIFEST.yaml`
+3. `HARC_CONTEXT_INTERFACE.yaml`
+4. `AGENTS.md`
+5. `docs/working-memory/current-focus.md`
+6. `docs/working-memory/task-plan.md`
+
+The collaboration layer is a project-specific HARC-lite adaptation inspired by [Human–AI Research Collaboration Protocol](https://github.com/ChongLiuPhil/Human-AI-Research-Collaboration-Protocol). It persists decisions and handoff state without duplicating the book manuscript and does not claim full HARC conformance.
+
+## Build and check
 
 ```sh
-quarto render --to html
+make check
+make html
 ```
 
-Local preview:
+Preview:
 
 ```sh
-quarto preview
+make preview
 ```
 
 ## CI and publishing
 
-Pull requests render and validate the complete HTML book but do not publish the production site. Merge or push to `main` renders the complete `_book/` and publishes GitHub Pages.
-
-Production URL: https://chongliuphil.github.io/causal-inference-reader/
+Pull requests validate governance, canonical sources, and the complete HTML book without publishing production. Merge or push to `main` renders the complete `_book/` and publishes GitHub Pages.
 
 A production content change is complete only after the `main` workflow succeeds and the public Pages site is verified.
 
-## Editing conventions
-
-- Edit book body text only in `manuscript/*.qmd`.
-- Maintain references only in `references.bib`.
-- Prefer primary works, formal publications, publishers, or author/institutional archives for core factual claims.
-- Identify contested evaluations as interpretations rather than presenting them as settled facts.
-- Do not reintroduce the one-time LaTeX/TinyTeX/TikZ/dvisvgm migration toolchain as a long-term build path.
+See `CONTRIBUTING.md` for contribution rules, `core/` for stable project decisions, and `docs/working-memory/` for the current objective and blockers.
 
 ## Scope
 
-The current book does not center on executable programming code. Formulas are used to clarify estimands, identification logic, assumptions, and inferential boundaries rather than to replace statistical proofs. The cross-cultural, free-will, and quantum-causation appendices are comparative studies and are not presented as historical precursors of the modern causal-inference tradition.
+The current book does not center on executable programming code. Formulas clarify estimands, identification logic, assumptions, and inferential boundaries. Comparative appendices are not presented as historical precursors of the modern causal-inference tradition.

@@ -1,0 +1,55 @@
+harc_lite:
+  project: "causal-inference-reader"
+  repository: "ChongLiuPhil/causal-inference-reader"
+  mode: "project-adapted-harc-lite"
+  canonical_language: "zh-CN"
+  manuscript_language: "zh-CN"
+
+  upstream:
+    repository: "ChongLiuPhil/Human-AI-Research-Collaboration-Protocol"
+    adopted_from_commit: "e741c43c5cd158c43910e3832c7d757226717a97"
+    adoption_date: "2026-09-18"
+    note: "Conceptual adaptation only; this project does not claim full HARC conformance."
+
+  bootstrap:
+    start_here: "START_HERE.md"
+    agent_contract: "AGENTS.md"
+    context_interface: "HARC_CONTEXT_INTERFACE.yaml"
+
+  required_read_order:
+    - "HARC_MANIFEST.yaml"
+    - "HARC_CONTEXT_INTERFACE.yaml"
+    - "AGENTS.md"
+    - "docs/working-memory/current-focus.md"
+    - "docs/working-memory/task-plan.md"
+    - "core/CONTENT_CORE.md"
+    - "core/FORM_CORE.md"
+    - "core/DECISION_LOG.md"
+    - "_quarto.yml"
+
+  canonical_sources:
+    body: "manuscript/*.qmd"
+    bibliography: "references.bib"
+    assets: "assets/"
+    style: "book.css"
+    book_structure: "_quarto.yml"
+
+  project_state:
+    content_core: "core/CONTENT_CORE.md"
+    form_core: "core/FORM_CORE.md"
+    decision_log: "core/DECISION_LOG.md"
+    current_focus: "docs/working-memory/current-focus.md"
+    task_plan: "docs/working-memory/task-plan.md"
+    work_log: "docs/working-memory/work-log.md"
+    source_policy: "evidence/source-policy.md"
+
+  invariants:
+    - "Repository state outranks chat memory."
+    - "manuscript/*.qmd is the only canonical body source."
+    - "AI proposals are not human decisions."
+    - "High-impact uncertainty must be recorded instead of guessed."
+    - "PR validation must not publish production."
+    - "main is the formal production source."
+    - "A production content change is complete only after public Pages verification."
+    - "Future output formats must render from the same QMD source."
+    - "Long-term LaTeX/TinyTeX/TikZ/dvisvgm migration machinery is forbidden."
