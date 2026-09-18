@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>4&nbsp; 潜在结果、估计目标与识别 – 因果推理深度读本</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../manuscript/05-scm-graphs.html" rel="next">
+<link href="../manuscript/03-philosophies.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../book.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../manuscript/04-potential-outcomes-identification.html">第二部　识别、结构与估计</a></li><li class="breadcrumb-item"><a href="../manuscript/04-potential-outcomes-identification.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">潜在结果、估计目标与识别</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">因果推理深度读本</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/ChongLiuPhil/causal-inference-reader" title="源代码" class="quarto-navigation-tool px-1" aria-label="源代码"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">因果推理深度读本</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/frontmatter-preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">序言 {#序言 .unnumbered}</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/frontmatter-guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">如何使用本书 {#如何使用本书 .unnumbered}</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">第一部　问题、历史与哲学</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/01-questions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">因果问题：概念、解释、证据与行动</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/02-history.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">因果观念的历史谱系：从四因到科学解释</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/03-philosophies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">当代因果哲学：反事实、概率、机制与干预</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">第二部　识别、结构与估计</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/04-potential-outcomes-identification.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">潜在结果、估计目标与识别</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/05-scm-graphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">结构因果模型与图形语言</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/06-identification-calculus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">图形识别、do-calculus与反事实</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/07-design-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">研究设计、估计方法与不确定性</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">第三部　发现、迁移与应用</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/08-discovery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">因果发现与结构学习</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/09-transportability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">外部效度、可迁移性与数据融合</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/10-causal-ml-applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">因果机器学习与跨学科应用</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/11-synthesis-open-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">框架综合、理论边界与开放问题</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">参考文献</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">附录</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/appendix-A-comparative-topics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">比较哲学专题：中国思想、自由意志与量子因果</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/appendix-B-glossary-learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">术语、时间线与学习路径</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/appendix-C-exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">综合练习与参考分析</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/appendix-D-primary-reading.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">核心原始文献精读指南</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目录</h2>
+   
+  <ul>
+  <li><a href="#潜在结果用替代状态定义因果效应" id="toc-潜在结果用替代状态定义因果效应" class="nav-link active" data-scroll-target="#潜在结果用替代状态定义因果效应"><span class="header-section-number">4.1</span> 潜在结果：用替代状态定义因果效应</a>
+  <ul class="collapse">
+  <li><a href="#潜在结果基本难题与估计目标" id="toc-潜在结果基本难题与估计目标" class="nav-link" data-scroll-target="#潜在结果基本难题与估计目标"><span class="header-section-number">4.1.1</span> 潜在结果、基本难题与估计目标</a></li>
+  <li><a href="#一致性干扰与随机化可比性" id="toc-一致性干扰与随机化可比性" class="nav-link" data-scroll-target="#一致性干扰与随机化可比性"><span class="header-section-number">4.1.2</span> 一致性、干扰与随机化可比性</a></li>
+  <li><a href="#动态处理异质性与连续暴露" id="toc-动态处理异质性与连续暴露" class="nav-link" data-scroll-target="#动态处理异质性与连续暴露"><span class="header-section-number">4.1.3</span> 动态处理、异质性与连续暴露</a></li>
+  <li><a href="#复合处理主层与潜在结果表" id="toc-复合处理主层与潜在结果表" class="nav-link" data-scroll-target="#复合处理主层与潜在结果表"><span class="header-section-number">4.1.4</span> 复合处理、主层与潜在结果表</a></li>
+  </ul></li>
+  <li><a href="#识别从反事实目标到可观测分布" id="toc-识别从反事实目标到可观测分布" class="nav-link" data-scroll-target="#识别从反事实目标到可观测分布"><span class="header-section-number">4.2</span> 识别：从反事实目标到可观测分布</a>
+  <ul class="collapse">
+  <li><a href="#识别标准化与可交换性" id="toc-识别标准化与可交换性" class="nav-link" data-scroll-target="#识别标准化与可交换性"><span class="header-section-number">4.2.1</span> 识别、标准化与可交换性</a></li>
+  <li><a href="#选择测量与缺失机制" id="toc-选择测量与缺失机制" class="nav-link" data-scroll-target="#选择测量与缺失机制"><span class="header-section-number">4.2.2</span> 选择、测量与缺失机制</a></li>
+  <li><a href="#目标试验敏感性与部分识别" id="toc-目标试验敏感性与部分识别" class="nav-link" data-scroll-target="#目标试验敏感性与部分识别"><span class="header-section-number">4.2.3</span> 目标试验、敏感性与部分识别</a></li>
+  </ul></li>
+  <li><a href="#把识别原则压成可执行工作流" id="toc-把识别原则压成可执行工作流" class="nav-link" data-scroll-target="#把识别原则压成可执行工作流"><span class="header-section-number">4.3</span> 把识别原则压成可执行工作流</a>
+  <ul class="collapse">
+  <li><a href="#从原则到可审计的工作流" id="toc-从原则到可审计的工作流" class="nav-link" data-scroll-target="#从原则到可审计的工作流"><span class="header-section-number">4.3.1</span> 从原则到可审计的工作流</a></li>
+  <li><a href="#把静态识别审计推广到纵向问题" id="toc-把静态识别审计推广到纵向问题" class="nav-link" data-scroll-target="#把静态识别审计推广到纵向问题"><span class="header-section-number">4.3.2</span> 把静态识别审计推广到纵向问题</a></li>
+  <li><a href="#综合案例远程工作目标合同" id="toc-综合案例远程工作目标合同" class="nav-link" data-scroll-target="#综合案例远程工作目标合同"><span class="header-section-number">4.3.3</span> 综合案例：远程工作目标合同</a></li>
+  </ul></li>
+  <li><a href="#延伸阅读" id="toc-延伸阅读" class="nav-link" data-scroll-target="#延伸阅读">延伸阅读</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/edit/main/manuscript/04-potential-outcomes-identification.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/issues/new" class="toc-action"><i class="bi empty"></i>反馈问题</a></li><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/blob/main/manuscript/04-potential-outcomes-identification.qmd" class="toc-action"><i class="bi empty"></i>查看代码</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../manuscript/04-potential-outcomes-identification.html">第二部　识别、结构与估计</a></li><li class="breadcrumb-item"><a href="../manuscript/04-potential-outcomes-identification.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">潜在结果、估计目标与识别</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="ch:potential-identification" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">潜在结果、估计目标与识别</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<blockquote class="blockquote">
+<p><strong>学习目标</strong></p>
+<p>读完本章，你应当能够：用潜在结果定义处理效应和目标总体；区分一致性、可交换性、正值性与无干扰假设；从反事实目标推导可观测表达式，并诊断选择、测量、缺失与外推造成的识别失败。</p>
+</blockquote>
+<section id="潜在结果用替代状态定义因果效应" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="潜在结果用替代状态定义因果效应"><span class="header-section-number">4.1</span> 潜在结果：用替代状态定义因果效应</h2>
+<section id="潜在结果基本难题与估计目标" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="潜在结果基本难题与估计目标"><span class="header-section-number">4.1.1</span> 潜在结果、基本难题与估计目标</h3>
+<p>潜在结果框架把因果比较写进结果变量本身。对单位 <span class="math inline">\(i\)</span>，<span class="math inline">\(Y_i(1)\)</span> 表示该单位接受处理时的结果，<span class="math inline">\(Y_i(0)\)</span> 表示未接受处理时的结果。个体因果效应是 <span class="math display">\[\tau_i=Y_i(1)-Y_i(0).\]</span> 这里的”处理”不必是药物，也可以是政策、教育方案、暴露水平或信息呈现；但两个处理状态必须足够明确，能够说明它们何时开始、持续多久、如何实施。</p>
+<p>这种表述继承Neyman在随机试验中的思想，并由Rubin等推广到更一般的因果推断<span class="citation" data-cites="neyman1923 rubin1974 holland1986">(<a href="../references.html#ref-neyman1923" role="doc-biblioref">Neyman [1923年] 1990年</a>; <a href="../references.html#ref-rubin1974" role="doc-biblioref">Rubin 1974年</a>; <a href="../references.html#ref-holland1986" role="doc-biblioref">Holland 1986年</a>)</span>。它的核心不是某一种匹配算法，而是先定义同一单位在互斥替代状态下的结果，再讨论这些不可同时观察的量如何由研究设计识别。</p>
+<section id="因果推断的根本问题" class="level5">
+<h5 class="anchored" data-anchor-id="因果推断的根本问题">因果推断的根本问题</h5>
+<p>对同一单位和同一时点，我们最多观察 <span class="math inline">\(Y_i(1)\)</span> 或 <span class="math inline">\(Y_i(0)\)</span> 之一。令实际处理为 <span class="math inline">\(A_i\in\{0,1\}\)</span>。在一致性成立时，观测结果与实际接受处理所对应的潜在结果连接为 <span class="math display">\[Y_i=A_iY_i(1)+(1-A_i)Y_i(0).\]</span> 这里已经使用了一致性，而不是把上式当作无需假设的数据恒等式；后文将说明这一条件为什么依赖处理版本与干预定义。缺失的潜在结果不是普通漏填数据：我们不能回到同一历史起点让同一个人同时接受另一处理。因此，个体效应通常不可直接观察。这是<strong>因果推断的根本问题</strong>。</p>
+<p>根本问题不意味着因果效应永远不可知。总体平均效应可以在随机化或其他可交换条件下识别：不同单位为彼此提供反事实信息。代价是从个体确定性问题转向人群分布问题，并依赖单位之间在处理赋值上的可比性。</p>
+</section>
+<section id="估计目标不是只有一个" class="level5">
+<h5 class="anchored" data-anchor-id="估计目标不是只有一个">估计目标不是只有一个</h5>
+<p>最常见的<strong>平均处理效应</strong>为 <span class="math display">\[\operatorname{ATE}=E\{Y(1)-Y(0)\}.\]</span> 但研究问题可能要求其他目标： <span class="math display">\[\begin{align*}
+\operatorname{ATT}&amp;=E\{Y(1)-Y(0)\mid A=1\},\\
+\operatorname{ATC}&amp;=E\{Y(1)-Y(0)\mid A=0\},\\
+\operatorname{CATE}(x)&amp;=E\{Y(1)-Y(0)\mid X=x\}.
+\end{align*}\]</span></p>
+<p>ATE回答在目标人群中普遍实施与普遍不实施的平均差异；ATT回答实际接受者若不接受会怎样；CATE描述协变量为 <span class="math inline">\(x\)</span> 的亚组。三者在人群组成和效应异质性存在时不同。算法输出一个数之前，研究者必须说明目标是哪一个。</p>
+<p>对于二元结果，常用尺度包括风险差 <span class="math display">\[E\{Y(1)\}-E\{Y(0)\},\]</span> 风险比和优势比。效应尺度会改变”无交互”和异质性的表现。风险差上的零效应不等于风险比上的一；优势比具有非可合并性，即使没有混杂，条件优势比与边缘优势比也可能不同。选择尺度应服从决策与科学问题，而非只看软件默认。</p>
+</section>
+</section>
+<section id="一致性干扰与随机化可比性" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="一致性干扰与随机化可比性"><span class="header-section-number">4.1.2</span> 一致性、干扰与随机化可比性</h3>
+<p><strong>一致性</strong>通常写为：若 <span class="math inline">\(A_i=a\)</span>，则 <span class="math inline">\(Y_i=Y_i(a)\)</span>。这看似只是记号，实则要求观察到的处理版本与潜在结果中定义的干预相对应。若”接受治疗”包括不同剂量、依从性和联合用药，<span class="math inline">\(Y(1)\)</span> 可能没有唯一含义。</p>
+<p>处理定义需要包括：启动规则、具体版本、随访起点、允许的后续策略和结果测量时点。把肥胖、教育程度或种族直接当作可设定开关尤其困难，因为”将变量设为另一值”可能对应许多不同干预路径。此时应优先定义可执行或至少机制明确的干预，如提供某项教育资源，而不是含混询问”教育本身的效应”。 一致性也依赖无隐藏的多版本处理。不同版本若对结果相同，可以在问题目的下合并；若效果不同，就应扩展处理变量或把目标改写为随机策略效应。</p>
+<section id="sutva与单位间干扰" class="level5">
+<h5 class="anchored" data-anchor-id="sutva与单位间干扰">SUTVA与单位间干扰</h5>
+<p><strong>稳定单位处理值假设</strong>（SUTVA）通常包括两个方面：处理没有未说明版本；一个单位的结果不受其他单位处理影响。后者可写为 <span class="math inline">\(Y_i(a_i)\)</span>，而不是依赖全体赋值向量的 <span class="math inline">\(Y_i(\mathbf a)\)</span>。</p>
+<p>疫苗、社交网络、教育班级和市场政策经常违反无干扰。一个人接种会改变他人感染风险，平台向部分用户展示内容会改变其朋友体验，价格政策会通过均衡影响未处理者。此时”处理效应”不能只比较个体自己的 <span class="math inline">\(a_i\)</span>，还要定义暴露映射，例如个体处理与邻居处理比例，并区分直接效应、溢出效应和总体效应。 SUTVA不是越强越好的技术便利。若科学问题本就关心传播或均衡效应，应显式建模干扰，而不是把它当作小偏差。单位边界也需与机制匹配：以学校而非学生为随机化单位，可能使校内干扰成为处理的一部分。</p>
+</section>
+<section id="随机化如何提供可比性" class="level5">
+<h5 class="anchored" data-anchor-id="随机化如何提供可比性">随机化如何提供可比性</h5>
+<p>在理想随机试验中，处理赋值与潜在结果独立： <span class="math display">\[A\perp\!\!\!\perp\{Y(1),Y(0)\}.\]</span> 因此 <span class="math display">\[\begin{align*}
+E(Y\mid A=1)&amp;=E\{Y(1)\},\\
+E(Y\mid A=0)&amp;=E\{Y(0)\},
+\end{align*}\]</span> 从而 <span class="math display">\[E(Y\mid A=1)-E(Y\mid A=0)=\operatorname{ATE}.\]</span></p>
+<p>逻辑关键不是”随机化使所有协变量在样本中完全相同”。有限样本仍可能不平衡。随机化保证赋值机制已知，并在重复随机化意义下使处理与潜在结果独立，使差异估计具有无偏性或可控制的随机化分布。 随机化也不自动解决依从性、失访、测量错误、干扰和外部效度。若部分被分配治疗者未接受治疗，按分配比较得到的是意向治疗效应；若想估计实际接受治疗的效应，需要额外假设或工具变量框架。试验内部效度与结果能否推广到其他人群是两件事。</p>
+</section>
+</section>
+<section id="动态处理异质性与连续暴露" class="level3" data-number="4.1.3">
+<h3 data-number="4.1.3" class="anchored" data-anchor-id="动态处理异质性与连续暴露"><span class="header-section-number">4.1.3</span> 动态处理、异质性与连续暴露</h3>
+<p>现实处理常随时间变化。令 <span class="math inline">\(A_t\)</span> 为时点 <span class="math inline">\(t\)</span> 的处理，<span class="math inline">\(\bar A_t=(A_0,\ldots,A_t)\)</span> 为处理历史，潜在结果写为 <span class="math inline">\(Y(\bar a_T)\)</span>。时间变化协变量 <span class="math inline">\(L_t\)</span> 可能同时受先前处理影响，并影响以后处理与结果。若在普通回归中直接调整 <span class="math inline">\(L_t\)</span>，既可能阻断部分处理效应，也可能引入碰撞点偏差。 纵向g公式、边际结构模型和结构嵌套模型用于这类问题<span class="citation" data-cites="robins1986 hernanrobins2020">(<a href="../references.html#ref-robins1986" role="doc-biblioref">Robins 1986年</a>; <a href="../references.html#ref-hernanrobins2020" role="doc-biblioref">Hernán 和 Robins 2020年</a>)</span>。在进入方法前，必须先统一<strong>时间零点</strong>：资格判定、处理分配和随访开始应当对齐。若把必须存活一段时间才能进入”处理组”的人从早期开始计入，会产生不死时间偏差。 失访可视为一种选择过程。若删失与潜在结果在给定历史后独立，可用逆概率删失权重等方法；若失访由未测因素决定，数据本身无法保证校正。报告失访原因和敏感性分析与选择估计器同样重要。</p>
+<section id="个体效应与异质性" class="level5">
+<h5 class="anchored" data-anchor-id="个体效应与异质性">个体效应与异质性</h5>
+<p>虽然 <span class="math inline">\(\tau_i\)</span> 通常不可识别，我们可以估计某些可观测亚组的CATE。但预测谁获益不等于恢复每个人确定的个体效应。即使准确估计 <span class="math inline">\(E\{Y(1)-Y(0)\mid X=x\}\)</span>，同一 <span class="math inline">\(X=x\)</span> 亚组内仍可能存在未解释异质性。 数据驱动寻找亚组还会产生多重比较和过拟合。可靠异质性分析应预先区分验证性与探索性目标，使用样本分割或诚实估计，并报告不确定性。更重要的是，亚组差异可能反映基线风险而非机制改变；应在适当效应尺度上解释。</p>
+<blockquote class="blockquote">
+<p><strong>关键辨析</strong></p>
+<p>潜在结果不是”数据库中缺失的一列”，而是由处理定义、单位边界、时间结构和干预版本共同构造的反事实量。若这些概念没有定义清楚，再精确的估计也只是在计算一个含义不明的差值。</p>
+</blockquote>
+</section>
+<section id="多水平与连续处理" class="level5">
+<h5 class="anchored" data-anchor-id="多水平与连续处理">多水平与连续处理</h5>
+<p>处理不必二元。对剂量 <span class="math inline">\(a\in\mathcal A\)</span>，每个单位有潜在剂量—反应曲线 <span class="math inline">\(Y_i(a)\)</span>，目标可以是 <span class="math display">\[E\{Y(a)-Y(a')\}
+\quad\text{或}\quad
+\frac{\partial}{\partial a}E\{Y(a)\}.\]</span> 连续处理的正值性更严格：每个协变量层不可能在有限数据中拥有所有精确剂量，只能依赖平滑和局部支持。把剂量线性放进回归等于假定整条反应曲线形状，需用领域知识和灵活模型检查。</p>
+<p>多版本问题在连续处理中更突出。同样名义剂量因给药速度、制剂和依从不同而作用不同。可把处理扩展为向量 <span class="math inline">\((a,v)\)</span>，或把研究问题定义为现实策略产生的版本混合。后者的效应依赖版本分布，迁移到另一系统时可能改变。</p>
+</section>
+</section>
+<section id="复合处理主层与潜在结果表" class="level3" data-number="4.1.4">
+<h3 data-number="4.1.4" class="anchored" data-anchor-id="复合处理主层与潜在结果表"><span class="header-section-number">4.1.4</span> 复合处理、主层与潜在结果表</h3>
+<p>若同时研究药物 <span class="math inline">\(A\)</span> 与心理干预 <span class="math inline">\(B\)</span>，潜在结果写为 <span class="math inline">\(Y(a,b)\)</span>。加法尺度上的交互可表示为 <span class="math display">\[E\{Y(1,1)-Y(1,0)-Y(0,1)+Y(0,0)\}.\]</span> 非零说明一种处理的效果随另一处理状态改变。交互是尺度相关的：加法交互存在时，乘法交互可能不存在，反之亦然。</p>
+<p>析因随机试验能有效估计主效应与交互，但前提是处理组合可共同实施且没有隐藏版本。若药物改变参与心理干预的依从性，分配组合的意向治疗效应仍清楚，实际接受组合的效应则需要依从建模。 “协同机制”与统计交互也不相同。机制上两因素共同必要可能在某尺度表现强交互，但人群背景分布、结果阈值和测量会改变统计形态。不能仅凭回归乘积项显著就断言发现生物协同。</p>
+<section id="主层与处理后分层" class="level5">
+<h5 class="anchored" data-anchor-id="主层与处理后分层">主层与处理后分层</h5>
+<p>研究者有时想比较”无论分配哪组都会存活的人”中的生活质量。存活是处理后变量，直接只分析存活者会比较不同构成的人群。<strong>主层</strong>按联合潜在中间状态 <span class="math inline">\((S(1),S(0))\)</span> 定义，例如始终存活者、仅处理下存活者等。 主层在概念上避免条件化实际处理后变量造成的混合，却通常不可完全观察：每人只看到一个 <span class="math inline">\(S(a)\)</span>。识别需要单调性、排除限制或模型，且目标人群”始终存活者”难以在实践中定位。主层效应适合某些截断死亡、依从与替代终点问题，不是处理后偏差的免费修复<span class="citation" data-cites="frangakisrubin2002">(<a href="../references.html#ref-frangakisrubin2002" role="doc-biblioref">Frangakis 和 Rubin 2002年</a>)</span>。</p>
+</section>
+<section id="潜在结果表的思维实验" class="level5">
+<h5 class="anchored" data-anchor-id="潜在结果表的思维实验">潜在结果表的思维实验</h5>
+<p>设四人的潜在结果分别为 <span class="math display">\[(1,0),\quad (1,1),\quad (0,0),\quad (0,1),\]</span> 其中前项为 <span class="math inline">\(Y(1)\)</span>，后项为 <span class="math inline">\(Y(0)\)</span>。个体效应依次为 <span class="math inline">\(1,0,0,-1\)</span>，ATE为0。若只报告ATE，会遗漏一个获益者和一个受害者；若处理赋值偏向本来会在处理下成功者，观察组差异还可能为正。 这个表说明平均零不等于人人无效，也说明效应异质性与选择偏差是不同问题。随机化可使平均比较识别ATE，却不能显示每人的两列；额外协变量可解释部分异质性，但不能一般恢复个体效应。</p>
+</section>
+</section>
+</section>
+<section id="识别从反事实目标到可观测分布" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="识别从反事实目标到可观测分布"><span class="header-section-number">4.2</span> 识别：从反事实目标到可观测分布</h2>
+<section id="识别标准化与可交换性" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="识别标准化与可交换性"><span class="header-section-number">4.2.1</span> 识别、标准化与可交换性</h3>
+<p>一个因果目标若能在给定假设下唯一写成观测数据分布的函数，就称为<strong>可识别</strong>。识别是在总体层面连接反事实量与可观测量的逻辑问题。<strong>估计</strong>则是在有限样本中近似这个函数，并量化随机误差。两者的次序不能颠倒。 例如，若未测混杂使两个不同因果模型产生完全相同的观测分布，却给出不同ATE，则无论样本多大、机器学习预测多准，ATE仍不可由该数据识别。相反，一个目标可能在原则上可识别，但样本太小、正值性接近违反或模型过拟合，使估计极不稳定。</p>
+<section id="标准化公式的推导" class="level5">
+<h5 class="anchored" data-anchor-id="标准化公式的推导">标准化公式的推导</h5>
+<p>设 <span class="math inline">\(A\)</span> 为二元处理，<span class="math inline">\(Y(a)\)</span> 为潜在结果，<span class="math inline">\(L\)</span> 为处理前协变量。若满足条件可交换性 <span class="math display">\[Y(a)\perp\!\!\!\perp A\mid L,\]</span> 一致性以及正值性，则 <span class="math display">\[\begin{align*}
+E\{Y(a)\}
+&amp;=\sum_l E\{Y(a)\mid L=l\}P(L=l)\\
+&amp;=\sum_l E\{Y(a)\mid A=a,L=l\}P(L=l)\\
+&amp;=\sum_l E(Y\mid A=a,L=l)P(L=l).
+\end{align*}\]</span></p>
+<p>第二行使用条件可交换性，第三行使用一致性；正值性保证每个相关 <span class="math inline">\(l\)</span> 层中确实能观察到 <span class="math inline">\(A=a\)</span>。右侧完全由观测分布组成，称为<strong>标准化公式</strong>或调整公式。ATE是 <span class="math inline">\(a=1\)</span> 与 <span class="math inline">\(a=0\)</span> 两个标准化均值之差。 这个推导展示识别分析的价值：每一步都对应一项可质疑的假设。若处理定义含混，一致性失败；若某类人必然接受处理，正值性失败；若存在未测共同原因，可交换性失败。估计器不能弥补概念或设计缺口。</p>
+</section>
+<section id="可交换性与混杂" class="level5">
+<h5 class="anchored" data-anchor-id="可交换性与混杂">可交换性与混杂</h5>
+<p><strong>可交换性</strong>表示在用于比较的层次中，处理组与对照组在潜在结果分布上可以互换。随机化在设计上提供无条件可交换性；观察研究通常只能主张给定充分协变量 <span class="math inline">\(L\)</span> 后可交换。</p>
+<p><strong>混杂</strong>不是”协变量与处理、结果都相关”这一纯统计定义，而是处理与结果之间存在会扭曲目标因果比较的共同原因结构。一个变量是否应调整取决于图中角色：</p>
+<ul>
+<li><p>处理与结果的共同原因通常需要控制；</p></li>
+<li><p>处理后的中介若用于估计总效应，通常不应控制；</p></li>
+<li><p>碰撞点不应仅因同时预测处理和结果而控制；</p></li>
+<li><p>共同原因的代理变量可能减少混杂，也可能引入额外测量问题；</p></li>
+<li><p>结果的强预测因子即使不是混杂，也可能提高精度。</p></li>
+</ul>
+<p>因此，“把所有可用变量放进回归”不是保守策略。变量选择应以时间、领域知识和因果结构为基础，再用统计方法提高估计稳健性。</p>
+</section>
+<section id="正值性结构缺口与数据稀疏" class="level5">
+<h5 class="anchored" data-anchor-id="正值性结构缺口与数据稀疏">正值性：结构缺口与数据稀疏</h5>
+<p><strong>正值性</strong>要求对目标人群中每个具有正概率的协变量层，都有 <span class="math display">\[0&lt;P(A=a\mid L=l)&lt;1.\]</span> 结构性违反发生在某些人依法或生理上绝不可能接受某处理。例如，治疗方案只适用于某疾病阶段，却把其他阶段也纳入目标人群。解决办法不是改变估计器，而是重新定义目标人群或干预。</p>
+<p>实践性违反发生在概率理论上非零但样本中极少。逆概率权重会因此极大，估计由少数单位支配。诊断包括查看倾向得分重叠、极端权重和有效样本量。截断权重可以降低方差，却改变偏差；应报告截断规则并做敏感性分析。 正值性与研究问题密切相关。条件越细，重叠越难；但遗漏真正混杂又破坏可交换性。这里不存在纯数据驱动的万能平衡，需要在科学充分性与支持范围之间作透明取舍。</p>
+</section>
+</section>
+<section id="选择测量与缺失机制" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="选择测量与缺失机制"><span class="header-section-number">4.2.2</span> 选择、测量与缺失机制</h3>
+<p>研究样本通常经过进入、留存和完整测量等选择。若选择 <span class="math inline">\(S\)</span> 同时受处理或其原因与结果或其原因影响，给定 <span class="math inline">\(S=1\)</span> 会打开非因果路径。例如治疗影响存活，疾病严重度也影响存活；只分析存活者可能使治疗与严重度相关，即使原始试验已随机化。 选择偏差不同于混杂：混杂在处理之前造成不可比，选择是在纳入或条件化过程中扭曲关联。二者可同时存在，处理方法也不同。若在给定已测历史后选择独立于目标潜在结果，可用选择权重或删失权重重建目标分布；若选择依赖未测因素，必须依靠界限或敏感性分析。 病例对照研究说明”选择在结果上”并非总是错误。该设计有意按结局抽样，但在适当抽样机制和目标尺度下，优势比等量仍可估计。关键不是永远不条件化碰撞点，而是目标量、采样机制和分析公式是否配套。</p>
+<section id="测量并非透明窗口" class="level5">
+<h5 class="anchored" data-anchor-id="测量并非透明窗口">测量并非透明窗口</h5>
+<p>误分类与测量误差可以改变因果问题本身。若处理由回忆问卷测量，结果状态可能影响暴露报告，形成差异性误差；若结局评估者知道治疗分组，测量过程可能成为处理影响观测结果的额外路径。简单地说”非差异性误差只会把效应拉向零”并不普遍成立，尤其在多分类、非线性模型和多个误测变量中。 应区分潜在构念与观测指标。例如”抑郁”可能由量表分数操作化，政策真正改变的是症状、报告行为还是诊断机会，需要在测量模型中说明。验证子样本、重复测量、负对照和定量偏差分析可以评估误差影响，但仍需外部信息。</p>
+</section>
+<section id="缺失数据与因果缺失" class="level5">
+<h5 class="anchored" data-anchor-id="缺失数据与因果缺失">缺失数据与因果缺失</h5>
+<p>普通缺失数据术语——完全随机缺失、随机缺失、非随机缺失——描述缺失机制与数据的关系。因果研究还要问缺失发生在处理、协变量还是结果，以及缺失机制是否受处理影响。处理后缺失可能是因果路径的一部分；把所有完整案例直接分析，相当于条件化在一个选择变量上。 多重插补、逆概率加权和联合模型各依赖不同假设。插补模型应与分析目标相容，并包括预测缺失和结果的变量。任何方法都不能从数据内部验证”给定已观测变量后缺失与未观测结果独立”；这正是需要敏感性分析的地方。</p>
+</section>
+</section>
+<section id="目标试验敏感性与部分识别" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="目标试验敏感性与部分识别"><span class="header-section-number">4.2.3</span> 目标试验、敏感性与部分识别</h3>
+<p><strong>目标试验</strong>策略要求先写出希望模拟的理想随机试验方案<span class="citation" data-cites="hernanrobins2016">(<a href="../references.html#ref-hernanrobins2016" role="doc-biblioref">Hernán 和 Robins 2016年</a>)</span>：</p>
+<ol type="1">
+<li><p>资格标准；</p></li>
+<li><p>待比较的治疗策略；</p></li>
+<li><p>分配程序；</p></li>
+<li><p>随访起点与终点；</p></li>
+<li><p>结局；</p></li>
+<li><p>因果对比；</p></li>
+<li><p>分析计划。</p></li>
+</ol>
+<p>然后说明观测数据如何模拟每一项。该方法能够暴露时间零点错位、不死时间、既往使用者偏差和处理策略含混。它不让观察研究自动等于试验，也不消除未测混杂，而是使设计选择清楚可审计。</p>
+<section id="敏感性分析是主分析的一部分" class="level5">
+<h5 class="anchored" data-anchor-id="敏感性分析是主分析的一部分">敏感性分析是主分析的一部分</h5>
+<p>关键识别假设通常不可由数据完全检验。严谨报告不应只在限制部分写一句”可能存在残余混杂”，而应评估结论对违反程度的敏感性。常见策略包括：</p>
+<ul>
+<li><p>指定一个未测混杂与处理、结果关联的范围，计算校正后效应；</p></li>
+<li><p>使用负对照暴露或结局发现共享偏差结构；</p></li>
+<li><p>对失访、误分类或处理版本进行情景分析；</p></li>
+<li><p>报告部分识别界限，而不是强迫给出点识别；</p></li>
+<li><p>比较多种合理图与变量定义下结果是否稳定。</p></li>
+</ul>
+<p>敏感性参数应有领域解释，而不只是抽象数值。分析的目标不是证明结论不受任何偏差影响，而是说明需要多强的未建模因素才能改变决策。</p>
+</section>
+<section id="部分识别不知道也可以被形式化" class="level5">
+<h5 class="anchored" data-anchor-id="部分识别不知道也可以被形式化">部分识别：不知道也可以被形式化</h5>
+<p>当假设不足以点识别时，可以求目标的上下界。设二元结果的随机试验存在部分结局缺失，若不对缺失机制作假设，可把处理组所有缺失者分别设为0或1，得到极端风险范围；两组范围组合成风险差界限。界限可能很宽，却准确表达数据能排除什么。以最少附加假设报告可行集合，是部分识别传统的基本做法<span class="citation" data-cites="manski1990">(<a href="../references.html#ref-manski1990" role="doc-biblioref">Manski 1990年</a>)</span>。 增加可信假设可逐步收窄。例如认为失访者结局风险不低于已观察者，或风险最多高出某个幅度；每项收窄都应有实质解释。与一次性宣布”随机缺失”相比，分层界限让读者看到结论由哪条假设获得精度。 未测混杂也可用界限和偏差参数处理。若能根据外部研究限制混杂与处理、结果的最大关联，就可计算校正区间。目的不是制造一个”正确调整值”，而是展示何种偏差强度足以跨过决策阈值。</p>
+</section>
+<section id="负对照的逻辑" class="level5">
+<h5 class="anchored" data-anchor-id="负对照的逻辑">负对照的逻辑</h5>
+<p><strong>负对照结局</strong>应不受处理因果影响，却与目标结局共享某些混杂或测量过程。例如研究药物对某疾病时，选择机制相似但生物上不可能受药物影响的结局。若处理与负对照仍相关，提示残余偏差<span class="citation" data-cites="lipsitch2010">(<a href="../references.html#ref-lipsitch2010" role="doc-biblioref">Lipsitch 等 2010年</a>)</span>。</p>
+<p><strong>负对照暴露</strong>不应影响目标结局，却共享处理的混杂结构，例如在合理时间关系下选择未来暴露。负对照不是凭”结果不显著”证明无混杂；需要明确共享偏差和排除直接作用的结构。负对照本身若有未知效应，会产生误导。</p>
+<p>更强方法可在两个负对照和代理结构下识别某些未测混杂，但承担完备性等技术条件。基础实践中，负对照至少能把”未测混杂不可检验”转化为部分可观察的模型检查。</p>
+</section>
+<section id="识别审计与设计改进" class="level5">
+<h5 class="anchored" data-anchor-id="识别审计与设计改进">识别审计与设计改进</h5>
+<p>高质量研究应保存一张从目标到公式的审计表。第一列写目标量及目标人群；第二列写每项假设的数学形式；第三列用领域语言解释；第四列列支持证据；第五列列潜在违反；第六列写诊断或敏感性分析。例如可交换性对应”给定病情、年龄等后，治疗选择不再包含预后信息”，证据可能是临床流程，风险是医生未记录判断，敏感性分析则为负对照和偏差参数。</p>
+<p>审计表迫使”已调整所有混杂”变成可质疑陈述。它也便于跨团队协作：领域专家审查临床流程，统计人员审查公式，数据工程人员审查变量时间，决策者审查目标人群。</p>
+</section>
+<section id="识别失败后的研究设计" class="level5">
+<h5 class="anchored" data-anchor-id="识别失败后的研究设计">识别失败后的研究设计</h5>
+<p>如果图显示未测共同原因使目标不可调整识别，不应立即换更复杂模型。可以收集共同原因或可靠代理；寻找影响处理但满足排除限制的制度工具；在关键节点开展小型随机或鼓励试验；获取中介以满足前门结构；融合另一个域的实验；或把问题改为可识别的局部目标。 识别分析由此具有建设性：失败证明告诉我们哪类新信息最有价值。一个明确的不可识别结论加下一步设计，优于一个依赖不可说明机器学习外推的精确数字。</p>
+</section>
+</section>
+</section>
+<section id="把识别原则压成可执行工作流" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="把识别原则压成可执行工作流"><span class="header-section-number">4.3</span> 把识别原则压成可执行工作流</h2>
+<section id="从原则到可审计的工作流" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="从原则到可审计的工作流"><span class="header-section-number">4.3.1</span> 从原则到可审计的工作流</h3>
+<p>前文已经分别定义了处理版本、时间零点、目标试验与识别假设。这里不再增加新的识别条件，而是把这些要求压成一套可复核的工作流：先固定目标，再为从反事实到观测量的每一步指定责任来源，最后检查哪些环节只能依赖外推、敏感性或重新设计。</p>
+<p>一个可执行的目标合同至少包括总体、处理策略、对照策略、结局、时间范围、汇总尺度和竞争事件处理。任何一项变化，都可能产生不同数值而不构成统计矛盾。例如评价降压治疗，可以比较确诊后立即启动方案与延迟三个月，也可以比较始终维持不同血压区间的动态策略；若结局是五年卒中风险，死亡如何处理也属于目标本身，而不是估计阶段的技术附注。</p>
+<p>目标合同还要说明时间零点。资格判定、策略分配和随访开始若不对齐，会产生不死时间与选择偏差。数据分析中的每行记录都应能追溯到合同中的单位和时点。先写合同不是形式主义，而是防止分析过程中随着可得变量和显著结果悄悄更换问题。</p>
+<section id="识别证明作为责任链" class="level5">
+<h5 class="anchored" data-anchor-id="识别证明作为责任链">识别证明作为责任链</h5>
+<p>前文的标准化公式已经展示了从 <span class="math inline">\(E\{Y(a)\}\)</span> 到观测分布的等式链。进入实际研究后，更重要的是保存每一步的责任来源：全概率或迭代期望来自概率论；把反事实均值与实际处理组联系起来来自可交换性；在实际接受处理者中以观测结果替代潜在结果来自一致性；正值性则保证相应条件分布确实有数据支持。这里的重点不是重复推导同一公式，而是让每个等号都能被单独质疑。</p>
+<p>估计器只近似最后的可观测表达式，不能倒过来证明前面的交换。若某层无人接受处理，机器学习平滑产生的预测是外推，不是恢复了非参数识别。同一审计习惯适用于复杂设计：纵向g公式要在每个时点标明交换处理历史与未来潜在结果的条件；迁移公式要说明何时可交换试验参与和目标人群结果；前门公式要逐步标明行动与观察的交换。把责任链写完整，能在建模之前发现究竟缺少测量、设计还是科学知识。</p>
+</section>
+</section>
+<section id="把静态识别审计推广到纵向问题" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="把静态识别审计推广到纵向问题"><span class="header-section-number">4.3.2</span> 把静态识别审计推广到纵向问题</h3>
+<p>前文已经指出时间变化协变量可能同时是既往处理的后果和后续处理的混杂。这里进一步把静态的”一次处理—一次结果”识别链推广到处理历史。药物剂量随症状调整，平台推荐随点击更新，公共政策随疫情或经济指标改变时，研究对象不再只是一个 <span class="math inline">\(A\)</span>，而是一整条随历史变化的策略。</p>
+<p>设处理历史为 <span class="math inline">\(\bar A_t\)</span>，随时间变化的协变量为 <span class="math inline">\(\bar L_t\)</span>。动态策略 <span class="math inline">\(g\)</span> 根据已有历史指定每期处理。识别需要序贯可交换性：在每个时点，给定已经观察的历史，实际处理选择与策略下未来潜在结果独立；还需要各历史下策略选择有正概率。纵向g计算、逆概率加权的边际结构模型和结构嵌套模型，是处理这种双重角色的不同道路。</p>
+<p>这些方法的主要困难不在公式长度，而在历史定义。就诊频率可能同时是病情信息和医疗系统选择结果；上一期处理会改变它，使其既是中介又是后续混杂。研究者必须说明测量时点、决策可用信息和失访过程。离散时间过粗会把处理与协变量顺序颠倒，过细又造成稀疏历史与极端权重。时间尺度是因果假设的一部分。</p>
+<section id="不可识别时仍然可以推进知识" class="level5">
+<h5 class="anchored" data-anchor-id="不可识别时仍然可以推进知识">不可识别时仍然可以推进知识</h5>
+<p>识别失败不等于研究结束。第一种选择是重新设计：收集关键共同原因、利用随机分配或制度阈值、改变抽样以补足重叠。第二种是改变目标：从总体效应转向有支持区域的效应，从自然中介效应转向可实施的干预型效应。第三种是部分识别，用界限表达现有信息允许的范围。第四种是敏感性分析，把不可观测假设参数化并报告结论在何处改变。</p>
+<p>重要的是不要把这些策略包装成完全识别。限制到重叠人群会得到更可靠但不同的总体；假定单调性收紧界限会增加实质承诺；负对照发现残余偏差能反驳简单模型，却通常不能唯一校正。研究贡献可以是证明某个热门问题在现有数据下不可回答，并指出哪种新信息最有价值。 在决策场景中，宽界限也可能有用。若所有合理偏差情景下政策净收益仍为正，精确点估计并非必要；若界限跨越重要伤害阈值，就应延迟部署或采用可逆试点。把不可识别性连接到行动规则，比用一个未经说明的模型填补空白更诚实。</p>
+</section>
+</section>
+<section id="综合案例远程工作目标合同" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="综合案例远程工作目标合同"><span class="header-section-number">4.3.3</span> 综合案例：远程工作目标合同</h3>
+<p>下面把前述要求压进一个完整案例。问题”远程工作是否改善员工健康”在分析前至少要固定单位与总体、处理与对照策略、时间零点、结局与时窗、因果对比，以及失访和干扰如何进入目标。</p>
+<div class="table-responsive web-table">
+<table class="table">
+<thead>
+<tr>
+<th>
+合同项
+</th>
+<th>
+明确定义
+</th>
+<th>
+不合格写法
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+单位与总体
+</td>
+<td>
+在2026年1月1日在职、可远程履职的全职员工
+</td>
+<td>
+“某公司人员”
+</td>
+</tr>
+<tr>
+<td>
+处理策略
+</td>
+<td>
+连续十二周每周至少三天远程，与每周不超过一天比较
+</td>
+<td>
+“远程或不远程”
+</td>
+</tr>
+<tr>
+<td>
+时间零点
+</td>
+<td>
+资格确认、策略分配与随访同日开始
+</td>
+<td>
+用后来的出勤定义基线组别
+</td>
+</tr>
+<tr>
+<td>
+结局与时窗
+</td>
+<td>
+第十二周标准化心理健康量表及病假天数
+</td>
+<td>
+“健康变好”
+</td>
+</tr>
+<tr>
+<td>
+因果对比
+</td>
+<td>
+同一目标总体两套策略下的平均结局差
+</td>
+<td>
+两个自选出勤组的观测差
+</td>
+</tr>
+<tr>
+<td>
+失访与干扰
+</td>
+<td>
+离职、换岗、团队协作和管理者排班如何处理
+</td>
+<td>
+把没有末次量表者直接删除
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>目标固定后，才能问观察数据是否识别它。假设<span class="math inline">\(L\)</span>包含基线健康、职位、照护责任、通勤距离与团队排班，候选识别链为：给定<span class="math inline">\(L\)</span>后实际策略选择与两个潜在结果可交换；每个目标<span class="math inline">\(L\)</span>层都有两种出勤策略；实际符合某策略时观测结果等于该策略下潜在结果；团队成员的远程安排不通过未定义的溢出影响个人结局。</p>
+<blockquote class="blockquote">
+<p><strong>完整算例：识别失败时如何改目标</strong></p>
+<p>若所有外地职位员工都必须全远程，而所有安全敏感职位都必须到岗，则对包含这两类职位的全体ATE存在结构性正值性失败。一种合格修改是把目标收缩到制度上两种策略都可行的职位；另一种是把处理改为可执行的排班选择权，而不是实际远程天数。两种修改都得到与原ATE不同的问题，必须在结果表和摘要中重新命名。使用光滑回归为从未存在的比较填值，不算修复识别。</p>
+</blockquote>
+<p>处理版本也可使一致性失败。远程工作可以伴随设备补贴、弹性时间或监控软件；如果不同版本对健康的影响不同，“每周三天远程”没有唯一潜在结果。可以把设备、时间自主和监管方式写入策略包，或者分别定义多个处理版本。这种修改是在重建因果对象，不是增加一个控制变量。</p>
+<blockquote class="blockquote">
+<p><strong>失败诊断：识别假设只出现在讨论部分</strong></p>
+<p>若结果表先给出”远程工作效应”，最后才在局限中说”可能有未测混杂”，读者无法知道数字依赖哪个等式。正确顺序是在估计之前列出目标、一致性、可交换性、正值性和干扰假设，并说明每项由设计、领域知识还是统计诊断支持。局限不是主结果之后的礼貌性附言，而是数字拥有因果含义的条件。</p>
+</blockquote>
+<p>到这里，潜在结果语言已经说明了目标是什么、识别需要哪些反事实条件，以及这些条件失败时应如何改写问题。它仍没有系统回答另一个问题：为什么某个协变量集合足以支持交换、哪些条件化会阻断或打开路径，以及干预如何改变整个生成结构。下一章转向SCM与DAG，正是为了把这些结构性理由显式化。</p>
+<blockquote class="blockquote">
+<p><strong>本章小结</strong></p>
+<p>潜在结果以同一单位的替代处理状态定义因果效应。由于只能观察一个潜在结果，个体效应通常不可直接观察；随机化或可交换性使人群平均效应可识别。ATE、ATT与CATE回答不同问题。一致性、处理版本、无干扰和时间零点是目标量定义的一部分，而不是估计阶段的附注。 识别是在明确假设下把反事实目标写成观测分布函数；估计是在样本中计算该函数。条件可交换性、一致性与正值性共同支持标准化。混杂、选择、测量和缺失是不同机制，不应以”多变量调整”统一处理。目标试验与敏感性分析把设计和假设置于估计器之前。</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>自测与研讨</strong></p>
+<ol type="1">
+<li><p>为”远程办公的效应”定义单位、两个处理版本、结果和时间零点。</p></li>
+<li><p>在什么情况下ATE与ATT会明显不同？给出带效应异质性的例子。</p></li>
+<li><p>疫苗研究为何违反简单无干扰假设？应区分哪些效应？</p></li>
+<li><p>随机化保证什么，又不保证什么？</p></li>
+<li><p>逐行说明标准化公式推导分别使用了哪项假设。</p></li>
+<li><p>举出结构性与实践性正值性违反各一例，并提出不同解决方案。</p></li>
+<li><p>为什么控制所有处理和结果的预测变量可能增加偏差？</p></li>
+<li><p>为一项电子健康记录研究写出目标试验的七个要素。</p></li>
+</ol>
+</blockquote>
+</section>
+</section>
+<section id="延伸阅读" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="延伸阅读">延伸阅读</h2>
+<p>潜在结果的经典表述见@rubin1974与<span class="citation" data-cites="holland1986">Holland (<a href="../references.html#ref-holland1986" role="doc-biblioref">1986年</a>)</span>；系统教材为@imbensrubin2015。主层的原始框架见@frangakisrubin2002。纵向观察研究、目标试验和时间相关偏差可读@hernanrobins2020。干扰问题可从@hudgenshalloran2008和<span class="citation" data-cites="tchetgenvanderweele2012入手">(<a href="../references.html#ref-tchetgenvanderweele2012入手" role="doc-biblioref"><strong>tchetgenvanderweele2012入手?</strong></a>)</span>。</p>
+<p>识别与标准化的系统教材是@hernanrobins2020和<span class="citation" data-cites="imbensrubin2015">Imbens 和 Rubin (<a href="../references.html#ref-imbensrubin2015" role="doc-biblioref">2015年</a>)</span>。目标试验方法见@hernanrobins2016。部分识别的经典界限见@manski1990，负对照方法见@lipsitch2010。选择偏差与图形解释可结合@greenland2003阅读；未测混杂的定量敏感性分析可参阅@vanderweele2017。</p>
+<p>随机化在贝叶斯因果推断中的作用见@rubin1978。一致性不是一句符号约定：其基本声明与争议可对照@colefrangakis2009和<span class="citation" data-cites="vanderweele2009">VanderWeele (<a href="../references.html#ref-vanderweele2009" role="doc-biblioref">2009年</a>)</span>，处理必须可定义以及同一标签可能包含多个版本的问题分别见@hernantaubman2008与<span class="citation" data-cites="vanderweelehernan2013">VanderWeele 和 Hernán (<a href="../references.html#ref-vanderweelehernan2013" role="doc-biblioref">2013年</a>)</span>。选择机制的结构分析见@hernan2004selection，时间变化处理与混杂的边际结构模型入口是@robins2000msm。正值性在实际数据中的含义见@westreichcole2010；如何在分析之前以设计减少观察研究偏差，可续读@rosenbaum2010。</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-frangakisrubin2002" class="csl-entry" role="listitem">
+Frangakis, Constantine E., 和 Donald B. Rubin. 2002年. <span>《Principal Stratification in Causal Inference》</span>. <em>Biometrics</em> 58 (1): 21～29. <a href="https://doi.org/10.1111/j.0006-341X.2002.00021.x">https://doi.org/10.1111/j.0006-341X.2002.00021.x</a>.
+</div>
+<div id="ref-hernanrobins2016" class="csl-entry" role="listitem">
+Hernán, Miguel A., 和 James M. Robins. 2016年. <span>《Using Big Data to Emulate a Target Trial When a Randomized Trial Is Not Available》</span>. <em>American Journal of Epidemiology</em> 183 (8): 758～64. <a href="https://doi.org/10.1093/aje/kwv254">https://doi.org/10.1093/aje/kwv254</a>.
+</div>
+<div id="ref-hernanrobins2020" class="csl-entry" role="listitem">
+Hernán, Miguel A., 和 James M. Robins. 2020年. <em>Causal Inference: What If</em>. Chapman &amp; Hall/CRC. <a href="https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/">https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/</a>.
+</div>
+<div id="ref-holland1986" class="csl-entry" role="listitem">
+Holland, Paul W. 1986年. <span>《Statistics and Causal Inference》</span>. <em>Journal of the American Statistical Association</em> 81 (396): 945～60. <a href="https://doi.org/10.1080/01621459.1986.10478354">https://doi.org/10.1080/01621459.1986.10478354</a>.
+</div>
+<div id="ref-imbensrubin2015" class="csl-entry" role="listitem">
+Imbens, Guido W., 和 Donald B. Rubin. 2015年. <em>Causal Inference for Statistics, Social, and Biomedical Sciences: An Introduction</em>. Cambridge University Press. <a href="https://doi.org/10.1017/CBO9781139025751">https://doi.org/10.1017/CBO9781139025751</a>.
+</div>
+<div id="ref-lipsitch2010" class="csl-entry" role="listitem">
+Lipsitch, Marc, Eric Tchetgen Tchetgen, 和 Ted Cohen. 2010年. <span>《Negative Controls: A Tool for Detecting Confounding and Bias in Observational Studies》</span>. <em>Epidemiology</em> 21 (3): 383～88. <a href="https://doi.org/10.1097/EDE.0b013e3181d61eeb">https://doi.org/10.1097/EDE.0b013e3181d61eeb</a>.
+</div>
+<div id="ref-manski1990" class="csl-entry" role="listitem">
+Manski, Charles F. 1990年. <span>《Nonparametric Bounds on Treatment Effects》</span>. <em>American Economic Review</em> 80 (2): 319～23.
+</div>
+<div id="ref-neyman1923" class="csl-entry" role="listitem">
+Neyman, Jerzy. (1923年) 1990年. <span>《On the Application of Probability Theory to Agricultural Experiments: Essay on Principles, Section 9》</span>. 翻译 Dorota M. Dabrowska 和 Terence P. Speed. <em>Statistical Science</em> 5 (4): 465～72. <a href="https://doi.org/10.1214/ss/1177012031">https://doi.org/10.1214/ss/1177012031</a>.
+</div>
+<div id="ref-robins1986" class="csl-entry" role="listitem">
+Robins, James M. 1986年. <span>《A New Approach to Causal Inference in Mortality Studies with a Sustained Exposure Period—Application to Control of the Healthy Worker Survivor Effect》</span>. <em>Mathematical Modelling</em> 7 (9–12): 1393～512. <a href="https://doi.org/10.1016/0270-0255(86)90088-6">https://doi.org/10.1016/0270-0255(86)90088-6</a>.
+</div>
+<div id="ref-rubin1974" class="csl-entry" role="listitem">
+Rubin, Donald B. 1974年. <span>《Estimating Causal Effects of Treatments in Randomized and Nonrandomized Studies》</span>. <em>Journal of Educational Psychology</em> 66 (5): 688～701. <a href="https://doi.org/10.1037/h0037350">https://doi.org/10.1037/h0037350</a>.
+</div>
+<div id="ref-vanderweele2009" class="csl-entry" role="listitem">
+VanderWeele, Tyler J. 2009年. <span>《Concerning the Consistency Assumption in Causal Inference》</span>. <em>Epidemiology</em> 20 (6): 880～83. <a href="https://doi.org/10.1097/EDE.0b013e3181bd5638">https://doi.org/10.1097/EDE.0b013e3181bd5638</a>.
+</div>
+<div id="ref-vanderweelehernan2013" class="csl-entry" role="listitem">
+VanderWeele, Tyler J., 和 Miguel A. Hernán. 2013年. <span>《Causal Inference under Multiple Versions of Treatment》</span>. <em>Journal of Causal Inference</em> 1 (1): 1～20. <a href="https://doi.org/10.1515/jci-2012-0002">https://doi.org/10.1515/jci-2012-0002</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/chongliuphil\.github\.io\/causal-inference-reader\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../manuscript/03-philosophies.html" class="pagination-link" aria-label="当代因果哲学：反事实、概率、机制与干预">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">当代因果哲学：反事实、概率、机制与干预</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../manuscript/05-scm-graphs.html" class="pagination-link" aria-label="结构因果模型与图形语言">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">结构因果模型与图形语言</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>因果推理深度读本</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/edit/main/manuscript/04-potential-outcomes-identification.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/issues/new" class="toc-action"><i class="bi empty"></i>反馈问题</a></li><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/blob/main/manuscript/04-potential-outcomes-identification.qmd" class="toc-action"><i class="bi empty"></i>查看代码</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

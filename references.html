@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>参考文献 – 因果推理深度读本</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./manuscript/appendix-A-comparative-topics.html" rel="next">
+<link href="./manuscript/11-synthesis-open-problems.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="book.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">参考文献</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">因果推理深度读本</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/ChongLiuPhil/causal-inference-reader" title="源代码" class="quarto-navigation-tool px-1" aria-label="源代码"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">因果推理深度读本</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manuscript/frontmatter-preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">序言 {#序言 .unnumbered}</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manuscript/frontmatter-guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">如何使用本书 {#如何使用本书 .unnumbered}</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">第一部　问题、历史与哲学</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manuscript/01-questions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">因果问题：概念、解释、证据与行动</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manuscript/02-history.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">因果观念的历史谱系：从四因到科学解释</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manuscript/03-philosophies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">当代因果哲学：反事实、概率、机制与干预</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">第二部　识别、结构与估计</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manuscript/04-potential-outcomes-identification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">潜在结果、估计目标与识别</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manuscript/05-scm-graphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">结构因果模型与图形语言</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manuscript/06-identification-calculus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">图形识别、do-calculus与反事实</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manuscript/07-design-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">研究设计、估计方法与不确定性</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">第三部　发现、迁移与应用</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manuscript/08-discovery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">因果发现与结构学习</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manuscript/09-transportability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">外部效度、可迁移性与数据融合</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manuscript/10-causal-ml-applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">因果机器学习与跨学科应用</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manuscript/11-synthesis-open-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">框架综合、理论边界与开放问题</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">参考文献</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">附录</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manuscript/appendix-A-comparative-topics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">比较哲学专题：中国思想、自由意志与量子因果</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manuscript/appendix-B-glossary-learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">术语、时间线与学习路径</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manuscript/appendix-C-exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">综合练习与参考分析</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./manuscript/appendix-D-primary-reading.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">核心原始文献精读指南</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">参考文献</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-allen2017" class="csl-entry" role="listitem">
+Allen, John-Mark A., Jonathan Barrett, Dominic C. Horsman, Ciarán M.
+Lee, and Robert W. Spekkens. 2017. <span>“Quantum Common Causes and
+Quantum Causal Models.”</span> <em>Physical Review X</em> 7 (3). <a href="https://doi.org/10.1103/PhysRevX.7.031021">https://doi.org/10.1103/PhysRevX.7.031021</a>.
+</div>
+<div id="ref-angrist1996" class="csl-entry" role="listitem">
+Angrist, Joshua D., Guido W. Imbens, and Donald B. Rubin. 1996.
+<span>“Identification of Causal Effects Using Instrumental
+Variables.”</span> <em>Journal of the American Statistical
+Association</em> 91 (434): 444–55. <a href="https://doi.org/10.1080/01621459.1996.10476902">https://doi.org/10.1080/01621459.1996.10476902</a>.
+</div>
+<div id="ref-aquinasST" class="csl-entry" role="listitem">
+Aquinas, Thomas. (1265–1274) 2006. <em>Summa Theologiae: Questions on
+God</em>. Translated by Brian Leftow and Brian Davies. Cambridge
+University Press.
+</div>
+<div id="ref-aristotlePosterior" class="csl-entry" role="listitem">
+Aristotle. (351 BC) 1994. <em>Posterior Analytics</em>. Translated by
+Jonathan Barnes. 2nd ed. Clarendon Press.
+</div>
+<div id="ref-aristotlePhysics" class="csl-entry" role="listitem">
+Aristotle. (351 BC) 1996. <em>Physics</em>. Translated by Robin
+Waterfield. Oxford University Press.
+</div>
+<div id="ref-aristotleMetaphysics" class="csl-entry" role="listitem">
+Aristotle. (351 BC) 2016. <em>Metaphysics</em>. Translated by C. D. C.
+Reeve. Hackett.
+</div>
+<div id="ref-aronowsamii2017" class="csl-entry" role="listitem">
+Aronow, Peter M., and Cyrus Samii. 2017. <span>“Estimating Average
+Causal Effects Under General Interference, with Application to a Social
+Network Experiment.”</span> <em>The Annals of Applied Statistics</em> 11
+(4): 1912–47. <a href="https://doi.org/10.1214/16-AOAS1005">https://doi.org/10.1214/16-AOAS1005</a>.
+</div>
+<div id="ref-atheyimbens2016" class="csl-entry" role="listitem">
+Athey, Susan, and Guido Imbens. 2016. <span>“Recursive Partitioning for
+Heterogeneous Causal Effects.”</span> <em>Proceedings of the National
+Academy of Sciences</em> 113 (27): 7353–60. <a href="https://doi.org/10.1073/pnas.1510489113">https://doi.org/10.1073/pnas.1510489113</a>.
+</div>
+<div id="ref-athey2019" class="csl-entry" role="listitem">
+Athey, Susan, Julie Tibshirani, and Stefan Wager. 2019.
+<span>“Generalized Random Forests.”</span> <em>The Annals of
+Statistics</em> 47 (2): 1148–78. <a href="https://doi.org/10.1214/18-AOS1709">https://doi.org/10.1214/18-AOS1709</a>.
+</div>
+<div id="ref-atheywager2021" class="csl-entry" role="listitem">
+Athey, Susan, and Stefan Wager. 2021. <span>“Policy Learning with
+Observational Data.”</span> <em>Econometrica</em> 89 (1): 133–61. <a href="https://doi.org/10.3982/ECTA15732">https://doi.org/10.3982/ECTA15732</a>.
+</div>
+<div id="ref-austin2011" class="csl-entry" role="listitem">
+Austin, Peter C. 2011. <span>“An Introduction to Propensity Score
+Methods for Reducing the Effects of Confounding in Observational
+Studies.”</span> <em>Multivariate Behavioral Research</em> 46 (3):
+399–424. <a href="https://doi.org/10.1080/00273171.2011.568786">https://doi.org/10.1080/00273171.2011.568786</a>.
+</div>
+<div id="ref-bangrobins2005" class="csl-entry" role="listitem">
+Bang, Heejung, and James M. Robins. 2005. <span>“Doubly Robust
+Estimation in Missing Data and Causal Inference Models.”</span>
+<em>Biometrics</em> 61 (4): 962–73. <a href="https://doi.org/10.1111/j.1541-0420.2005.00377.x">https://doi.org/10.1111/j.1541-0420.2005.00377.x</a>.
+</div>
+<div id="ref-bareinboimpearl2016" class="csl-entry" role="listitem">
+Bareinboim, Elias, and Judea Pearl. 2016. <span>“Causal Inference and
+the Data-Fusion Problem.”</span> <em>Proceedings of the National Academy
+of Sciences</em> 113 (27): 7345–52. <a href="https://doi.org/10.1073/pnas.1510507113">https://doi.org/10.1073/pnas.1510507113</a>.
+</div>
+<div id="ref-bell1964" class="csl-entry" role="listitem">
+Bell, John S. 1964. <span>“On the Einstein Podolsky Rosen
+Paradox.”</span> <em>Physics Physique Fizika</em> 1 (3): 195–200. <a href="https://doi.org/10.1103/PhysicsPhysiqueFizika.1.195">https://doi.org/10.1103/PhysicsPhysiqueFizika.1.195</a>.
+</div>
+<div id="ref-bongers2021" class="csl-entry" role="listitem">
+Bongers, Stephan, Patrick Forré, Jonas Peters, and Joris M. Mooij. 2021.
+<span>“Foundations of Structural Causal Models with Cycles and Latent
+Variables.”</span> <em>The Annals of Statistics</em> 49 (5): 2885–915.
+<a href="https://doi.org/10.1214/21-AOS2064">https://doi.org/10.1214/21-AOS2064</a>.
+</div>
+<div id="ref-callawaysantanna2021" class="csl-entry" role="listitem">
+Callaway, Brantly, and Pedro H. C. Sant’Anna. 2021.
+<span>“Difference-in-Differences with Multiple Time Periods.”</span>
+<em>Journal of Econometrics</em> 225 (2): 200–230. <a href="https://doi.org/10.1016/j.jeconom.2020.12.001">https://doi.org/10.1016/j.jeconom.2020.12.001</a>.
+</div>
+<div id="ref-cameronmiller2015" class="csl-entry" role="listitem">
+Cameron, A. Colin, and Douglas L. Miller. 2015. <span>“A Practitioner’s
+Guide to Cluster-Robust Inference.”</span> <em>Journal of Human
+Resources</em> 50 (2): 317–72. <a href="https://doi.org/10.3368/jhr.50.2.317">https://doi.org/10.3368/jhr.50.2.317</a>.
+</div>
+<div id="ref-cartwright1989" class="csl-entry" role="listitem">
+Cartwright, Nancy. 1989. <em>Nature’s Capacities and Their
+Measurement</em>. Clarendon Press.
+</div>
+<div id="ref-cartwrighthardie2012" class="csl-entry" role="listitem">
+Cartwright, Nancy, and Jeremy Hardie. 2012. <em>Evidence-Based Policy: A
+Practical Guide to Doing It Better</em>. Oxford University Press. <a href="https://doi.org/10.1093/acprof:osobl/9780199841608.001.0001">https://doi.org/10.1093/acprof:osobl/9780199841608.001.0001</a>.
+</div>
+<div id="ref-chernozhukov2018" class="csl-entry" role="listitem">
+Chernozhukov, Victor, Denis Chetverikov, Mert Demirer, et al. 2018.
+<span>“Double/Debiased Machine Learning for Treatment and Structural
+Parameters.”</span> <em>The Econometrics Journal</em> 21 (1): C1–68. <a href="https://doi.org/10.1111/ectj.12097">https://doi.org/10.1111/ectj.12097</a>.
+</div>
+<div id="ref-chernozhukov2025" class="csl-entry" role="listitem">
+Chernozhukov, Victor, Mert Demirer, Esther Duflo, and Iván
+Fernández-Val. 2025. <span>“Fisher–Schultz Lecture: Generic Machine
+Learning Inference on Heterogeneous Treatment Effects in Randomized
+Experiments, with an Application to Immunization in India.”</span>
+<em>Econometrica</em> 93 (4): 1121–64. <a href="https://doi.org/10.3982/ECTA19303">https://doi.org/10.3982/ECTA19303</a>.
+</div>
+<div id="ref-chickering2002" class="csl-entry" role="listitem">
+Chickering, David Maxwell. 2002. <span>“Optimal Structure Identification
+with Greedy Search.”</span> <em>Journal of Machine Learning
+Research</em> 3: 507–54. <a href="https://jmlr.org/papers/v3/chickering02b.html">https://jmlr.org/papers/v3/chickering02b.html</a>.
+</div>
+<div id="ref-cinellihazlett2020" class="csl-entry" role="listitem">
+Cinelli, Carlos, and Chad Hazlett. 2020. <span>“Making Sense of
+Sensitivity: Extending Omitted Variable Bias.”</span> <em>Journal of the
+Royal Statistical Society: Series B</em> 82 (1): 39–67. <a href="https://doi.org/10.1111/rssb.12348">https://doi.org/10.1111/rssb.12348</a>.
+</div>
+<div id="ref-colombomaathuis2014" class="csl-entry" role="listitem">
+Colombo, Diego, and Marloes H. Maathuis. 2014. <span>“Order-Independent
+Constraint-Based Causal Structure Learning.”</span> <em>Journal of
+Machine Learning Research</em> 15 (116): 3921–62. <a href="https://jmlr.org/papers/v15/colombo14a.html">https://jmlr.org/papers/v15/colombo14a.html</a>.
+</div>
+<div id="ref-analects" class="csl-entry" role="listitem">
+Confucius. 2003. <em>Confucius: Analects, with Selections from
+Traditional Commentaries</em>. Translated by Edward Slingerland.
+Hackett.
+</div>
+<div id="ref-costashrapnel2016" class="csl-entry" role="listitem">
+Costa, Fabio, and Sally Shrapnel. 2016. <span>“Quantum Causal
+Modelling.”</span> <em>New Journal of Physics</em> 18. <a href="https://doi.org/10.1088/1367-2630/18/6/063032">https://doi.org/10.1088/1367-2630/18/6/063032</a>.
+</div>
+<div id="ref-cunningham2021" class="csl-entry" role="listitem">
+Cunningham, Scott. 2021. <em>Causal Inference: The Mixtape</em>. Yale
+University Press. <a href="https://doi.org/10.12987/9780300255881">https://doi.org/10.12987/9780300255881</a>.
+</div>
+<div id="ref-dahabreh2021" class="csl-entry" role="listitem">
+Dahabreh, Issa J., Sebastien J.-P. A. Haneuse, James M. Robins, et al.
+2021. <span>“Study Designs for Extending Causal Inferences from a
+Randomized Trial to a Target Population.”</span> <em>American Journal of
+Epidemiology</em> 190 (8): 1632–42. <a href="https://doi.org/10.1093/aje/kwaa270">https://doi.org/10.1093/aje/kwaa270</a>.
+</div>
+<div id="ref-descartesPrinciples" class="csl-entry" role="listitem">
+Descartes, René. (1644) 1983. <em>Principles of Philosophy</em>.
+Translated by Valentine Rodger Miller and Reese P. Miller. Kluwer
+Academic.
+</div>
+<div id="ref-dingvanderweele2016" class="csl-entry" role="listitem">
+Ding, Peng, and Tyler J. VanderWeele. 2016. <span>“Sensitivity Analysis
+Without Assumptions.”</span> <em>Epidemiology</em> 27 (3): 368–77. <a href="https://doi.org/10.1097/EDE.0000000000000457">https://doi.org/10.1097/EDE.0000000000000457</a>.
+</div>
+<div id="ref-dowe2000" class="csl-entry" role="listitem">
+Dowe, Phil. 2000. <em>Physical Causation</em>. Cambridge University
+Press. <a href="https://doi.org/10.1017/CBO9780511570650">https://doi.org/10.1017/CBO9780511570650</a>.
+</div>
+<div id="ref-dudik2011" class="csl-entry" role="listitem">
+Dudík, Miroslav, John Langford, and Lihong Li. 2011. <span>“Doubly
+Robust Policy Evaluation and Learning.”</span> <em>Proceedings of the
+28th International Conference on Machine Learning</em> (Madison, WI),
+1097–104.
+</div>
+<div id="ref-fischerravizza1998" class="csl-entry" role="listitem">
+Fischer, John Martin, and Mark Ravizza. 1998. <em>Responsibility and
+Control: A Theory of Moral Responsibility</em>. Cambridge University
+Press.
+</div>
+<div id="ref-frangakisrubin2002" class="csl-entry" role="listitem">
+Frangakis, Constantine E., and Donald B. Rubin. 2002. <span>“Principal
+Stratification in Causal Inference.”</span> <em>Biometrics</em> 58 (1):
+21–29. <a href="https://doi.org/10.1111/j.0006-341X.2002.00021.x">https://doi.org/10.1111/j.0006-341X.2002.00021.x</a>.
+</div>
+<div id="ref-gethin1998" class="csl-entry" role="listitem">
+Gethin, Rupert. 1998. <em>The Foundations of Buddhism</em>. Oxford
+University Press.
+</div>
+<div id="ref-glennan2017" class="csl-entry" role="listitem">
+Glennan, Stuart. 2017. <em>The New Mechanical Philosophy</em>. Oxford
+University Press. <a href="https://doi.org/10.1093/oso/9780198779711.001.0001">https://doi.org/10.1093/oso/9780198779711.001.0001</a>.
+</div>
+<div id="ref-halpern2016" class="csl-entry" role="listitem">
+Halpern, Joseph Y. 2016. <em>Actual Causality</em>. MIT Press.
+</div>
+<div id="ref-hempel1965" class="csl-entry" role="listitem">
+Hempel, Carl G. 1965. <em>Aspects of Scientific Explanation and Other
+Essays in the Philosophy of Science</em>. Free Press.
+</div>
+<div id="ref-hernanrobins2016" class="csl-entry" role="listitem">
+Hernán, Miguel A., and James M. Robins. 2016. <span>“Using Big Data to
+Emulate a Target Trial When a Randomized Trial Is Not Available.”</span>
+<em>American Journal of Epidemiology</em> 183 (8): 758–64. <a href="https://doi.org/10.1093/aje/kwv254">https://doi.org/10.1093/aje/kwv254</a>.
+</div>
+<div id="ref-hernanrobins2020" class="csl-entry" role="listitem">
+Hernán, Miguel A., and James M. Robins. 2020. <em>Causal Inference: What
+If</em>. Chapman &amp; Hall/CRC. <a href="https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/">https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/</a>.
+</div>
+<div id="ref-hill2011" class="csl-entry" role="listitem">
+Hill, Jennifer L. 2011. <span>“Bayesian Nonparametric Modeling for
+Causal Inference.”</span> <em>Journal of Computational and Graphical
+Statistics</em> 20 (1): 217–40. <a href="https://doi.org/10.1198/jcgs.2010.08162">https://doi.org/10.1198/jcgs.2010.08162</a>.
+</div>
+<div id="ref-holland1986" class="csl-entry" role="listitem">
+Holland, Paul W. 1986. <span>“Statistics and Causal Inference.”</span>
+<em>Journal of the American Statistical Association</em> 81 (396):
+945–60. <a href="https://doi.org/10.1080/01621459.1986.10478354">https://doi.org/10.1080/01621459.1986.10478354</a>.
+</div>
+<div id="ref-hoyer2009" class="csl-entry" role="listitem">
+Hoyer, Patrik O., Dominik Janzing, Joris M. Mooij, Jonas Peters, and
+Bernhard Schölkopf. 2009. <span>“Nonlinear Causal Discovery with
+Additive Noise Models.”</span> <em>Advances in Neural Information
+Processing Systems 21</em>, 689–96. <a href="https://proceedings.neurips.cc/paper/2008/hash/f7664060cc52bc6f3d620bcedc94a4b6-Abstract.html">https://proceedings.neurips.cc/paper/2008/hash/f7664060cc52bc6f3d620bcedc94a4b6-Abstract.html</a>.
+</div>
+<div id="ref-humeEnquiry" class="csl-entry" role="listitem">
+Hume, David. (1748) 1999. <em>An Enquiry Concerning Human
+Understanding</em>. Edited by Tom L. Beauchamp. Oxford University Press.
+</div>
+<div id="ref-humeTreatise" class="csl-entry" role="listitem">
+Hume, David. (1739–1740) 2000. <em>A Treatise of Human Nature</em>.
+Edited by David Fate Norton and Mary J. Norton. Oxford University Press.
+</div>
+<div id="ref-illarirusso2014" class="csl-entry" role="listitem">
+Illari, Phyllis, and Federica Russo. 2014. <em>Causality: Philosophical
+Theory Meets Scientific Practice</em>. Oxford University Press.
+</div>
+<div id="ref-imairatkovic2014" class="csl-entry" role="listitem">
+Imai, Kosuke, and Marc Ratkovic. 2014. <span>“Covariate Balancing
+Propensity Score.”</span> <em>Journal of the Royal Statistical Society:
+Series B</em> 76 (1): 243–63. <a href="https://doi.org/10.1111/rssb.12027">https://doi.org/10.1111/rssb.12027</a>.
+</div>
+<div id="ref-imbens2020" class="csl-entry" role="listitem">
+Imbens, Guido W. 2020. <span>“Potential Outcome and Directed Acyclic
+Graph Approaches to Causality: Relevance for Empirical Practice in
+Economics.”</span> <em>Journal of Economic Literature</em> 58 (4):
+1129–79. <a href="https://doi.org/10.1257/jel.20191597">https://doi.org/10.1257/jel.20191597</a>.
+</div>
+<div id="ref-imbenslemieux2008" class="csl-entry" role="listitem">
+Imbens, Guido W., and Thomas Lemieux. 2008. <span>“Regression
+Discontinuity Designs: A Guide to Practice.”</span> <em>Journal of
+Econometrics</em> 142 (2): 615–35. <a href="https://doi.org/10.1016/j.jeconom.2007.05.001">https://doi.org/10.1016/j.jeconom.2007.05.001</a>.
+</div>
+<div id="ref-imbensrubin2015" class="csl-entry" role="listitem">
+Imbens, Guido W., and Donald B. Rubin. 2015. <em>Causal Inference for
+Statistics, Social, and Biomedical Sciences: An Introduction</em>.
+Cambridge University Press. <a href="https://doi.org/10.1017/CBO9781139025751">https://doi.org/10.1017/CBO9781139025751</a>.
+</div>
+<div id="ref-vaninwagen1983" class="csl-entry" role="listitem">
+Inwagen, Peter van. 1983. <em>An Essay on Free Will</em>. Clarendon
+Press.
+</div>
+<div id="ref-ioannidis2005" class="csl-entry" role="listitem">
+Ioannidis, John P. A. 2005. <span>“Why Most Published Research Findings
+Are False.”</span> <em>PLOS Medicine</em> 2 (8). <a href="https://doi.org/10.1371/journal.pmed.0020124">https://doi.org/10.1371/journal.pmed.0020124</a>.
+</div>
+<div id="ref-kantCPR" class="csl-entry" role="listitem">
+Kant, Immanuel. (1781–1787) 1998. <em>Critique of Pure Reason</em>.
+Translated by Paul Guyer and Allen W. Wood. Cambridge University Press.
+</div>
+<div id="ref-kitagawatetenov2018" class="csl-entry" role="listitem">
+Kitagawa, Toru, and Aleksey Tetenov. 2018. <span>“Who Should Be Treated?
+Empirical Welfare Maximization Methods for Treatment Choice.”</span>
+<em>Econometrica</em> 86 (2): 591–616. <a href="https://doi.org/10.3982/ECTA13288">https://doi.org/10.3982/ECTA13288</a>.
+</div>
+<div id="ref-kunzel2019" class="csl-entry" role="listitem">
+Künzel, Sören R., Jasjeet S. Sekhon, Peter J. Bickel, and Bin Yu. 2019.
+<span>“Metalearners for Estimating Heterogeneous Treatment Effects Using
+Machine Learning.”</span> <em>Proceedings of the National Academy of
+Sciences</em> 116 (10): 4156–65. <a href="https://doi.org/10.1073/pnas.1804597116">https://doi.org/10.1073/pnas.1804597116</a>.
+</div>
+<div id="ref-kusner2017" class="csl-entry" role="listitem">
+Kusner, Matt J., Joshua Loftus, Chris Russell, and Ricardo Silva. 2017.
+<span>“Counterfactual Fairness.”</span> <em>Advances in Neural
+Information Processing Systems 30</em>, 4066–76. <a href="https://proceedings.neurips.cc/paper/2017/hash/a486cd07e4ac3d270571622f4f316ec5-Abstract.html">https://proceedings.neurips.cc/paper/2017/hash/a486cd07e4ac3d270571622f4f316ec5-Abstract.html</a>.
+</div>
+<div id="ref-vanderlaanrose2011" class="csl-entry" role="listitem">
+Laan, Mark J. van der, and Sherri Rose. 2011. <em>Targeted Learning:
+Causal Inference for Observational and Experimental Data</em>. Springer.
+<a href="https://doi.org/10.1007/978-1-4419-9782-1">https://doi.org/10.1007/978-1-4419-9782-1</a>.
+</div>
+<div id="ref-daodejing" class="csl-entry" role="listitem">
+Laozi. 2003. <em>Daodejing: Making This Life Significant</em>.
+Translated by Roger T. Ames and David L. Hall. Ballantine Books.
+</div>
+<div id="ref-lauritzen1996" class="csl-entry" role="listitem">
+Lauritzen, Steffen L. 1996. <em>Graphical Models</em>. Oxford University
+Press.
+</div>
+<div id="ref-leibnizMonadology" class="csl-entry" role="listitem">
+Leibniz, Gottfried Wilhelm. (1714) 2014. <em>Leibniz’s Monadology: A New
+Translation and Guide</em>. Translated by Lloyd Strickland. Edinburgh
+University Press.
+</div>
+<div id="ref-lewisCausation1973" class="csl-entry" role="listitem">
+Lewis, David. 1973a. <span>“Causation.”</span> <em>The Journal of
+Philosophy</em> 70 (17): 556–67. <a href="https://doi.org/10.2307/2025310">https://doi.org/10.2307/2025310</a>.
+</div>
+<div id="ref-lewisCounterfactuals" class="csl-entry" role="listitem">
+Lewis, David. 1973b. <em>Counterfactuals</em>. Harvard University Press.
+</div>
+<div id="ref-lewisInfluence2000" class="csl-entry" role="listitem">
+Lewis, David. 2000. <span>“Causation as Influence.”</span> <em>The
+Journal of Philosophy</em> 97 (4): 182–97. <a href="https://doi.org/10.2307/2678389">https://doi.org/10.2307/2678389</a>.
+</div>
+<div id="ref-libet1983" class="csl-entry" role="listitem">
+Libet, Benjamin, Curtis A. Gleason, Elwood W. Wright, and Dennis K.
+Pearl. 1983. <span>“Time of Conscious Intention to Act in Relation to
+Onset of Cerebral Activity (Readiness-Potential).”</span> <em>Brain</em>
+106 (3): 623–42. <a href="https://doi.org/10.1093/brain/106.3.623">https://doi.org/10.1093/brain/106.3.623</a>.
+</div>
+<div id="ref-lin2013" class="csl-entry" role="listitem">
+Lin, Winston. 2013. <span>“Agnostic Notes on Regression Adjustments to
+Experimental Data: Reexamining Freedman’s Critique.”</span> <em>The
+Annals of Applied Statistics</em> 7 (1): 295–318. <a href="https://doi.org/10.1214/12-AOAS583">https://doi.org/10.1214/12-AOAS583</a>.
+</div>
+<div id="ref-lipsitch2010" class="csl-entry" role="listitem">
+Lipsitch, Marc, Eric Tchetgen Tchetgen, and Ted Cohen. 2010.
+<span>“Negative Controls: A Tool for Detecting Confounding and Bias in
+Observational Studies.”</span> <em>Epidemiology</em> 21 (3): 383–88. <a href="https://doi.org/10.1097/EDE.0b013e3181d61eeb">https://doi.org/10.1097/EDE.0b013e3181d61eeb</a>.
+</div>
+<div id="ref-locatello2019" class="csl-entry" role="listitem">
+Locatello, Francesco, Stefan Bauer, Mario Lucic, et al. 2019.
+<span>“Challenging Common Assumptions in the Unsupervised Learning of
+Disentangled Representations.”</span> <em>Proceedings of the 36th
+International Conference on Machine Learning</em>, Proceedings of
+machine learning research, vol. 97: 4114–24. <a href="https://proceedings.mlr.press/v97/locatello19a.html">https://proceedings.mlr.press/v97/locatello19a.html</a>.
+</div>
+<div id="ref-mdc2000" class="csl-entry" role="listitem">
+Machamer, Peter, Lindley Darden, and Carl F. Craver. 2000.
+<span>“Thinking about Mechanisms.”</span> <em>Philosophy of Science</em>
+67 (1): 1–25. <a href="https://doi.org/10.1086/392759">https://doi.org/10.1086/392759</a>.
+</div>
+<div id="ref-mackie1974" class="csl-entry" role="listitem">
+Mackie, J. L. 1974. <em>The Cement of the Universe: A Study of
+Causation</em>. Clarendon Press.
+</div>
+<div id="ref-manski1990" class="csl-entry" role="listitem">
+Manski, Charles F. 1990. <span>“Nonparametric Bounds on Treatment
+Effects.”</span> <em>American Economic Review</em> 80 (2): 319–23.
+</div>
+<div id="ref-mencius" class="csl-entry" role="listitem">
+Mengzi. 2008. <em>Mengzi: With Selections from Traditional
+Commentaries</em>. Translated by Bryan W. Van Norden. Hackett.
+</div>
+<div id="ref-millSystemLogic" class="csl-entry" role="listitem">
+Mill, John Stuart. (1843) 1974. <em>A System of Logic Ratiocinative and
+Inductive</em>. Edited by John M. Robson. Vol. 7. Collected Works of
+John Stuart Mill. University of Toronto Press.
+</div>
+<div id="ref-mooij2016" class="csl-entry" role="listitem">
+Mooij, Joris M., Jonas Peters, Dominik Janzing, Jakob Zscheischler, and
+Bernhard Schölkopf. 2016. <span>“Distinguishing Cause from Effect Using
+Observational Data: Methods and Benchmarks.”</span> <em>Journal of
+Machine Learning Research</em> 17 (32): 1–102. <a href="https://jmlr.org/papers/v17/14-518.html">https://jmlr.org/papers/v17/14-518.html</a>.
+</div>
+<div id="ref-morganwinship2015" class="csl-entry" role="listitem">
+Morgan, Stephen L., and Christopher Winship. 2015. <em>Counterfactuals
+and Causal Inference: Methods and Principles for Social Research</em>.
+2nd ed. Cambridge University Press.
+</div>
+<div id="ref-mozi2010" class="csl-entry" role="listitem">
+Mozi. 2010. <em>The Mozi: A Complete Translation</em>. Translated by Ian
+Johnston. Columbia University Press.
+</div>
+<div id="ref-munafo2017" class="csl-entry" role="listitem">
+Munafò, Marcus R., Brian A. Nosek, Dorothy V. M. Bishop, et al. 2017.
+<span>“A Manifesto for Reproducible Science.”</span> <em>Nature Human
+Behaviour</em> 1. <a href="https://doi.org/10.1038/s41562-016-0021">https://doi.org/10.1038/s41562-016-0021</a>.
+</div>
+<div id="ref-nabishpitser2018" class="csl-entry" role="listitem">
+Nabi, Razieh, and Ilya Shpitser. 2018. <span>“Fair Inference on
+Outcomes.”</span> <em>Proceedings of the Thirty-Second AAAI Conference
+on Artificial Intelligence</em> 32: 1931–40. <a href="https://doi.org/10.1609/aaai.v32i1.11553">https://doi.org/10.1609/aaai.v32i1.11553</a>.
+</div>
+<div id="ref-nagarjuna" class="csl-entry" role="listitem">
+Nāgārjuna. 2013. <em>Nāgārjuna’s Middle Way: Mūlamadhyamakakārikā</em>.
+Translated by Mark Siderits and Shōryū Katsura. Wisdom Publications.
+</div>
+<div id="ref-neyman1923" class="csl-entry" role="listitem">
+Neyman, Jerzy. (1923) 1990. <span>“On the Application of Probability
+Theory to Agricultural Experiments: Essay on Principles, Section
+9.”</span> Translated by Dorota M. Dabrowska and Terence P. Speed.
+<em>Statistical Science</em> 5 (4): 465–72. <a href="https://doi.org/10.1214/ss/1177012031">https://doi.org/10.1214/ss/1177012031</a>.
+</div>
+<div id="ref-nie2021" class="csl-entry" role="listitem">
+Nie, Xinkun, and Stefan Wager. 2021. <span>“Quasi-Oracle Estimation of
+Heterogeneous Treatment Effects.”</span> <em>Biometrika</em> 108 (2):
+299–319. <a href="https://doi.org/10.1093/biomet/asaa076">https://doi.org/10.1093/biomet/asaa076</a>.
+</div>
+<div id="ref-nosek2018" class="csl-entry" role="listitem">
+Nosek, Brian A., Charles R. Ebersole, Alexander C. DeHaven, and David T.
+Mellor. 2018. <span>“The Preregistration Revolution.”</span>
+<em>Proceedings of the National Academy of Sciences</em> 115 (11):
+2600–2606. <a href="https://doi.org/10.1073/pnas.1708274114">https://doi.org/10.1073/pnas.1708274114</a>.
+</div>
+<div id="ref-oreshkov2012" class="csl-entry" role="listitem">
+Oreshkov, Ognyan, Fabio Costa, and Časlav Brukner. 2012. <span>“Quantum
+Correlations with No Causal Order.”</span> <em>Nature
+Communications</em> 3. <a href="https://doi.org/10.1038/ncomms2076">https://doi.org/10.1038/ncomms2076</a>.
+</div>
+<div id="ref-pearl1995" class="csl-entry" role="listitem">
+Pearl, Judea. 1995. <span>“Causal Diagrams for Empirical
+Research.”</span> <em>Biometrika</em> 82 (4): 669–88. <a href="https://doi.org/10.1093/biomet/82.4.669">https://doi.org/10.1093/biomet/82.4.669</a>.
+</div>
+<div id="ref-pearl2001mediation" class="csl-entry" role="listitem">
+Pearl, Judea. 2001. <span>“Direct and Indirect Effects.”</span>
+<em>Proceedings of the Seventeenth Conference on Uncertainty in
+Artificial Intelligence</em>, 411–20. <a href="https://ftp.cs.ucla.edu/pub/stat_ser/R273-U.pdf">https://ftp.cs.ucla.edu/pub/stat_ser/R273-U.pdf</a>.
+</div>
+<div id="ref-pearl2009" class="csl-entry" role="listitem">
+Pearl, Judea. 2009. <em>Causality: Models, Reasoning, and
+Inference</em>. 2nd ed. Cambridge University Press.
+</div>
+<div id="ref-pearlbareinboim2014" class="csl-entry" role="listitem">
+Pearl, Judea, and Elias Bareinboim. 2014. <span>“External Validity: From
+Do-Calculus to Transportability Across Populations.”</span>
+<em>Statistical Science</em> 29 (4): 579–95. <a href="https://doi.org/10.1214/14-STS486">https://doi.org/10.1214/14-STS486</a>.
+</div>
+<div id="ref-pearlMackenzie2018" class="csl-entry" role="listitem">
+Pearl, Judea, and Dana Mackenzie. 2018. <em>The Book of Why: The New
+Science of Cause and Effect</em>. Basic Books.
+</div>
+<div id="ref-perkovic2018" class="csl-entry" role="listitem">
+Perković, Emilija, Johannes Textor, Markus Kalisch, and Marloes H.
+Maathuis. 2018. <span>“Complete Graphical Characterization and
+Construction of Adjustment Sets in Markov Equivalence Classes of
+Ancestral Graphs.”</span> <em>Journal of Machine Learning Research</em>
+18 (220): 1–62. <a href="https://jmlr.org/papers/v18/16-319.html">https://jmlr.org/papers/v18/16-319.html</a>.
+</div>
+<div id="ref-peters2016" class="csl-entry" role="listitem">
+Peters, Jonas, Peter Bühlmann, and Nicolai Meinshausen. 2016.
+<span>“Causal Inference by Using Invariant Prediction: Identification
+and Confidence Intervals.”</span> <em>Journal of the Royal Statistical
+Society: Series B</em> 78 (5): 947–1012. <a href="https://doi.org/10.1111/rssb.12167">https://doi.org/10.1111/rssb.12167</a>.
+</div>
+<div id="ref-peters2017" class="csl-entry" role="listitem">
+Peters, Jonas, Dominik Janzing, and Bernhard Schölkopf. 2017.
+<em>Elements of Causal Inference: Foundations and Learning
+Algorithms</em>. MIT Press. <a href="https://mitpress.mit.edu/9780262037310/elements-of-causal-inference/">https://mitpress.mit.edu/9780262037310/elements-of-causal-inference/</a>.
+</div>
+<div id="ref-reichenbach1956" class="csl-entry" role="listitem">
+Reichenbach, Hans. 1956. <em>The Direction of Time</em>. University of
+California Press.
+</div>
+<div id="ref-richardsonrobins2013" class="csl-entry" role="listitem">
+Richardson, Thomas S., and James M. Robins. 2013. <em>Single World
+Intervention Graphs (SWIGs): A Unification of the Counterfactual and
+Graphical Approaches to Causality</em>. Working Paper No. 128. Center
+for Statistics; the Social Sciences, University of Washington. <a href="https://csss.uw.edu/files/working-papers/2013/wp128.pdf">https://csss.uw.edu/files/working-papers/2013/wp128.pdf</a>.
+</div>
+<div id="ref-richardsonspirtes2002" class="csl-entry" role="listitem">
+Richardson, Thomas, and Peter Spirtes. 2002. <span>“Ancestral Graph
+Markov Models.”</span> <em>The Annals of Statistics</em> 30 (4):
+962–1030. <a href="https://doi.org/10.1214/aos/1031689015">https://doi.org/10.1214/aos/1031689015</a>.
+</div>
+<div id="ref-robins1986" class="csl-entry" role="listitem">
+Robins, James M. 1986. <span>“A New Approach to Causal Inference in
+Mortality Studies with a Sustained Exposure Period—Application to
+Control of the Healthy Worker Survivor Effect.”</span> <em>Mathematical
+Modelling</em> 7 (9–12): 1393–512. <a href="https://doi.org/10.1016/0270-0255(86)90088-6">https://doi.org/10.1016/0270-0255(86)90088-6</a>.
+</div>
+<div id="ref-rosenbaumrubin1983" class="csl-entry" role="listitem">
+Rosenbaum, Paul R., and Donald B. Rubin. 1983. <span>“The Central Role
+of the Propensity Score in Observational Studies for Causal
+Effects.”</span> <em>Biometrika</em> 70 (1): 41–55. <a href="https://doi.org/10.1093/biomet/70.1.41">https://doi.org/10.1093/biomet/70.1.41</a>.
+</div>
+<div id="ref-rubin1974" class="csl-entry" role="listitem">
+Rubin, Donald B. 1974. <span>“Estimating Causal Effects of Treatments in
+Randomized and Nonrandomized Studies.”</span> <em>Journal of Educational
+Psychology</em> 66 (5): 688–701. <a href="https://doi.org/10.1037/h0037350">https://doi.org/10.1037/h0037350</a>.
+</div>
+<div id="ref-runge2019" class="csl-entry" role="listitem">
+Runge, Jakob, Peer Nowack, Marlene Kretschmer, Seth Flaxman, and Dino
+Sejdinovic. 2019. <span>“Detecting and Quantifying Causal Associations
+in Large Nonlinear Time Series Datasets.”</span> <em>Science
+Advances</em> 5 (11). <a href="https://doi.org/10.1126/sciadv.aau4996">https://doi.org/10.1126/sciadv.aau4996</a>.
+</div>
+<div id="ref-russellCausation" class="csl-entry" role="listitem">
+Russell, Bertrand. 1913. <span>“On the Notion of Cause.”</span>
+<em>Proceedings of the Aristotelian Society</em> 13: 1–26. <a href="https://doi.org/10.1093/aristotelian/13.1.1">https://doi.org/10.1093/aristotelian/13.1.1</a>.
+</div>
+<div id="ref-russowilliamson2007" class="csl-entry" role="listitem">
+Russo, Federica, and Jon Williamson. 2007. <span>“Interpreting Causality
+in the Health Sciences.”</span> <em>International Studies in the
+Philosophy of Science</em> 21 (2): 157–70. <a href="https://doi.org/10.1080/02698590701498084">https://doi.org/10.1080/02698590701498084</a>.
+</div>
+<div id="ref-salmon1984" class="csl-entry" role="listitem">
+Salmon, Wesley C. 1984. <em>Scientific Explanation and the Causal
+Structure of the World</em>. Princeton University Press.
+</div>
+<div id="ref-scholkopf2021" class="csl-entry" role="listitem">
+Schölkopf, Bernhard, Francesco Locatello, Stefan Bauer, et al. 2021.
+<span>“Toward Causal Representation Learning.”</span> <em>Proceedings of
+the IEEE</em> 109 (5): 612–34. <a href="https://doi.org/10.1109/JPROC.2021.3058954">https://doi.org/10.1109/JPROC.2021.3058954</a>.
+</div>
+<div id="ref-schurger2012" class="csl-entry" role="listitem">
+Schurger, Aaron, Jacobo D. Sitt, and Stanislas Dehaene. 2012. <span>“An
+Accumulator Model for Spontaneous Neural Activity Prior to
+Self-Initiated Movement.”</span> <em>Proceedings of the National Academy
+of Sciences</em> 109 (42): E2904–13. <a href="https://doi.org/10.1073/pnas.1210467109">https://doi.org/10.1073/pnas.1210467109</a>.
+</div>
+<div id="ref-shadish2002" class="csl-entry" role="listitem">
+Shadish, William R., Thomas D. Cook, and Donald T. Campbell. 2002.
+<em>Experimental and Quasi-Experimental Designs for Generalized Causal
+Inference</em>. Houghton Mifflin.
+</div>
+<div id="ref-shalit2017" class="csl-entry" role="listitem">
+Shalit, Uri, Fredrik D. Johansson, and David Sontag. 2017.
+<span>“Estimating Individual Treatment Effect: Generalization Bounds and
+Algorithms.”</span> <em>Proceedings of the 34th International Conference
+on Machine Learning</em>, Proceedings of machine learning research, vol.
+70: 3076–85. <a href="https://proceedings.mlr.press/v70/shalit17a.html">https://proceedings.mlr.press/v70/shalit17a.html</a>.
+</div>
+<div id="ref-shimizu2006" class="csl-entry" role="listitem">
+Shimizu, Shohei, Patrik O. Hoyer, Aapo Hyvärinen, and Antti Kerminen.
+2006. <span>“A Linear Non-Gaussian Acyclic Model for Causal
+Discovery.”</span> <em>Journal of Machine Learning Research</em> 7:
+2003–30. <a href="https://jmlr.org/papers/v7/shimizu06a.html">https://jmlr.org/papers/v7/shimizu06a.html</a>.
+</div>
+<div id="ref-shpitserpearl2006" class="csl-entry" role="listitem">
+Shpitser, Ilya, and Judea Pearl. 2006. <span>“Identification of Joint
+Interventional Distributions in Recursive Semi-Markovian Causal
+Models.”</span> <em>Proceedings of the Twenty-First National Conference
+on Artificial Intelligence</em>, 1219–26. <a href="https://aaai.org/Papers/AAAI/2006/AAAI06-191.pdf">https://aaai.org/Papers/AAAI/2006/AAAI06-191.pdf</a>.
+</div>
+<div id="ref-shpitserpearl2008" class="csl-entry" role="listitem">
+Shpitser, Ilya, and Judea Pearl. 2008. <span>“Complete Identification
+Methods for the Causal Hierarchy.”</span> <em>Journal of Machine
+Learning Research</em> 9: 1941–79. <a href="https://www.jmlr.org/papers/v9/shpitser08a.html">https://www.jmlr.org/papers/v9/shpitser08a.html</a>.
+</div>
+<div id="ref-shpitser2010" class="csl-entry" role="listitem">
+Shpitser, Ilya, Tyler J. VanderWeele, and James M. Robins. 2010.
+<span>“On the Validity of Covariate Adjustment for Estimating Causal
+Effects.”</span> <em>Proceedings of the Twenty-Sixth Conference on
+Uncertainty in Artificial Intelligence</em>, 527–36. <a href="https://event.cwi.nl/uai2010/papers/UAI2010_0016.pdf">https://event.cwi.nl/uai2010/papers/UAI2010_0016.pdf</a>.
+</div>
+<div id="ref-simmons2011" class="csl-entry" role="listitem">
+Simmons, Joseph P., Leif D. Nelson, and Uri Simonsohn. 2011.
+<span>“False-Positive Psychology: Undisclosed Flexibility in Data
+Collection and Analysis Allows Presenting Anything as
+Significant.”</span> <em>Psychological Science</em> 22 (11): 1359–66. <a href="https://doi.org/10.1177/0956797611417632">https://doi.org/10.1177/0956797611417632</a>.
+</div>
+<div id="ref-soon2008" class="csl-entry" role="listitem">
+Soon, Chun Siong, Marcel Brass, Hans-Jochen Heinze, and John-Dylan
+Haynes. 2008. <span>“Unconscious Determinants of Free Decisions in the
+Human Brain.”</span> <em>Nature Neuroscience</em> 11 (5): 543–45. <a href="https://doi.org/10.1038/nn.2112">https://doi.org/10.1038/nn.2112</a>.
+</div>
+<div id="ref-spirtes2000" class="csl-entry" role="listitem">
+Spirtes, Peter, Clark Glymour, and Richard Scheines. 2000.
+<em>Causation, Prediction, and Search</em>. 2nd ed. MIT Press.
+</div>
+<div id="ref-sunabraham2021" class="csl-entry" role="listitem">
+Sun, Liyang, and Sarah Abraham. 2021. <span>“Estimating Dynamic
+Treatment Effects in Event Studies with Heterogeneous Treatment
+Effects.”</span> <em>Journal of Econometrics</em> 225 (2): 175–99. <a href="https://doi.org/10.1016/j.jeconom.2020.09.006">https://doi.org/10.1016/j.jeconom.2020.09.006</a>.
+</div>
+<div id="ref-suppes1970" class="csl-entry" role="listitem">
+Suppes, Patrick. 1970. <em>A Probabilistic Theory of Causality</em>.
+North-Holland.
+</div>
+<div id="ref-swansonhernan2018" class="csl-entry" role="listitem">
+Swanson, Sonja A., and Miguel A. Hernán. 2018. <span>“The Challenging
+Interpretation of Instrumental Variable Estimates Under
+Monotonicity.”</span> <em>International Journal of Epidemiology</em> 47
+(4): 1289–97. <a href="https://doi.org/10.1093/ije/dyx038">https://doi.org/10.1093/ije/dyx038</a>.
+</div>
+<div id="ref-vanderweele2009" class="csl-entry" role="listitem">
+VanderWeele, Tyler J. 2009. <span>“Concerning the Consistency Assumption
+in Causal Inference.”</span> <em>Epidemiology</em> 20 (6): 880–83. <a href="https://doi.org/10.1097/EDE.0b013e3181bd5638">https://doi.org/10.1097/EDE.0b013e3181bd5638</a>.
+</div>
+<div id="ref-vanderweele2015" class="csl-entry" role="listitem">
+VanderWeele, Tyler J. 2015. <em>Explanation in Causal Inference: Methods
+for Mediation and Interaction</em>. Oxford University Press.
+</div>
+<div id="ref-vanderweelehernan2013" class="csl-entry" role="listitem">
+VanderWeele, Tyler J., and Miguel A. Hernán. 2013. <span>“Causal
+Inference Under Multiple Versions of Treatment.”</span> <em>Journal of
+Causal Inference</em> 1 (1): 1–20. <a href="https://doi.org/10.1515/jci-2012-0002">https://doi.org/10.1515/jci-2012-0002</a>.
+</div>
+<div id="ref-vermapearl1990" class="csl-entry" role="listitem">
+Verma, Thomas, and Judea Pearl. 1990. <span>“Equivalence and Synthesis
+of Causal Models.”</span> <em>Proceedings of the Sixth Conference on
+Uncertainty in Artificial Intelligence</em> (San Mateo, CA), 255–70.
+</div>
+<div id="ref-vowels2023" class="csl-entry" role="listitem">
+Vowels, Matthew J., Necati Cihan Camgoz, and Richard Bowden. 2023.
+<span>“D’ya Like DAGs? A Survey on Structure Learning and Causal
+Discovery.”</span> <em>ACM Computing Surveys</em> 55 (4): 1–36. <a href="https://doi.org/10.1145/3527154">https://doi.org/10.1145/3527154</a>.
+</div>
+<div id="ref-wagerathey2018" class="csl-entry" role="listitem">
+Wager, Stefan, and Susan Athey. 2018. <span>“Estimation and Inference of
+Heterogeneous Treatment Effects Using Random Forests.”</span>
+<em>Journal of the American Statistical Association</em> 113 (523):
+1228–42. <a href="https://doi.org/10.1080/01621459.2017.1319839">https://doi.org/10.1080/01621459.2017.1319839</a>.
+</div>
+<div id="ref-westreich2017" class="csl-entry" role="listitem">
+Westreich, Daniel, Jessie K. Edwards, Catherine R. Lesko, Stephen R.
+Cole, and Elizabeth A. Stuart. 2017. <span>“Transportability of Trial
+Results Using Inverse Odds of Sampling Weights.”</span> <em>American
+Journal of Epidemiology</em> 186 (8): 1010–14. <a href="https://doi.org/10.1093/aje/kwx164">https://doi.org/10.1093/aje/kwx164</a>.
+</div>
+<div id="ref-woodspekkens2015" class="csl-entry" role="listitem">
+Wood, Christopher J., and Robert W. Spekkens. 2015. <span>“The Lesson of
+Causal Discovery Algorithms for Quantum Correlations: Causal
+Explanations of Bell-Inequality Violations Require Fine-Tuning.”</span>
+<em>New Journal of Physics</em> 17. <a href="https://doi.org/10.1088/1367-2630/17/3/033002">https://doi.org/10.1088/1367-2630/17/3/033002</a>.
+</div>
+<div id="ref-woodward2003" class="csl-entry" role="listitem">
+Woodward, James. 2003. <em>Making Things Happen: A Theory of Causal
+Explanation</em>. Oxford University Press.
+</div>
+<div id="ref-xunzi2014" class="csl-entry" role="listitem">
+Xunzi. 2014. <em>Xunzi: The Complete Text</em>. Translated by Eric L.
+Hutton. Princeton University Press. <a href="https://doi.org/10.1515/9781400852550">https://doi.org/10.1515/9781400852550</a>.
+</div>
+<div id="ref-zheng2018" class="csl-entry" role="listitem">
+Zheng, Xun, Bryon Aragam, Pradeep K. Ravikumar, and Eric P. Xing. 2018.
+<span>“DAGs with NO TEARS: Continuous Optimization for Structure
+Learning.”</span> <em>Advances in Neural Information Processing Systems
+31</em>, 9472–83. <a href="https://proceedings.neurips.cc/paper/2018/hash/e347c51419ffb23ca3fd5050202f9c3-Abstract.html">https://proceedings.neurips.cc/paper/2018/hash/e347c51419ffb23ca3fd5050202f9c3-Abstract.html</a>.
+</div>
+<div id="ref-zhuangzi" class="csl-entry" role="listitem">
+Zhuangzi. 2009. <em>Zhuangzi: The Essential Writings</em>. Translated by
+Brook Ziporyn. Hackett.
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/chongliuphil\.github\.io\/causal-inference-reader\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./manuscript/11-synthesis-open-problems.html" class="pagination-link" aria-label="框架综合、理论边界与开放问题">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">框架综合、理论边界与开放问题</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./manuscript/appendix-A-comparative-topics.html" class="pagination-link" aria-label="比较哲学专题：中国思想、自由意志与量子因果">
+        <span class="nav-page-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">比较哲学专题：中国思想、自由意志与量子因果</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>因果推理深度读本</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions"><ul><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/edit/main/references.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/issues/new" class="toc-action"><i class="bi empty"></i>反馈问题</a></li><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/blob/main/references.qmd" class="toc-action"><i class="bi empty"></i>查看代码</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>附录 D： 核心原始文献精读指南 – 因果推理深度读本</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../manuscript/appendix-C-exercises.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../book.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../manuscript/appendix-A-comparative-topics.html">附录</a></li><li class="breadcrumb-item"><a href="../manuscript/appendix-D-primary-reading.html"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">核心原始文献精读指南</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">因果推理深度读本</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/ChongLiuPhil/causal-inference-reader" title="源代码" class="quarto-navigation-tool px-1" aria-label="源代码"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">因果推理深度读本</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/frontmatter-preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">序言 {#序言 .unnumbered}</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/frontmatter-guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">如何使用本书 {#如何使用本书 .unnumbered}</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">第一部　问题、历史与哲学</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/01-questions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">因果问题：概念、解释、证据与行动</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/02-history.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">因果观念的历史谱系：从四因到科学解释</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/03-philosophies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">当代因果哲学：反事实、概率、机制与干预</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">第二部　识别、结构与估计</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/04-potential-outcomes-identification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">潜在结果、估计目标与识别</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/05-scm-graphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">结构因果模型与图形语言</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/06-identification-calculus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">图形识别、do-calculus与反事实</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/07-design-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">研究设计、估计方法与不确定性</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">第三部　发现、迁移与应用</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/08-discovery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">因果发现与结构学习</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/09-transportability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">外部效度、可迁移性与数据融合</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/10-causal-ml-applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">因果机器学习与跨学科应用</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/11-synthesis-open-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">框架综合、理论边界与开放问题</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">参考文献</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">附录</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/appendix-A-comparative-topics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">比较哲学专题：中国思想、自由意志与量子因果</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/appendix-B-glossary-learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">术语、时间线与学习路径</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/appendix-C-exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">综合练习与参考分析</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/appendix-D-primary-reading.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">核心原始文献精读指南</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目录</h2>
+   
+  <ul>
+  <li><a href="#如何精读因果文献" id="toc-如何精读因果文献" class="nav-link active" data-scroll-target="#如何精读因果文献"><span class="header-section-number">D.1</span> 如何精读因果文献</a></li>
+  <li><a href="#因果哲学与科学解释" id="toc-因果哲学与科学解释" class="nav-link" data-scroll-target="#因果哲学与科学解释"><span class="header-section-number">D.2</span> 因果哲学与科学解释</a>
+  <ul class="collapse">
+  <li><a href="#第一组亚里士多德的为什么" id="toc-第一组亚里士多德的为什么" class="nav-link" data-scroll-target="#第一组亚里士多德的为什么">第一组：亚里士多德的”为什么”</a></li>
+  <li><a href="#第二组休谟的两条论证" id="toc-第二组休谟的两条论证" class="nav-link" data-scroll-target="#第二组休谟的两条论证">第二组：休谟的两条论证</a></li>
+  <li><a href="#第三组康德的经验第二类比" id="toc-第三组康德的经验第二类比" class="nav-link" data-scroll-target="#第三组康德的经验第二类比">第三组：康德的经验第二类比</a></li>
+  <li><a href="#第四组穆勒罗素与亨普尔的科学方法" id="toc-第四组穆勒罗素与亨普尔的科学方法" class="nav-link" data-scroll-target="#第四组穆勒罗素与亨普尔的科学方法">第四组：穆勒、罗素与亨普尔的科学方法</a></li>
+  <li><a href="#第五组lewis的反事实理论" id="toc-第五组lewis的反事实理论" class="nav-link" data-scroll-target="#第五组lewis的反事实理论">第五组：Lewis的反事实理论</a></li>
+  <li><a href="#第六组概率inus与因果过程" id="toc-第六组概率inus与因果过程" class="nav-link" data-scroll-target="#第六组概率inus与因果过程">第六组：概率、INUS与因果过程</a></li>
+  <li><a href="#第七组woodward的干预主义" id="toc-第七组woodward的干预主义" class="nav-link" data-scroll-target="#第七组woodward的干预主义">第七组：Woodward的干预主义</a></li>
+  <li><a href="#第八组新机制论" id="toc-第八组新机制论" class="nav-link" data-scroll-target="#第八组新机制论">第八组：新机制论</a></li>
+  </ul></li>
+  <li><a href="#潜在结果结构图与识别" id="toc-潜在结果结构图与识别" class="nav-link" data-scroll-target="#潜在结果结构图与识别"><span class="header-section-number">D.3</span> 潜在结果、结构图与识别</a>
+  <ul class="collapse">
+  <li><a href="#第九组neymanrubin与holland" id="toc-第九组neymanrubin与holland" class="nav-link" data-scroll-target="#第九组neymanrubin与holland">第九组：Neyman、Rubin与Holland</a></li>
+  <li><a href="#第十组倾向得分与观察研究设计" id="toc-第十组倾向得分与观察研究设计" class="nav-link" data-scroll-target="#第十组倾向得分与观察研究设计">第十组：倾向得分与观察研究设计</a></li>
+  <li><a href="#第十一组pearl的causality" id="toc-第十一组pearl的causality" class="nav-link" data-scroll-target="#第十一组pearl的causality">第十一组：Pearl的《Causality》</a></li>
+  <li><a href="#第十二组目标试验与what-if" id="toc-第十二组目标试验与what-if" class="nav-link" data-scroll-target="#第十二组目标试验与what-if">第十二组：目标试验与《What If》</a></li>
+  </ul></li>
+  <li><a href="#因果发现与结构学习" id="toc-因果发现与结构学习" class="nav-link" data-scroll-target="#因果发现与结构学习"><span class="header-section-number">D.4</span> 因果发现与结构学习</a>
+  <ul class="collapse">
+  <li><a href="#第十三组因果发现基础" id="toc-第十三组因果发现基础" class="nav-link" data-scroll-target="#第十三组因果发现基础">第十三组：因果发现基础</a></li>
+  <li><a href="#第十四组id算法与中介效应" id="toc-第十四组id算法与中介效应" class="nav-link" data-scroll-target="#第十四组id算法与中介效应">第十四组：ID算法与中介效应</a></li>
+  <li><a href="#第十五组lingamnotears与pcmci" id="toc-第十五组lingamnotears与pcmci" class="nav-link" data-scroll-target="#第十五组lingamnotears与pcmci">第十五组：LiNGAM、NOTEARS与PCMCI</a></li>
+  </ul></li>
+  <li><a href="#估计迁移与因果机器学习" id="toc-估计迁移与因果机器学习" class="nav-link" data-scroll-target="#估计迁移与因果机器学习"><span class="header-section-number">D.5</span> 估计、迁移与因果机器学习</a>
+  <ul class="collapse">
+  <li><a href="#第十六组双重稳健与double-ml" id="toc-第十六组双重稳健与double-ml" class="nav-link" data-scroll-target="#第十六组双重稳健与double-ml">第十六组：双重稳健与Double ML</a></li>
+  <li><a href="#第十七组异质性与因果森林" id="toc-第十七组异质性与因果森林" class="nav-link" data-scroll-target="#第十七组异质性与因果森林">第十七组：异质性与因果森林</a></li>
+  <li><a href="#第十八组可迁移性与数据融合" id="toc-第十八组可迁移性与数据融合" class="nav-link" data-scroll-target="#第十八组可迁移性与数据融合">第十八组：可迁移性与数据融合</a></li>
+  <li><a href="#第十九组准实验设计" id="toc-第十九组准实验设计" class="nav-link" data-scroll-target="#第十九组准实验设计">第十九组：准实验设计</a></li>
+  <li><a href="#第二十组因果表示与开放问题" id="toc-第二十组因果表示与开放问题" class="nav-link" data-scroll-target="#第二十组因果表示与开放问题">第二十组：因果表示与开放问题</a></li>
+  </ul></li>
+  <li><a href="#阅读产出与核验工具" id="toc-阅读产出与核验工具" class="nav-link" data-scroll-target="#阅读产出与核验工具"><span class="header-section-number">D.6</span> 阅读产出与核验工具</a>
+  <ul class="collapse">
+  <li><a href="#文献笔记模板" id="toc-文献笔记模板" class="nav-link" data-scroll-target="#文献笔记模板">文献笔记模板</a></li>
+  <li><a href="#怎样核验一个文献主张" id="toc-怎样核验一个文献主张" class="nav-link" data-scroll-target="#怎样核验一个文献主张">怎样核验一个文献主张</a></li>
+  <li><a href="#如何读论文中的定理图表与实验" id="toc-如何读论文中的定理图表与实验" class="nav-link" data-scroll-target="#如何读论文中的定理图表与实验">如何读论文中的定理、图表与实验</a></li>
+  <li><a href="#从阅读笔记到一篇可审查的综述" id="toc-从阅读笔记到一篇可审查的综述" class="nav-link" data-scroll-target="#从阅读笔记到一篇可审查的综述">从阅读笔记到一篇可审查的综述</a></li>
+  </ul></li>
+  <li><a href="#十二周原始文献研讨方案" id="toc-十二周原始文献研讨方案" class="nav-link" data-scroll-target="#十二周原始文献研讨方案"><span class="header-section-number">D.7</span> 十二周原始文献研讨方案</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/edit/main/manuscript/appendix-D-primary-reading.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/issues/new" class="toc-action"><i class="bi empty"></i>反馈问题</a></li><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/blob/main/manuscript/appendix-D-primary-reading.qmd" class="toc-action"><i class="bi empty"></i>查看代码</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../manuscript/appendix-A-comparative-topics.html">附录</a></li><li class="breadcrumb-item"><a href="../manuscript/appendix-D-primary-reading.html"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">核心原始文献精读指南</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="app:primary-reading" class="quarto-section-identifier">附录 D： 核心原始文献精读指南</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>本附录不是书目重复，而是一份阅读任务说明。每组文献都列出进入问题、应重构的论证、容易误读之处以及读后应形成的产出。自学者不必一次读完全部原著；应先选择与自己的路径相符的十组，并用文末模板留下可核查笔记。</p>
+<section id="如何精读因果文献" class="level2" data-number="D.1">
+<h2 data-number="D.1" class="anchored" data-anchor-id="如何精读因果文献"><span class="header-section-number">D.1</span> 如何精读因果文献</h2>
+<p>阅读之前先写下作者试图解决的既有困难，不要从当代教科书标签倒推。阅读过程中分开记录定义、假设、论证、例子与修辞性评价。一个例子可能只是帮助直觉，并不证明定理；一个定理可能只在无隐藏混杂、线性或忠实性下成立，不能把标题当作无条件结论。</p>
+<p>对哲学文本，至少重构一个前提—结论链，并写出最强反例；对技术论文，至少写出输入、输出、识别条件和失败证据；对应用方法，至少说明其目标人群与局部性。所有直接引语保留页码，所有二手概括回到原文确认。若原文与本书表述冲突，应以原文和最新勘误为准，并记录为何修订。</p>
+</section>
+<section id="因果哲学与科学解释" class="level2" data-number="D.2">
+<h2 data-number="D.2" class="anchored" data-anchor-id="因果哲学与科学解释"><span class="header-section-number">D.2</span> 因果哲学与科学解释</h2>
+<section id="第一组亚里士多德的为什么" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第一组亚里士多德的为什么">第一组：亚里士多德的”为什么”</h3>
+<p>核心阅读是《物理学》第二卷第三章及第七至九章，与《后分析篇》第一卷相关章节<span class="citation" data-cites="aristotlePhysics aristotlePosterior">(<a href="../references.html#ref-aristotlePhysics" role="doc-biblioref">Aristotle [351公元前年] 1996年</a>, <a href="../references.html#ref-aristotlePosterior" role="doc-biblioref">[351公元前年] 1994年</a>)</span>。进入问题不是”哪四个变量导致结果”，而是自然知识需要哪些类型的说明。读者应把质料、形式、动力和目的分别应用于人工物与自然物，比较目的在两类对象中的来源。</p>
+<p>第二项任务是重构”偶然”与”自发”为什么没有消除自然目的。不要把亚里士多德目的论读成未来事件向过去传力，也不要把形式因简化为几何形状。读后产出应是一张两栏表：原文中的解释角色；现代机制、结构或功能语言能否部分重述。对于不能重述之处，应说明是理论冲突还是问题不同。</p>
+</section>
+<section id="第二组休谟的两条论证" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第二组休谟的两条论证">第二组：休谟的两条论证</h3>
+<p>阅读《人性论》第一卷第三部和《人类理解研究》第四至七节<span class="citation" data-cites="humeTreatise humeEnquiry">(<a href="../references.html#ref-humeTreatise" role="doc-biblioref">Hume [1739—1740年] 2000年</a>, <a href="../references.html#ref-humeEnquiry" role="doc-biblioref">[1748年] 1999年</a>)</span>。把两条论证分开：一条追问因果必然性观念的印象来源，另一条追问从过去到未来的归纳如何得到理性辩护。两条论证相关，却不是同一结论。</p>
+<p>抄录并比较《研究》中关于原因的两种定义：对象间恒常结合与心灵从一个观念过渡到另一个观念。标记休谟何处作心理发生学说明，何处对客观关系保持怀疑。常见误读是把他压缩为”相关即因果”或”否认因果存在”。读后应提交一个现代例子，分别指出观察到的规律、由习惯形成的期待、额外的不变性假设和可能的机制证据。</p>
+</section>
+<section id="第三组康德的经验第二类比" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第三组康德的经验第二类比">第三组：康德的经验第二类比</h3>
+<p>阅读《纯粹理性批判》A189/B232以后关于经验第二类比的论证<span class="citation" data-cites="kantCPR">(<a href="../references.html#ref-kantCPR" role="doc-biblioref">Kant [1781—1787年] 1998年</a>)</span>。先解释知觉顺序为何可逆，而对象事件顺序为何需要规则规定。房屋与船的对比不只是例子；它承担从主观表象顺序到客观变化判断的关键工作。</p>
+<p>读者应区分三项命题：一般因果原则是经验可能条件；具体自然规律来自经验；物自身是否服从因果不由现象知识决定。常见误读是说康德以先验哲学证明每个通俗因果判断都真。读后用一段话回答：康德回应了休谟的哪个问题，又没有回应哪个统计识别问题？再把”规则”与现代结构不变性作有限比较，明确二者的理论背景差异。</p>
+</section>
+<section id="第四组穆勒罗素与亨普尔的科学方法" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第四组穆勒罗素与亨普尔的科学方法">第四组：穆勒、罗素与亨普尔的科学方法</h3>
+<p>从穆勒《逻辑体系》第三卷选读五法，再读罗素《论因果概念》和亨普尔关于D–N模型的章节<span class="citation" data-cites="millSystemLogic russellCausation hempel1965">(<a href="../references.html#ref-millSystemLogic" role="doc-biblioref">Mill [1843年] 1974年</a>; <a href="../references.html#ref-russellCausation" role="doc-biblioref">Russell 1913年</a>; <a href="../references.html#ref-hempel1965" role="doc-biblioref">Hempel 1965年</a>)</span>。三者分别把经验比较、数学函数和解释论证置于中心，适合在同一案例中对照。</p>
+<p>对穆勒，找出每种方法隐含的”其他条件相同”如何失败；对罗素，区分他批评的传统格言与现代干预因果；对亨普尔，重构解释项、被解释项和定律的逻辑关系。读后至少提交旗杆方向反例、共同原因反例和无关前提反例各一例，并说明现代DAG分别增加了哪种结构。不要简单写”机制论取代覆盖律”，而要说明覆盖律仍在哪些推导和统一任务中有价值。</p>
+</section>
+<section id="第五组lewis的反事实理论" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第五组lewis的反事实理论">第五组：Lewis的反事实理论</h3>
+<p>按《Counterfactuals》中的相似性语义、1973年《Causation》、2000年《Causation as Influence》顺序阅读<span class="citation" data-cites="lewisCounterfactuals lewisCausation1973 lewisInfluence2000">(<a href="../references.html#ref-lewisCounterfactuals" role="doc-biblioref">Lewis 1973年b</a>, <a href="../references.html#ref-lewisCausation1973" role="doc-biblioref">1973年a</a>, <a href="../references.html#ref-lewisInfluence2000" role="doc-biblioref">2000年</a>)</span>。先掌握反事实条件句的评价，再看因果依赖链，最后理解从”是否发生”转向”何时、如何发生”的修正。</p>
+<p>为早期先占、晚期先占、对称过度决定和遗漏各画事件链。每个案例回答：简单若无检验结果是什么；直觉判断是什么；影响分析改变了哪项事件描述；相似世界排序是否已经使用因果知识。常见误记是把《作为影响的因果》写成1986年，或把所有反事实理论都等同于潜在结果。读后应说明可能世界语义与结构方程反事实在模型明确性上的区别。</p>
+</section>
+<section id="第六组概率inus与因果过程" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第六组概率inus与因果过程">第六组：概率、INUS与因果过程</h3>
+<p>选读Reichenbach共同原因、Suppes概率提升、Mackie INUS和Salmon因果过程<span class="citation" data-cites="reichenbach1956 suppes1970 mackie1974 salmon1984">(<a href="../references.html#ref-reichenbach1956" role="doc-biblioref">Reichenbach 1956年</a>; <a href="../references.html#ref-suppes1970" role="doc-biblioref">Suppes 1970年</a>; <a href="../references.html#ref-mackie1974" role="doc-biblioref">Mackie 1974年</a>; <a href="../references.html#ref-salmon1984" role="doc-biblioref">Salmon 1984年</a>)</span>。不要寻找一个统一定义，先问每位作者试图修复哪种前序理论不足。</p>
+<p>为同一疾病案例写出概率提升、共同原因筛除、两个替代充分条件组合和一条实际过程。检查概率提升在分层后是否反转，INUS中的充分性是否仅相对于模型背景，标记传递如何区分真实过程与伪过程。读后应比较”类型风险因素”和”具体病例原因”所需证据，并指出为什么群体概率、充分条件组合和能量/信息过程不能任意相互替换。</p>
+</section>
+<section id="第七组woodward的干预主义" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第七组woodward的干预主义">第七组：Woodward的干预主义</h3>
+<p>阅读《Making Things Happen》关于干预变量、不变性和解释的核心章节<span class="citation" data-cites="woodward2003">(<a href="../references.html#ref-woodward2003" role="doc-biblioref">Woodward 2003年</a>)</span>。为一个三变量图写出合格干预条件：干预改变 <span class="math inline">\(X\)</span>，切断其通常原因，并除经 <span class="math inline">\(X\)</span> 外不影响 <span class="math inline">\(Y\)</span>。再找一个人类无法实际操纵但理想干预仍连贯的变量，解释”操纵主义”标签为何可能误导。</p>
+<p>重点审查循环批评：判断干预没有旁路作用似乎已使用因果知识。Woodward目标不是以非因果词彻底还原因果，而是阐明因果概念网络与科学解释。读后比较一条仅在观测样本拟合良好的关系和一条在多种干预下稳定的关系；说明后者为何更有解释深度，又在哪种机制改变时失效。</p>
+</section>
+<section id="第八组新机制论" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第八组新机制论">第八组：新机制论</h3>
+<p>阅读Machamer、Darden与Craver《Thinking about Mechanisms》，再以Glennan的系统著作为扩展<span class="citation" data-cites="mdc2000 glennan2017">(<a href="../references.html#ref-mdc2000" role="doc-biblioref">Machamer 等 2000年</a>; <a href="../references.html#ref-glennan2017" role="doc-biblioref">Glennan 2017年</a>)</span>。选择一个熟悉机制，分别列实体、活动、时空组织、起始条件、终止条件和现象。只列部件不算完成，必须说明活动如何连接并产生整体行为。</p>
+<p>接着设计三个干预：移除部件、改变活动速率、打乱组织顺序。若模型真，应预言不同失效模式。记录机制图在哪些地方是已观察，哪些是推断，哪些只在体外系统确认。读后讨论机制完整性的相对性：解释药物副作用需要分解到哪层，评估总体政策又为何可能不需要穷尽微观过程。</p>
+</section>
+</section>
+<section id="潜在结果结构图与识别" class="level2" data-number="D.3">
+<h2 data-number="D.3" class="anchored" data-anchor-id="潜在结果结构图与识别"><span class="header-section-number">D.3</span> 潜在结果、结构图与识别</h2>
+<section id="第九组neymanrubin与holland" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第九组neymanrubin与holland">第九组：Neyman、Rubin与Holland</h3>
+<p>先读Neyman随机农业试验论文的英文译本，再读Rubin 1974和Holland 1986<span class="citation" data-cites="neyman1923 rubin1974 holland1986">(<a href="../references.html#ref-neyman1923" role="doc-biblioref">Neyman [1923年] 1990年</a>; <a href="../references.html#ref-rubin1974" role="doc-biblioref">Rubin 1974年</a>; <a href="../references.html#ref-holland1986" role="doc-biblioref">Holland 1986年</a>)</span>。追踪潜在结果如何从有限总体随机化进入更一般统计因果语言。写出个体效应为何不可观察、随机化怎样识别平均效应，以及随机化没有解决哪些问题。</p>
+<p>特别核对Holland关于单位、处理和时间稳定性的讨论。不要把”Rubin因果模型”理解成匹配软件，也不要把潜在结果当数据库中本可收集但漏掉的一列。读后为一个含糊处理提出两个版本，展示一致性如何因版本混合失败；再用一张六单位潜在结果表计算ATE、观察差与随机化期望。</p>
+</section>
+<section id="第十组倾向得分与观察研究设计" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第十组倾向得分与观察研究设计">第十组：倾向得分与观察研究设计</h3>
+<p>精读Rosenbaum与Rubin 1983的平衡得分定义和定理<span class="citation" data-cites="rosenbaumrubin1983">(<a href="../references.html#ref-rosenbaumrubin1983" role="doc-biblioref">Rosenbaum 和 Rubin 1983年</a>)</span>。证明或用模拟理解：给定真实倾向得分，处理与协变量独立；但这不意味着潜在结果在未测变量上平衡。区分倾向得分用于匹配、分层、加权和协变量调整的不同实现。</p>
+<p>读者应记录定理需要的强可忽略性和正值条件，不把它们当倾向模型拟合后自动获得。构造一个处理预测准确率极高却重叠很差的例子，说明为何AUC不是主要质量指标。读后形成一页设计报告：变量选择的因果理由、匹配或权重规则、结果揭盲前平衡标准、丢弃单位、目标人群变化和标准误方案。</p>
+</section>
+<section id="第十一组pearl的causality" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第十一组pearl的causality">第十一组：Pearl的《Causality》</h3>
+<p>技术主线建议读第1至3章：结构模型、因果图、干预、后门、前门和do-calculus<span class="citation" data-cites="pearl2009">(<a href="../references.html#ref-pearl2009" role="doc-biblioref">Pearl 2009年</a>)</span>。先手算三节点链、叉、碰撞点的条件独立，再用结构方程验证。每次看到 <span class="math inline">\(P(y\mid\operatorname{do}(x))\)</span>，都写出被替换的方程和保留的模块。</p>
+<p>三条do-calculus规则必须从原定理抄写一次，标明 <span class="math inline">\(G_{\bar X}\)</span>、<span class="math inline">\(G_{\underline Z}\)</span> 和祖先限制。不要用通俗”删除相关”替代图条件。读后手工完成后门和前门推导，并说明演算的完备性相对于什么模型类。书中关于反事实的章节可结合溯因—行动—预测练习；任何个体反事实数值都要标明结构函数和外生背景如何获得。</p>
+</section>
+<section id="第十二组目标试验与what-if" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第十二组目标试验与what-if">第十二组：目标试验与《What If》</h3>
+<p>阅读Hernán与Robins关于目标试验、标准化、IPW和时间变化处理的章节<span class="citation" data-cites="hernanrobins2016 hernanrobins2020">(<a href="../references.html#ref-hernanrobins2016" role="doc-biblioref">Hernán 和 Robins 2016年</a>, <a href="../references.html#ref-hernanrobins2020" role="doc-biblioref">2020年</a>)</span>。选择一项电子病历研究，先写资格、策略、分配、时间零点、随访、结局、对比和分析，再看现有数据如何逐项模拟。</p>
+<p>重点辨认不死时间、既往使用者、治疗—混杂反馈和信息性删失。对每种偏差写出时间图，而不只是列名称。读后比较基线处理的标准化公式与纵向g公式，说明普通调整处理后混杂为何同时阻断效应和打开路径。完成一份”不可模拟之处”清单，比假装观测研究等于随机试验更重要。</p>
+</section>
+</section>
+<section id="因果发现与结构学习" class="level2" data-number="D.4">
+<h2 data-number="D.4" class="anchored" data-anchor-id="因果发现与结构学习"><span class="header-section-number">D.4</span> 因果发现与结构学习</h2>
+<section id="第十三组因果发现基础" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第十三组因果发现基础">第十三组：因果发现基础</h3>
+<p>以Spirtes、Glymour与Scheines的系统著作为理论基础<span class="citation" data-cites="spirtes2000">(<a href="../references.html#ref-spirtes2000" role="doc-biblioref">Spirtes 等 2000年</a>)</span>。先掌握因果Markov、忠实性、因果充分与Markov等价，再阅读PC和FCI。手工从一个四节点分布的条件独立集合恢复骨架、碰撞点与CPDAG。</p>
+<p>每一次删边都记录条件集和检验不确定性；每一条未定向边都保留，不为了叙事完整任意定向。比较PC在隐藏混杂下为何失败、FCI的圆圈端点表示什么。读后用模拟破坏忠实性和加入测量误差，观察输出变化。评价因果发现论文时，先问其输出是真DAG、等价类还是得分最高代表，再看声明是否越过输出语义。</p>
+</section>
+<section id="第十四组id算法与中介效应" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第十四组id算法与中介效应">第十四组：ID算法与中介效应</h3>
+<p>阅读Shpitser与Pearl的识别工作和Pearl中介论文，再以VanderWeele教材补充效应定义<span class="citation" data-cites="shpitserpearl2006 pearl2001mediation vanderweele2015">(<a href="../references.html#ref-shpitserpearl2006" role="doc-biblioref">Shpitser 和 Pearl 2006年</a>; <a href="../references.html#ref-pearl2001mediation" role="doc-biblioref">Pearl 2001年</a>; <a href="../references.html#ref-vanderweele2015" role="doc-biblioref">VanderWeele 2015年</a>)</span>。不要求初学者完整实现ID算法，但要理解可识别与存在hedge的不可识别证据，以及完备性不等于图可从数据验证。</p>
+<p>对中介部分，分别写总效应、受控直接效应、自然直接/间接效应和干预型效应的问题语言。用一幅含处理诱导中介—结果混杂的图检查传统系数分解。读后产出应标出每个效应需要的单世界或跨世界假设，并说明若政策只能够改变中介分布，哪种效应最有行动意义。</p>
+</section>
+<section id="第十五组lingamnotears与pcmci" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第十五组lingamnotears与pcmci">第十五组：LiNGAM、NOTEARS与PCMCI</h3>
+<p>阅读LiNGAM原文、NOTEARS原文和PCMCI论文<span class="citation" data-cites="shimizu2006 zheng2018 runge2019">(<a href="../references.html#ref-shimizu2006" role="doc-biblioref">Shimizu 等 2006年</a>; <a href="../references.html#ref-zheng2018" role="doc-biblioref">Zheng 等 2018年</a>; <a href="../references.html#ref-runge2019" role="doc-biblioref">Runge 等 2019年</a>)</span>。为每篇写”额外方向信息来自哪里”：非高斯独立噪声、光滑无环约束结合评分模型、时间与条件独立筛选。注意NOTEARS的贡献首先是计算重参数化，原始论文发表于2018年。</p>
+<p>复现实验时统一变量、样本量和超参数预算，分别报告骨架、方向和下游干预误差。加入隐藏混杂、反馈与采样频率变化作压力测试。读后不要问”哪个算法最好”，而要形成适用矩阵：何种数据、何种结构假设、输出不确定性、最可能失败方式、可用何种干预验证。</p>
+</section>
+</section>
+<section id="估计迁移与因果机器学习" class="level2" data-number="D.5">
+<h2 data-number="D.5" class="anchored" data-anchor-id="估计迁移与因果机器学习"><span class="header-section-number">D.5</span> 估计、迁移与因果机器学习</h2>
+<section id="第十六组双重稳健与double-ml" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第十六组双重稳健与double-ml">第十六组：双重稳健与Double ML</h3>
+<p>先理解AIPW影响函数结构，再读Double/Debiased ML的正交得分与交叉拟合<span class="citation" data-cites="chernozhukov2018">(<a href="../references.html#ref-chernozhukov2018" role="doc-biblioref">Chernozhukov 等 2018年</a>)</span>。在部分线性模型中写出结果和处理残差，解释为何干扰函数的小误差对目标参数的一阶影响消失。用同折训练与交叉拟合比较过拟合偏差。</p>
+<p>阅读时不要把”double”误解为两个机器学习模型投票，也不要把正交性理解为无未测混杂。记录参数模型：部分线性系数、ATE或其他得分分别需要什么。读后报告学习器、折分单位、调参范围、重叠与标准误；若数据有患者重复记录或学校聚类，折分必须按独立单元而非行随机。</p>
+</section>
+<section id="第十七组异质性与因果森林" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第十七组异质性与因果森林">第十七组：异质性与因果森林</h3>
+<p>阅读Wager与Athey因果森林、广义随机森林与元学习器论文<span class="citation" data-cites="wagerathey2018 athey2019 kunzel2019">(<a href="../references.html#ref-wagerathey2018" role="doc-biblioref">Wager 和 Athey 2018年</a>; <a href="../references.html#ref-athey2019" role="doc-biblioref">Athey 等 2019年</a>; <a href="../references.html#ref-kunzel2019" role="doc-biblioref">Künzel 等 2019年</a>)</span>。比较分割标准、诚实样本分离和局部矩估计。为S、T、X学习器画出训练流程，说明样本不平衡时各自如何共享信息。</p>
+<p>验证部分比训练结果更重要。预先固定模型，在独立随机数据中检查分组效应、校准、排序与策略价值。不要用普通个体MSE，因为真实个体效应不可观察；不要把分割变量重要性解释为变量自身的因果效应。读后应能区分高基线风险、强处理效应与高净效用，并给每种用途选择相应评价指标。</p>
+</section>
+<section id="第十八组可迁移性与数据融合" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第十八组可迁移性与数据融合">第十八组：可迁移性与数据融合</h3>
+<p>阅读Pearl与Bareinboim的选择图工作及数据融合论文<span class="citation" data-cites="pearlbareinboim2014 bareinboimpearl2016">(<a href="../references.html#ref-pearlbareinboim2014" role="doc-biblioref">Pearl 和 Bareinboim 2014年</a>; <a href="../references.html#ref-bareinboimpearl2016" role="doc-biblioref">Bareinboim 和 Pearl 2016年</a>)</span>。为源试验和目标人群画一幅选择图，把人口构成变化、处理机制变化和结局测量变化放在不同节点。尝试推导简单标准化迁移公式。</p>
+<p>读者应区分样本”代表性”与效应相关机制的可比性。一个人口学不代表的试验可在测得关键修饰且有重叠时迁移；表面代表样本若处理版本和测量不同仍会失败。读后制作跨源变量字典，列出时间零点、量表、编码与机制稳定性。若目标域存在源域未覆盖层，应明确外推模型而非继续称非参数识别。</p>
+</section>
+<section id="第十九组准实验设计" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第十九组准实验设计">第十九组：准实验设计</h3>
+<p>断点回归阅读Imbens与Lemieux，多期双重差分阅读Callaway–Sant’Anna和Sun–Abraham，工具变量回到Angrist、Imbens与Rubin<span class="citation" data-cites="imbenslemieux2008 callawaysantanna2021 sunabraham2021 angrist1996">(<a href="../references.html#ref-imbenslemieux2008" role="doc-biblioref">Imbens 和 Lemieux 2008年</a>; <a href="../references.html#ref-callawaysantanna2021" role="doc-biblioref">Callaway 和 Sant’Anna 2021年</a>; <a href="../references.html#ref-sunabraham2021" role="doc-biblioref">Sun 和 Abraham 2021年</a>; <a href="../references.html#ref-angrist1996" role="doc-biblioref">Angrist 等 1996年</a>)</span>。每种设计都写出制度来源、局部目标和不可检验假设。</p>
+<p>断点需检查阈值操纵、其他政策跳变和带宽；DID需检查反事实平行趋势、预期、错位实施与溢出；IV需检查相关性、独立、排除和单调性。不要把”自然实验”当假设已经成立的认证。读后为同一政策比较三种设计可能估计的不同人群，并解释不同数值为何可能来自异质性而非哪篇论文错误。</p>
+</section>
+<section id="第二十组因果表示与开放问题" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="第二十组因果表示与开放问题">第二十组：因果表示与开放问题</h3>
+<p>阅读Peters等教材关于独立因果机制、Peters等不变预测论文，以及因果表示学习综述<span class="citation" data-cites="peters2017 peters2016 scholkopf2021">(<a href="../references.html#ref-peters2017" role="doc-biblioref">Peters 等 2017年</a>, <a href="../references.html#ref-peters2016" role="doc-biblioref">2016年</a>; <a href="../references.html#ref-scholkopf2021" role="doc-biblioref">Schölkopf 等 2021年</a>)</span>。先用可逆潜变量变换说明单环境重构为何不能唯一恢复因果变量，再标记多环境、干预、时间或弱监督提供何种额外信息。</p>
+<p>对OOD主张，写清训练环境、目标环境可能改变的模块和保持稳定的条件机制。若环境改变结果机制本身，父变量预测也会失败。读后设计一个最小多环境实验，说明它区分了哪些表示、仍留下哪些等价。评价大型模型中的”因果概念”时，要求下游干预预测和机制稳定性证据，不以语义可读性或重构效果替代。</p>
+</section>
+</section>
+<section id="阅读产出与核验工具" class="level2" data-number="D.6">
+<h2 data-number="D.6" class="anchored" data-anchor-id="阅读产出与核验工具"><span class="header-section-number">D.6</span> 阅读产出与核验工具</h2>
+<section id="文献笔记模板" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="文献笔记模板">文献笔记模板</h3>
+<p>每篇文献使用同一页模板：</p>
+<ol type="1">
+<li><p><strong>书目信息与版本</strong>：标题、作者、年份、出版物、DOI或稳定地址；使用哪一版、是否有勘误。</p></li>
+<li><p><strong>问题</strong>：作者反对或修正谁，问题为何在当时重要。</p></li>
+<li><p><strong>对象</strong>：事件、变量、潜在结果、图、机制还是策略。</p></li>
+<li><p><strong>核心主张</strong>：用自己的话写不超过三句，再给原文页码。</p></li>
+<li><p><strong>假设</strong>：逐条列数学与实质含义，区分定义、模型条件和经验前提。</p></li>
+<li><p><strong>论证或定理</strong>：从前提到结论写中间步骤，不以”作者证明”跳过。</p></li>
+<li><p><strong>例子与反例</strong>：例子支持哪个步骤，改变什么条件会失败。</p></li>
+<li><p><strong>证据</strong>：哪些来自数据、实验、历史文本或概念直觉。</p></li>
+<li><p><strong>边界</strong>：作者明确没有声称什么，后续研究指出什么限制。</p></li>
+<li><p><strong>连接</strong>：它与本书另一框架可否翻译，翻译增加或丢失什么。</p></li>
+</ol>
+<p>完成笔记后，再写一段”最强反对意见”和一段”作者可能回应”。若无法准确表述反方，应继续阅读而非急于评价。每月选择一篇笔记回到原文复核，检查自己的摘要是否把条件删掉、把局部效应扩大或把例子当成定理。</p>
+</section>
+<section id="怎样核验一个文献主张" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="怎样核验一个文献主张">怎样核验一个文献主张</h3>
+<p>读本、综述和讲义适合建立地图，却不应成为关键主张的终点。核验从”主张—出处配对”开始：把准备写进论文的句子拆成可核查单位，判断它声称的是作者原话、定理推论、经验结果、历史影响还是自己的综合判断。不同类型需要不同证据。定理应回到定义、假设和正式陈述；经验数值应回到样本、估计量、区间与附录；历史影响不能仅凭两篇文章主题相似，而需书信、引用史或可靠史学研究；综合判断则应明确标为解释，而不是借一条引文让来源承担没有说过的话。</p>
+<p>找到原文后，先确认版本。经典著作可能有多个译本、分卷和页码系统；预印本、会议论文和期刊版可能在标题、定理编号或实验上不同。笔记中记录所用版本、出版年、稳定地址和访问日期；若引用页码，注明页码属于哪个版本。技术文献还应查看作者主页、期刊勘误、补充材料和后续修订。一个错误年份通常不会推翻理论，却会暴露文献链未经真正核对；本书因此把书目信息的准确性视为论证质量的一部分。</p>
+<p>第二步检查上下文窗口。至少向前读到问题和定义，向后读到限制或例外。摘要中的”identify”“robust”“generalize”常有严格限定：识别可能只相对于一个非参数结构模型，稳健可能只针对两个干扰模型之一正确，泛化可能只覆盖给定环境族。只摘结果句而漏掉限定，会把局部结论扩成普遍承诺。哲学文本中也一样：作者可能在重构常识、提出条件分析、给出反例，或仅说明某种立场为何有吸引力，不能把每一句陈述都当最终主张。</p>
+<p>第三步做符号与对象核对。同一个字母在不同论文中可能代表处理、工具变量或选择指标；“direct effect”“individual effect”“cause”也可能对应完全不同的对象。引用一个公式时，重写其随机变量、下标、条件集合和概率空间，并确认自己的问题使用相同单位与时间顺序。若从论文的二元处理推广到连续策略、从单时点推广到纵向、从独立单位推广到网络干扰，应把推广当作新的论证，而不是静默换词。</p>
+<p>第四步检查结论在证明或设计中从哪里获得。对识别论文，逐行标出使用图分离、交换性、一致性、正值或函数形式的步骤；对估计论文，区分大样本性质、有限样本模拟和真实数据示例；对实验论文，检查分配、盲法、失访、主要结局与分析集；对算法论文，检查数据生成机制是否直接满足算法假设，以及评价指标是否能够观察真实目标。模拟表现说明方法在那些模拟世界中的行为，不自动说明真实世界满足生成设定。</p>
+<p>第五步进行反向引用检查。不要只看新论文如何引用经典论文，也看经典论文实际写了什么；不要只看作者怎样描述竞争方法，也找竞争方法的原始来源。若一个广为流传的说法始终只互相引用二手文献，找不到最初论证，应降低确信度。引用数量和期刊声望可以帮助排序阅读，不能替代内容核验。对争议性概念，最好寻找至少两种相反传统的代表文本，并把分歧落实到对象、判准和证据，而非以阵营标签结束。</p>
+<p>第六步记录核验结果。建议在每条重要引文旁使用四级状态：已核原文与条件；已核原文但尚未复核证明或数据；仅由可信二手来源定位；暂未核验。写作交付前，所有承担核心论证的引文都应达到第一或第二级，第四级内容应删除或明确标记为待证。这个做法看似缓慢，却能防止错误在笔记、讲义和模型输出之间反复复制。</p>
+<blockquote class="blockquote">
+<p><strong>关键辨析</strong></p>
+<p>DOI存在、期刊真实、标题相关，只能证明文献存在，不能证明它支持当前句子。最常见的引文错误不是伪造文献，而是把真实文献放在一个它没有证明的主张后面。</p>
+</blockquote>
+</section>
+<section id="如何读论文中的定理图表与实验" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="如何读论文中的定理图表与实验">如何读论文中的定理、图表与实验</h3>
+<p>定理阅读可分四层。第一层辨认对象：定理讨论分布、图、参数、算法输出还是渐近极限。第二层列出量词：结论是对所有模型、几乎处处、给定某个图，还是存在一种构造。第三层区分充分条件与必要条件；发现一个充分调整集，不代表其他集合都无效，证明某算法在假设下相合，也不代表假设失败时必然给出可识别的错误警报。第四层寻找否定结果：完备性、不可识别证书和下界经常比一个新估计器更能界定问题。</p>
+<p>面对证明，先写”证明路线图”，再补代数细节。路线图回答从哪个表示出发，中间使用什么独立性、分解或极限定理，最终把不可观测对象换成什么。若证明依赖附录中的正则条件，不应以”技术条件”统一略过；至少判断它控制的是重叠、光滑、复杂度、矩存在还是唯一性。真正影响应用边界的条件应译成领域语言。例如，正值不是抽象地要求概率大于零，而是要求目标人群的每个相关类型都有比较策略的经验支持。</p>
+<p>读因果图时，先遮住论文给出的故事，只看节点、边、时间和选择。逐条检查是否有处理后的变量被当作基线混杂，是否把测量指标当成潜在构念本身，是否省略共同原因却又声称无隐藏混杂。然后恢复领域故事，判断每条排除限制是否可信。图表的清晰不等于结构正确；恰恰因为图把假设变得醒目，读者才应把争议画成替代图，而不是在同一图上争论直觉。</p>
+<p>读结果表时，先找估计对象和分母。风险差、风险比、优势比与生存时间差不能只按显著性横向比较；ATE、ATT、LATE和重叠人群效应也可能针对不同总体。随后看区间、标准误单位、缺失处理和多重分析。基线平衡表不能证明无未测混杂，处理模型的预测性能不能证明权重有效，普通拟合优度也不能证明因果结构。表格若只报告点估计而缺少有效样本量、权重尾部或重叠诊断，结论的可迁移范围通常难以判断。</p>
+<p>读模拟实验时，建立”生成—观察—拟合—评价”四栏。生成栏写真实图、函数、噪声和异质性；观察栏写哪些变量被删去、聚合、测错或选择；拟合栏写模型实际看见什么及怎样调参；评价栏写指标是否针对结构、效应、预测还是决策。若训练和评价共享同一模型族，优异结果可能只说明模型设定匹配。应优先查看错设、低重叠、弱信号、隐藏混杂和样本量变化下的曲线，并关注失败是否有诊断信号。</p>
+<p>真实数据案例的任务通常是展示工作流而非验证真实因果效应，因为真实反事实不可见。判断案例价值时，看作者是否说明目标试验、变量时间、缺失、设计决策、敏感性和结论边界；不要用结论”看起来合理”评价方法正确。若不同合理设定产生不同结果，这不是必须隐藏的尴尬，而是暴露识别脆弱性的证据。好的论文会把这种研究者自由度转成规范曲线、敏感性区间或明确的替代分析。</p>
+</section>
+<section id="从阅读笔记到一篇可审查的综述" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="从阅读笔记到一篇可审查的综述">从阅读笔记到一篇可审查的综述</h3>
+<p>综述不是逐篇摘要的堆叠。开始写作前，先规定比较轴：理论分析比较对象、反例和充分必要条件；方法综述比较目标量、识别条件、估计性质和诊断；应用综述比较制度、总体、时间、测量和可迁移性。同一段落若频繁在这些轴之间跳换，读者很难知道差异来自理论立场还是研究问题不同。</p>
+<p>建立一张证据矩阵，每行为一项主张，每列记录原始来源、版本与页码、支持类型、关键条件、相反证据以及自己的判断。矩阵能够显示哪些段落只有单一来源，哪些重要争论没有反方，哪些引用只是背景而没有承担证据。正文中先写问题和争点，再按比较轴组织来源；年代顺序只在思想演变本身构成问题时使用。</p>
+<p>写每一节时，可采用”共同问题—竞争回答—判别条件—当前边界”四段结构。先以中立语言说明各方共同面对的困难；随后尽可能强地陈述至少两种回答；再说明什么反例、数据或理论代价能够区分它们；最后标记现有证据仍未决定的部分。所谓”平衡”不是给每个观点相同字数，而是让每个观点在其最强版本上接受相同严格度的检验。</p>
+<p>引用应紧贴它支持的句子，避免一段末尾堆放五个来源而不知各自作用。直接引语只用于措辞本身重要的地方，并控制长度；通常应以准确释义为主，同时提供页码。释义不能通过改写逃避忠实义务。若原文只说方法在某假设下相合，综述不能写成”该方法可以发现真实因果图”；若原文批评某种因果概念，不能扩成作者否认科学中的所有因果推理。</p>
+<p>定稿前做三次分离审查。第一次只审书目事实：作者、年份、标题、版本和链接。第二次只审推理：每个”因此”是否由此前证据支持，每个比较是否使用相同对象。第三次只审范围：是否把局部平均扩成总体，把统计总体扩成个体，把识别结论扩成模型为真，把一种学科传统扩成全部因果概念。三次分开比一次笼统校对更容易发现系统性错误。</p>
+</section>
+</section>
+<section id="十二周原始文献研讨方案" class="level2" data-number="D.7">
+<h2 data-number="D.7" class="anchored" data-anchor-id="十二周原始文献研讨方案"><span class="header-section-number">D.7</span> 十二周原始文献研讨方案</h2>
+<p>若本附录用于小型读书会，可由三至六人组成，每周围绕一组主文献和一个共同案例展开。第一周读休谟与康德，建立”规律、必然性与客观顺序”问题；第二周读Lewis和概率分析，以先占与共同原因测试理论；第三周读Woodward和新机制论，对同一生物或工程系统分别写干预解释与机制解释。前三周的成果是一张概念地图，要求每条连接都注明是相容、竞争还是问题不同。</p>
+<p>第四周读Neyman、Rubin和Holland，手算有限总体随机化；第五周读Pearl的图与干预章节，完成后门和前门推导；第六周读目标试验材料，把一个公开的观察研究方案重新规定为理想试验。三周共同使用一个纵向案例，以便看见记号变化背后的共同目标，也看见SUTVA、结构模块化和时间变化策略并非完全相同的假设体系。</p>
+<p>第七周比较PC、FCI、LiNGAM和NOTEARS，重点报告输出语义与失败模式，不做算法排行榜；第八周读AIPW和Double ML，区分因果识别假设与灵活估计；第九周读异质性方法，用随机试验或半合成数据讨论可验证的分组效应与策略价值。每组报告必须包含一项负面结果或压力测试，防止研讨会只复述论文自选的成功示例。</p>
+<p>第十周读迁移与数据融合，为源域和目标域画选择图；第十一周读不变预测与因果表示综述，讨论环境信息提供的额外识别；第十二周回到一个真实研究问题，提交预注册式方案和文献审计。最终展示按”问题、目标、结构、假设、设计、估计、反驳、范围”组织，不按软件流程组织。</p>
+<p>每次研讨设置四个角色并轮换。陈述者负责忠实重构，不负责捍卫作者；审计者逐项检查版本、定义与假设；反对者提出最强反例和替代模型；迁移者尝试把结论用于新领域并标记失真。讨论结束时，全组只形成三类共识：原文明确支持的、在额外假设下可推出的、仍有争议的。强迫结论统一通常不如准确定位分歧有价值。</p>
+<p>研讨的质量可以用可核查产出评价：是否留下原文页码，是否画出竞争图，是否重现一个推导，是否记录不可检验假设，是否在下周修正误读。发言流畅、术语丰富和结论新颖都不能替代这些证据。十二周结束后，成员应能独立审查一篇新论文，而不只是熟悉指定阅读列表。</p>
+<blockquote class="blockquote">
+<p><strong>本章小结</strong></p>
+<p>精读原始文献的目标不是积累名言，而是恢复问题、对象、假设和推论。哲学文本需要论证重构，技术论文需要条件与失败证明，应用方法需要制度和目标人群。统一笔记模板使不同传统可比较，也让书目中的每个引用都能回到具体、可核查的学术工作。</p>
+</blockquote>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-angrist1996" class="csl-entry" role="listitem">
+Angrist, Joshua D., Guido W. Imbens, 和 Donald B. Rubin. 1996年. <span>《Identification of Causal Effects Using Instrumental Variables》</span>. <em>Journal of the American Statistical Association</em> 91 (434): 444～55. <a href="https://doi.org/10.1080/01621459.1996.10476902">https://doi.org/10.1080/01621459.1996.10476902</a>.
+</div>
+<div id="ref-aristotlePosterior" class="csl-entry" role="listitem">
+Aristotle. (351公元前年) 1994年. <em>Posterior Analytics</em>. 翻译 Jonathan Barnes. 2 版. Clarendon Press.
+</div>
+<div id="ref-aristotlePhysics" class="csl-entry" role="listitem">
+Aristotle. (351公元前年) 1996年. <em>Physics</em>. 翻译 Robin Waterfield. Oxford University Press.
+</div>
+<div id="ref-athey2019" class="csl-entry" role="listitem">
+Athey, Susan, Julie Tibshirani, 和 Stefan Wager. 2019年. <span>《Generalized Random Forests》</span>. <em>The Annals of Statistics</em> 47 (2): 1148～78. <a href="https://doi.org/10.1214/18-AOS1709">https://doi.org/10.1214/18-AOS1709</a>.
+</div>
+<div id="ref-bareinboimpearl2016" class="csl-entry" role="listitem">
+Bareinboim, Elias, 和 Judea Pearl. 2016年. <span>《Causal Inference and the Data-Fusion Problem》</span>. <em>Proceedings of the National Academy of Sciences</em> 113 (27): 7345～52. <a href="https://doi.org/10.1073/pnas.1510507113">https://doi.org/10.1073/pnas.1510507113</a>.
+</div>
+<div id="ref-callawaysantanna2021" class="csl-entry" role="listitem">
+Callaway, Brantly, 和 Pedro H. C. Sant’Anna. 2021年. <span>《Difference-in-Differences with Multiple Time Periods》</span>. <em>Journal of Econometrics</em> 225 (2): 200～230. <a href="https://doi.org/10.1016/j.jeconom.2020.12.001">https://doi.org/10.1016/j.jeconom.2020.12.001</a>.
+</div>
+<div id="ref-chernozhukov2018" class="csl-entry" role="listitem">
+Chernozhukov, Victor, Denis Chetverikov, Mert Demirer, 等. 2018年. <span>《Double/Debiased Machine Learning for Treatment and Structural Parameters》</span>. <em>The Econometrics Journal</em> 21 (1): C1～68. <a href="https://doi.org/10.1111/ectj.12097">https://doi.org/10.1111/ectj.12097</a>.
+</div>
+<div id="ref-glennan2017" class="csl-entry" role="listitem">
+Glennan, Stuart. 2017年. <em>The New Mechanical Philosophy</em>. Oxford University Press. <a href="https://doi.org/10.1093/oso/9780198779711.001.0001">https://doi.org/10.1093/oso/9780198779711.001.0001</a>.
+</div>
+<div id="ref-hempel1965" class="csl-entry" role="listitem">
+Hempel, Carl G. 1965年. <em>Aspects of Scientific Explanation and Other Essays in the Philosophy of Science</em>. Free Press.
+</div>
+<div id="ref-hernanrobins2016" class="csl-entry" role="listitem">
+Hernán, Miguel A., 和 James M. Robins. 2016年. <span>《Using Big Data to Emulate a Target Trial When a Randomized Trial Is Not Available》</span>. <em>American Journal of Epidemiology</em> 183 (8): 758～64. <a href="https://doi.org/10.1093/aje/kwv254">https://doi.org/10.1093/aje/kwv254</a>.
+</div>
+<div id="ref-hernanrobins2020" class="csl-entry" role="listitem">
+Hernán, Miguel A., 和 James M. Robins. 2020年. <em>Causal Inference: What If</em>. Chapman &amp; Hall/CRC. <a href="https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/">https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/</a>.
+</div>
+<div id="ref-holland1986" class="csl-entry" role="listitem">
+Holland, Paul W. 1986年. <span>《Statistics and Causal Inference》</span>. <em>Journal of the American Statistical Association</em> 81 (396): 945～60. <a href="https://doi.org/10.1080/01621459.1986.10478354">https://doi.org/10.1080/01621459.1986.10478354</a>.
+</div>
+<div id="ref-humeEnquiry" class="csl-entry" role="listitem">
+Hume, David. (1748年) 1999年. <em>An Enquiry Concerning Human Understanding</em>. 编辑 Tom L. Beauchamp. Oxford University Press.
+</div>
+<div id="ref-humeTreatise" class="csl-entry" role="listitem">
+Hume, David. (1739—1740年) 2000年. <em>A Treatise of Human Nature</em>. 编辑 David Fate Norton 和 Mary J. Norton. Oxford University Press.
+</div>
+<div id="ref-imbenslemieux2008" class="csl-entry" role="listitem">
+Imbens, Guido W., 和 Thomas Lemieux. 2008年. <span>《Regression Discontinuity Designs: A Guide to Practice》</span>. <em>Journal of Econometrics</em> 142 (2): 615～35. <a href="https://doi.org/10.1016/j.jeconom.2007.05.001">https://doi.org/10.1016/j.jeconom.2007.05.001</a>.
+</div>
+<div id="ref-kantCPR" class="csl-entry" role="listitem">
+Kant, Immanuel. (1781—1787年) 1998年. <em>Critique of Pure Reason</em>. 翻译 Paul Guyer 和 Allen W. Wood. Cambridge University Press.
+</div>
+<div id="ref-kunzel2019" class="csl-entry" role="listitem">
+Künzel, Sören R., Jasjeet S. Sekhon, Peter J. Bickel, 和 Bin Yu. 2019年. <span>《Metalearners for Estimating Heterogeneous Treatment Effects Using Machine Learning》</span>. <em>Proceedings of the National Academy of Sciences</em> 116 (10): 4156～65. <a href="https://doi.org/10.1073/pnas.1804597116">https://doi.org/10.1073/pnas.1804597116</a>.
+</div>
+<div id="ref-lewisCausation1973" class="csl-entry" role="listitem">
+Lewis, David. 1973年a. <span>《Causation》</span>. <em>The Journal of Philosophy</em> 70 (17): 556～67. <a href="https://doi.org/10.2307/2025310">https://doi.org/10.2307/2025310</a>.
+</div>
+<div id="ref-lewisCounterfactuals" class="csl-entry" role="listitem">
+Lewis, David. 1973年b. <em>Counterfactuals</em>. Harvard University Press.
+</div>
+<div id="ref-lewisInfluence2000" class="csl-entry" role="listitem">
+Lewis, David. 2000年. <span>《Causation as Influence》</span>. <em>The Journal of Philosophy</em> 97 (4): 182～97. <a href="https://doi.org/10.2307/2678389">https://doi.org/10.2307/2678389</a>.
+</div>
+<div id="ref-mdc2000" class="csl-entry" role="listitem">
+Machamer, Peter, Lindley Darden, 和 Carl F. Craver. 2000年. <span>《Thinking about Mechanisms》</span>. <em>Philosophy of Science</em> 67 (1): 1～25. <a href="https://doi.org/10.1086/392759">https://doi.org/10.1086/392759</a>.
+</div>
+<div id="ref-mackie1974" class="csl-entry" role="listitem">
+Mackie, J. L. 1974年. <em>The Cement of the Universe: A Study of Causation</em>. Clarendon Press.
+</div>
+<div id="ref-millSystemLogic" class="csl-entry" role="listitem">
+Mill, John Stuart. (1843年) 1974年. <em>A System of Logic Ratiocinative and Inductive</em>. 编辑 John M. Robson. 卷 7. Collected Works of John Stuart Mill. University of Toronto Press.
+</div>
+<div id="ref-neyman1923" class="csl-entry" role="listitem">
+Neyman, Jerzy. (1923年) 1990年. <span>《On the Application of Probability Theory to Agricultural Experiments: Essay on Principles, Section 9》</span>. 翻译 Dorota M. Dabrowska 和 Terence P. Speed. <em>Statistical Science</em> 5 (4): 465～72. <a href="https://doi.org/10.1214/ss/1177012031">https://doi.org/10.1214/ss/1177012031</a>.
+</div>
+<div id="ref-pearl2001mediation" class="csl-entry" role="listitem">
+Pearl, Judea. 2001年. <span>《Direct and Indirect Effects》</span>. <em>Proceedings of the Seventeenth Conference on Uncertainty in Artificial Intelligence</em>, 411～20. <a href="https://ftp.cs.ucla.edu/pub/stat_ser/R273-U.pdf">https://ftp.cs.ucla.edu/pub/stat_ser/R273-U.pdf</a>.
+</div>
+<div id="ref-pearl2009" class="csl-entry" role="listitem">
+Pearl, Judea. 2009年. <em>Causality: Models, Reasoning, and Inference</em>. 2 版. Cambridge University Press.
+</div>
+<div id="ref-pearlbareinboim2014" class="csl-entry" role="listitem">
+Pearl, Judea, 和 Elias Bareinboim. 2014年. <span>《External Validity: From Do-Calculus to Transportability Across Populations》</span>. <em>Statistical Science</em> 29 (4): 579～95. <a href="https://doi.org/10.1214/14-STS486">https://doi.org/10.1214/14-STS486</a>.
+</div>
+<div id="ref-peters2016" class="csl-entry" role="listitem">
+Peters, Jonas, Peter Bühlmann, 和 Nicolai Meinshausen. 2016年. <span>《Causal Inference by Using Invariant Prediction: Identification and Confidence Intervals》</span>. <em>Journal of the Royal Statistical Society: Series B</em> 78 (5): 947～1012. <a href="https://doi.org/10.1111/rssb.12167">https://doi.org/10.1111/rssb.12167</a>.
+</div>
+<div id="ref-peters2017" class="csl-entry" role="listitem">
+Peters, Jonas, Dominik Janzing, 和 Bernhard Schölkopf. 2017年. <em>Elements of Causal Inference: Foundations and Learning Algorithms</em>. MIT Press. <a href="https://mitpress.mit.edu/9780262037310/elements-of-causal-inference/">https://mitpress.mit.edu/9780262037310/elements-of-causal-inference/</a>.
+</div>
+<div id="ref-reichenbach1956" class="csl-entry" role="listitem">
+Reichenbach, Hans. 1956年. <em>The Direction of Time</em>. University of California Press.
+</div>
+<div id="ref-rosenbaumrubin1983" class="csl-entry" role="listitem">
+Rosenbaum, Paul R., 和 Donald B. Rubin. 1983年. <span>《The Central Role of the Propensity Score in Observational Studies for Causal Effects》</span>. <em>Biometrika</em> 70 (1): 41～55. <a href="https://doi.org/10.1093/biomet/70.1.41">https://doi.org/10.1093/biomet/70.1.41</a>.
+</div>
+<div id="ref-rubin1974" class="csl-entry" role="listitem">
+Rubin, Donald B. 1974年. <span>《Estimating Causal Effects of Treatments in Randomized and Nonrandomized Studies》</span>. <em>Journal of Educational Psychology</em> 66 (5): 688～701. <a href="https://doi.org/10.1037/h0037350">https://doi.org/10.1037/h0037350</a>.
+</div>
+<div id="ref-runge2019" class="csl-entry" role="listitem">
+Runge, Jakob, Peer Nowack, Marlene Kretschmer, Seth Flaxman, 和 Dino Sejdinovic. 2019年. <span>《Detecting and Quantifying Causal Associations in Large Nonlinear Time Series Datasets》</span>. <em>Science Advances</em> 5 (11). <a href="https://doi.org/10.1126/sciadv.aau4996">https://doi.org/10.1126/sciadv.aau4996</a>.
+</div>
+<div id="ref-russellCausation" class="csl-entry" role="listitem">
+Russell, Bertrand. 1913年. <span>《On the Notion of Cause》</span>. <em>Proceedings of the Aristotelian Society</em> 13: 1～26. <a href="https://doi.org/10.1093/aristotelian/13.1.1">https://doi.org/10.1093/aristotelian/13.1.1</a>.
+</div>
+<div id="ref-salmon1984" class="csl-entry" role="listitem">
+Salmon, Wesley C. 1984年. <em>Scientific Explanation and the Causal Structure of the World</em>. Princeton University Press.
+</div>
+<div id="ref-scholkopf2021" class="csl-entry" role="listitem">
+Schölkopf, Bernhard, Francesco Locatello, Stefan Bauer, 等. 2021年. <span>《Toward Causal Representation Learning》</span>. <em>Proceedings of the IEEE</em> 109 (5): 612～34. <a href="https://doi.org/10.1109/JPROC.2021.3058954">https://doi.org/10.1109/JPROC.2021.3058954</a>.
+</div>
+<div id="ref-shimizu2006" class="csl-entry" role="listitem">
+Shimizu, Shohei, Patrik O. Hoyer, Aapo Hyvärinen, 和 Antti Kerminen. 2006年. <span>《A Linear Non-Gaussian Acyclic Model for Causal Discovery》</span>. <em>Journal of Machine Learning Research</em> 7: 2003～30. <a href="https://jmlr.org/papers/v7/shimizu06a.html">https://jmlr.org/papers/v7/shimizu06a.html</a>.
+</div>
+<div id="ref-shpitserpearl2006" class="csl-entry" role="listitem">
+Shpitser, Ilya, 和 Judea Pearl. 2006年. <span>《Identification of Joint Interventional Distributions in Recursive Semi-Markovian Causal Models》</span>. <em>Proceedings of the Twenty-First National Conference on Artificial Intelligence</em>, 1219～26. <a href="https://aaai.org/Papers/AAAI/2006/AAAI06-191.pdf">https://aaai.org/Papers/AAAI/2006/AAAI06-191.pdf</a>.
+</div>
+<div id="ref-spirtes2000" class="csl-entry" role="listitem">
+Spirtes, Peter, Clark Glymour, 和 Richard Scheines. 2000年. <em>Causation, Prediction, and Search</em>. 2 版. MIT Press.
+</div>
+<div id="ref-sunabraham2021" class="csl-entry" role="listitem">
+Sun, Liyang, 和 Sarah Abraham. 2021年. <span>《Estimating Dynamic Treatment Effects in Event Studies with Heterogeneous Treatment Effects》</span>. <em>Journal of Econometrics</em> 225 (2): 175～99. <a href="https://doi.org/10.1016/j.jeconom.2020.09.006">https://doi.org/10.1016/j.jeconom.2020.09.006</a>.
+</div>
+<div id="ref-suppes1970" class="csl-entry" role="listitem">
+Suppes, Patrick. 1970年. <em>A Probabilistic Theory of Causality</em>. North-Holland.
+</div>
+<div id="ref-vanderweele2015" class="csl-entry" role="listitem">
+VanderWeele, Tyler J. 2015年. <em>Explanation in Causal Inference: Methods for Mediation and Interaction</em>. Oxford University Press.
+</div>
+<div id="ref-wagerathey2018" class="csl-entry" role="listitem">
+Wager, Stefan, 和 Susan Athey. 2018年. <span>《Estimation and Inference of Heterogeneous Treatment Effects Using Random Forests》</span>. <em>Journal of the American Statistical Association</em> 113 (523): 1228～42. <a href="https://doi.org/10.1080/01621459.2017.1319839">https://doi.org/10.1080/01621459.2017.1319839</a>.
+</div>
+<div id="ref-woodward2003" class="csl-entry" role="listitem">
+Woodward, James. 2003年. <em>Making Things Happen: A Theory of Causal Explanation</em>. Oxford University Press.
+</div>
+<div id="ref-zheng2018" class="csl-entry" role="listitem">
+Zheng, Xun, Bryon Aragam, Pradeep K. Ravikumar, 和 Eric P. Xing. 2018年. <span>《DAGs with NO TEARS: Continuous Optimization for Structure Learning》</span>. <em>Advances in Neural Information Processing Systems 31</em>, 9472～83. <a href="https://proceedings.neurips.cc/paper/2018/hash/e347c51419ffb23ca3fd5050202f9c3-Abstract.html">https://proceedings.neurips.cc/paper/2018/hash/e347c51419ffb23ca3fd5050202f9c3-Abstract.html</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/chongliuphil\.github\.io\/causal-inference-reader\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../manuscript/appendix-C-exercises.html" class="pagination-link" aria-label="综合练习与参考分析">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">综合练习与参考分析</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>因果推理深度读本</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/edit/main/manuscript/appendix-D-primary-reading.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/issues/new" class="toc-action"><i class="bi empty"></i>反馈问题</a></li><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/blob/main/manuscript/appendix-D-primary-reading.qmd" class="toc-action"><i class="bi empty"></i>查看代码</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

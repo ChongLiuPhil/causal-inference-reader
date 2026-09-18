@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>6&nbsp; 图形识别、do-calculus与反事实 – 因果推理深度读本</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../manuscript/07-design-estimation.html" rel="next">
+<link href="../manuscript/05-scm-graphs.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ed7344add5f1663e434276306a2aa159.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../book.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../manuscript/04-potential-outcomes-identification.html">第二部　识别、结构与估计</a></li><li class="breadcrumb-item"><a href="../manuscript/06-identification-calculus.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">图形识别、do-calculus与反事实</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">因果推理深度读本</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/ChongLiuPhil/causal-inference-reader" title="源代码" class="quarto-navigation-tool px-1" aria-label="源代码"><i class="bi bi-github"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">因果推理深度读本</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/frontmatter-preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">序言 {#序言 .unnumbered}</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/frontmatter-guide.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">如何使用本书 {#如何使用本书 .unnumbered}</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">第一部　问题、历史与哲学</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/01-questions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">因果问题：概念、解释、证据与行动</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/02-history.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">因果观念的历史谱系：从四因到科学解释</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/03-philosophies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">当代因果哲学：反事实、概率、机制与干预</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">第二部　识别、结构与估计</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/04-potential-outcomes-identification.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">潜在结果、估计目标与识别</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/05-scm-graphs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">结构因果模型与图形语言</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/06-identification-calculus.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">图形识别、do-calculus与反事实</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/07-design-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">研究设计、估计方法与不确定性</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">第三部　发现、迁移与应用</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/08-discovery.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">因果发现与结构学习</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/09-transportability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">外部效度、可迁移性与数据融合</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/10-causal-ml-applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">因果机器学习与跨学科应用</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/11-synthesis-open-problems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">框架综合、理论边界与开放问题</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">参考文献</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">附录</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/appendix-A-comparative-topics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">比较哲学专题：中国思想、自由意志与量子因果</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/appendix-B-glossary-learning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">术语、时间线与学习路径</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/appendix-C-exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">综合练习与参考分析</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../manuscript/appendix-D-primary-reading.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">核心原始文献精读指南</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目录</h2>
+   
+  <ul>
+  <li><a href="#图形识别后门前门与调整的边界" id="toc-图形识别后门前门与调整的边界" class="nav-link active" data-scroll-target="#图形识别后门前门与调整的边界"><span class="header-section-number">6.1</span> 图形识别：后门、前门与调整的边界</a>
+  <ul class="collapse">
+  <li><a href="#后门调整及其风险边界" id="toc-后门调整及其风险边界" class="nav-link" data-scroll-target="#后门调整及其风险边界"><span class="header-section-number">6.1.1</span> 后门调整及其风险边界</a></li>
+  <li><a href="#前门工具变量与分析流程" id="toc-前门工具变量与分析流程" class="nav-link" data-scroll-target="#前门工具变量与分析流程"><span class="header-section-number">6.1.2</span> 前门、工具变量与分析流程</a></li>
+  <li><a href="#目标敏感的调整集与图不确定性" id="toc-目标敏感的调整集与图不确定性" class="nav-link" data-scroll-target="#目标敏感的调整集与图不确定性"><span class="header-section-number">6.1.3</span> 目标敏感的调整集与图不确定性</a></li>
+  </ul></li>
+  <li><a href="#do-calculus反事实与中介分析" id="toc-do-calculus反事实与中介分析" class="nav-link" data-scroll-target="#do-calculus反事实与中介分析"><span class="header-section-number">6.2</span> do-calculus、反事实与中介分析</a>
+  <ul class="collapse">
+  <li><a href="#三条演算规则与识别算法" id="toc-三条演算规则与识别算法" class="nav-link" data-scroll-target="#三条演算规则与识别算法"><span class="header-section-number">6.2.1</span> 三条演算规则与识别算法</a></li>
+  <li><a href="#结构反事实效应分解与实际因果" id="toc-结构反事实效应分解与实际因果" class="nav-link" data-scroll-target="#结构反事实效应分解与实际因果"><span class="header-section-number">6.2.2</span> 结构反事实、效应分解与实际因果</a></li>
+  <li><a href="#演算实例反事实图与错误诊断" id="toc-演算实例反事实图与错误诊断" class="nav-link" data-scroll-target="#演算实例反事实图与错误诊断"><span class="header-section-number">6.2.3</span> 演算实例、反事实图与错误诊断</a></li>
+  </ul></li>
+  <li><a href="#识别工作的深化与边界" id="toc-识别工作的深化与边界" class="nav-link" data-scroll-target="#识别工作的深化与边界"><span class="header-section-number">6.3</span> 识别工作的深化与边界</a>
+  <ul class="collapse">
+  <li><a href="#识别层级与完整工作记录" id="toc-识别层级与完整工作记录" class="nav-link" data-scroll-target="#识别层级与完整工作记录"><span class="header-section-number">6.3.1</span> 识别层级与完整工作记录</a></li>
+  <li><a href="#中介含义与不可识别证明" id="toc-中介含义与不可识别证明" class="nav-link" data-scroll-target="#中介含义与不可识别证明"><span class="header-section-number">6.3.2</span> 中介含义与不可识别证明</a></li>
+  <li><a href="#完整识别档案同一问题的三种图" id="toc-完整识别档案同一问题的三种图" class="nav-link" data-scroll-target="#完整识别档案同一问题的三种图"><span class="header-section-number">6.3.3</span> 完整识别档案：同一问题的三种图</a></li>
+  </ul></li>
+  <li><a href="#延伸阅读" id="toc-延伸阅读" class="nav-link" data-scroll-target="#延伸阅读">延伸阅读</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/edit/main/manuscript/06-identification-calculus.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/issues/new" class="toc-action"><i class="bi empty"></i>反馈问题</a></li><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/blob/main/manuscript/06-identification-calculus.qmd" class="toc-action"><i class="bi empty"></i>查看代码</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../manuscript/04-potential-outcomes-identification.html">第二部　识别、结构与估计</a></li><li class="breadcrumb-item"><a href="../manuscript/06-identification-calculus.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">图形识别、do-calculus与反事实</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="ch:graphical-identification" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">图形识别、do-calculus与反事实</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<blockquote class="blockquote">
+<p><strong>学习目标</strong></p>
+<p>读完本章，你应当能够：系统比较后门、前门、工具变量与do-calculus；逐步说明删边图和行动交换的逻辑；区分总效应、路径效应、联合反事实与实际因果的识别要求。</p>
+</blockquote>
+<section id="图形识别后门前门与调整的边界" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="图形识别后门前门与调整的边界"><span class="header-section-number">6.1</span> 图形识别：后门、前门与调整的边界</h2>
+<section id="后门调整及其风险边界" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="后门调整及其风险边界"><span class="header-section-number">6.1.1</span> 后门调整及其风险边界</h3>
+<p>给定处理 <span class="math inline">\(X\)</span> 与结果 <span class="math inline">\(Y\)</span>，从 <span class="math inline">\(X\)</span> 出发沿箭头指向 <span class="math inline">\(Y\)</span> 的路径表示因果传递；其他在 <span class="math inline">\(X\)</span> 与 <span class="math inline">\(Y\)</span> 之间开放的路径可能造成非因果关联。协变量调整的目标是阻断所有相关非因果路径，同时不阻断希望估计的因果路径，也不打开新的碰撞路径。 这种表述纠正两种常见误解。其一，变量只要预测结果就应该控制；其二，控制变量越多越安全。图形识别关心变量在因果结构中的位置，而不是回归系数显著性。一个强结果预测因子可能只是中介，一个与处理和结果都相关的变量可能是碰撞点的后代。</p>
+<section id="后门准则" class="level5">
+<h5 class="anchored" data-anchor-id="后门准则">后门准则</h5>
+<p>从 <span class="math inline">\(X\)</span> 到 <span class="math inline">\(Y\)</span>、第一条边指向 <span class="math inline">\(X\)</span> 的路径称为<strong>后门路径</strong>。集合 <span class="math inline">\(Z\)</span> 满足经典后门准则，如果：</p>
+<ol type="1">
+<li><p><span class="math inline">\(Z\)</span> 不包含 <span class="math inline">\(X\)</span> 的后代；</p></li>
+<li><p><span class="math inline">\(Z\)</span> 阻断 <span class="math inline">\(X\)</span> 与 <span class="math inline">\(Y\)</span> 之间所有后门路径。</p></li>
+</ol>
+<p>若准则成立，则 <span class="math display">\[P(y\mid\operatorname{do}(x))=\sum_z P(y\mid x,z)P(z).\]</span></p>
+<p>考虑 <span class="math inline">\(X\leftarrow C\rightarrow Y\)</span> 且 <span class="math inline">\(X\rightarrow Y\)</span>。共同原因 <span class="math inline">\(C\)</span> 打开后门路径，给定 <span class="math inline">\(C\)</span> 后路径阻断，<span class="math inline">\(\{C\}\)</span> 是充分调整集。若还有 <span class="math inline">\(C\rightarrow Z\rightarrow X\)</span>，调整 <span class="math inline">\(C\)</span> 或在满足条件时调整其适当代理/中间节点都可能阻断路径，但不同集合会影响精度、测量成本和稳健性。</p>
+</section>
+<section id="最小充分集与冗余调整" class="level4">
+<h4 class="anchored" data-anchor-id="最小充分集与冗余调整">最小充分集与冗余调整</h4>
+<p>一个调整集可能包含不必要变量。<strong>最小充分调整集</strong>在删除任何成员后都不再充分。最小不一定统计效率最高：加入强结果预测因子可以降低方差；加入强处理预测但与结果无关的变量可能放大方差；加入碰撞结构相关变量则可能产生偏差。图确定可接受集合，效率分析再在集合之间选择。 后门准则是充分而非必要条件。更一般的调整准则允许某些处理后变量在特定图中进入集合，并系统处理因果路径上的后代限制<span class="citation" data-cites="shpitser2010 perkovic2018">(<a href="../references.html#ref-shpitser2010" role="doc-biblioref">Shpitser 等 2010年</a>; <a href="../references.html#ref-perkovic2018" role="doc-biblioref">Perković 等 2018年</a>)</span>。初学分析若目标是总效应，优先选择明确的处理前共同原因通常较安全，但不应把”处理前”误当充分性证明。</p>
+<section id="四类不应机械调整的变量" class="level5">
+<h5 class="anchored" data-anchor-id="四类不应机械调整的变量">四类不应机械调整的变量</h5>
+</section>
+</section>
+<section id="中介" class="level4">
+<h4 class="anchored" data-anchor-id="中介">中介</h4>
+<p>在 <span class="math inline">\(X\rightarrow M\rightarrow Y\)</span> 中，若目标是总效应，给定 <span class="math inline">\(M\)</span> 会阻断经由中介的真实因果路径，得到的不是总效应。若目标是直接效应，调整中介仍需处理 <span class="math inline">\(M\)</span> 与 <span class="math inline">\(Y\)</span> 的混杂，且处理诱导的中介—结果混杂会使传统回归分解失败。</p>
+</section>
+<section id="碰撞点" class="level4">
+<h4 class="anchored" data-anchor-id="碰撞点">碰撞点</h4>
+<p>在 <span class="math inline">\(X\rightarrow C\leftarrow U\rightarrow Y\)</span> 中，<span class="math inline">\(C\)</span> 默认阻断 <span class="math inline">\(X\)</span> 与 <span class="math inline">\(U\)</span> 的路径；给定 <span class="math inline">\(C\)</span> 会使 <span class="math inline">\(X\)</span> 与 <span class="math inline">\(U\)</span> 相关，打开到 <span class="math inline">\(Y\)</span> 的非因果路径。这就是碰撞点偏差。给定碰撞点的后代也可能打开路径。</p>
+</section>
+<section id="工具变量" class="level4">
+<h4 class="anchored" data-anchor-id="工具变量">工具变量</h4>
+<p>若 <span class="math inline">\(Z\rightarrow X\rightarrow Y\)</span>，且 <span class="math inline">\(U\)</span> 同时影响 <span class="math inline">\(X,Y\)</span>，一个理想工具 <span class="math inline">\(Z\)</span> 与 <span class="math inline">\(U\)</span> 独立且只通过 <span class="math inline">\(X\)</span> 影响 <span class="math inline">\(Y\)</span>。把 <span class="math inline">\(Z\)</span> 作为普通协变量加入结果回归并不能像工具变量估计那样消除未测混杂；在某些设定中还会放大残余混杂偏差。工具变量需要独立性、排除限制和相关性等专门假设。</p>
+</section>
+<section id="处理的代理或后果" class="level4">
+<h4 class="anchored" data-anchor-id="处理的代理或后果">处理的代理或后果</h4>
+<p>若病情严重度影响治疗，而研究者只观察治疗后的某个病情指标，调整该指标可能同时控制治疗效应并引入选择路径。变量名称中的”基线”也不能保证时间正确；需要确认测量发生在处理决定之前。</p>
+<section id="m偏差与有限样本权衡" class="level5">
+<h5 class="anchored" data-anchor-id="m偏差与有限样本权衡">M偏差与有限样本权衡</h5>
+<p>经典M结构为 <span class="math inline">\(X\leftarrow U_1\rightarrow C\leftarrow U_2\rightarrow Y\)</span>。若 <span class="math inline">\(U_1\)</span> 与 <span class="math inline">\(U_2\)</span> 独立，<span class="math inline">\(X\)</span> 与 <span class="math inline">\(Y\)</span> 的路径被碰撞点 <span class="math inline">\(C\)</span> 关闭；调整 <span class="math inline">\(C\)</span> 反而打开路径。现实中 <span class="math inline">\(U_1,U_2\)</span> 可能相关，<span class="math inline">\(C\)</span> 也可能同时是混杂代理，于是调整与否取决于参数大小。 图形分析指出偏差通道，却不自动量化净偏差。面对结构不确定，可比较多个合理DAG，模拟可能参数，报告调整与不调整的敏感性结果。以一幅主观图宣布变量”绝不可控制”，与无图地控制一切同样武断。</p>
+</section>
+</section>
+</section>
+<section id="前门工具变量与分析流程" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="前门工具变量与分析流程"><span class="header-section-number">6.1.2</span> 前门、工具变量与分析流程</h3>
+<p>当 <span class="math inline">\(X\)</span> 与 <span class="math inline">\(Y\)</span> 存在未测混杂 <span class="math inline">\(U\)</span> 时，后门调整可能失败。但若观察到中介 <span class="math inline">\(M\)</span>，在特定条件下仍可通过<strong>前门准则</strong>识别总效应。标准图为</p>
+<figure class="figure">
+<img class="web-tikz figure-img" src="../assets/tikz/06-identification-calculus-01.svg" alt="因果结构示意图">
+</figure>
+<p>需要满足：<span class="math inline">\(M\)</span> 截断 <span class="math inline">\(X\)</span> 到 <span class="math inline">\(Y\)</span> 的所有有向路径；<span class="math inline">\(X\)</span> 与 <span class="math inline">\(M\)</span> 之间没有未阻断后门路径；给定 <span class="math inline">\(X\)</span> 后，<span class="math inline">\(M\)</span> 与 <span class="math inline">\(Y\)</span> 之间所有后门路径被阻断。在这些条件下， <span class="math display">\[P(y\mid\operatorname{do}(x))=
+\sum_m P(m\mid x)
+\sum_{x'}P(y\mid m,x')P(x').\]</span></p>
+<p>第一部分 <span class="math inline">\(P(m\mid x)\)</span> 识别 <span class="math inline">\(X\)</span> 对 <span class="math inline">\(M\)</span> 的效应；第二部分通过调整 <span class="math inline">\(X\)</span> 识别 <span class="math inline">\(M\)</span> 对 <span class="math inline">\(Y\)</span> 的效应；再对中介状态求和。公式展示了图结构如何把两个可识别关系组合成原本被未测混杂遮蔽的总效应。 真实研究中前门条件很强。所有效应必须经测得中介传递，中介—结果之间不能有给定处理后仍未控制的混杂，且中介测量误差可能严重影响结果。前门不是”有中介就能解决混杂”，而是特殊结构下的识别证明。</p>
+<section id="工具变量识别的另一种道路" class="level5">
+<h5 class="anchored" data-anchor-id="工具变量识别的另一种道路">工具变量识别的另一种道路</h5>
+<p>工具变量 <span class="math inline">\(Z\)</span> 的经典条件应分开理解。<strong>相关性</strong>要求 <span class="math inline">\(Z\)</span> 确实改变处理 <span class="math inline">\(X\)</span> 的分布；<strong>独立性</strong>要求 <span class="math inline">\(Z\)</span> 可被视为与决定潜在处理和潜在结果的背景近似随机或条件随机，而不只是与某一个画在图上的未测变量 <span class="math inline">\(U\)</span> 线性不相关；<strong>排除限制</strong>要求 <span class="math inline">\(Z\)</span> 不通过 <span class="math inline">\(X\)</span> 之外的路径影响结果 <span class="math inline">\(Y\)</span>。对于二元鼓励与处理，若再满足<strong>单调性</strong>，即不存在因 <span class="math inline">\(Z\)</span> 从0变1反而更少接受处理的”反服从者”，则Wald比率 <span class="math display">\[\frac{E(Y\mid Z=1)-E(Y\mid Z=0)}
+{E(X\mid Z=1)-E(X\mid Z=0)}\]</span> 识别服从者中的局部平均处理效应<span class="citation" data-cites="angrist1996">(<a href="../references.html#ref-angrist1996" role="doc-biblioref">Angrist 等 1996年</a>)</span>。</p>
+<p>这四项条件承担不同功能：相关性保证分母提供处理变化；独立性提供外生比较；排除限制把工具对结果的作用归因到处理通道；单调性把Wald比率解释为服从者的局部平均效应。排除限制通常不能由数据验证。一个政策资格阈值可能除了改变治疗使用，还改变其他资源；遗传工具可能通过多效性直接影响结果。弱工具使估计不稳定并放大偏差。工具变量因此不是未测混杂的通用修复，而是用一组结构假设换取一个特定局部目标。</p>
+</section>
+<section id="从图到分析的实际流程" class="level5">
+<h5 class="anchored" data-anchor-id="从图到分析的实际流程">从图到分析的实际流程</h5>
+<p>图形识别可按以下顺序进行：</p>
+<ol type="1">
+<li><p>明确估计总效应、直接效应还是策略效应；</p></li>
+<li><p>只依据因果知识和时间信息画图，不按样本显著性删边；</p></li>
+<li><p>列出潜在未测共同原因和选择节点；</p></li>
+<li><p>用d-分离或软件枚举可接受调整集；</p></li>
+<li><p>检查候选变量的实际测量时间、误差和正值性；</p></li>
+<li><p>若不存在调整集，考虑前门、工具变量、实验数据融合或部分识别；</p></li>
+<li><p>对替代图和关键未测路径做敏感性分析。</p></li>
+</ol>
+<p>“没有可接受调整集”只说明普通协变量调整不足，不等于任何数据设计下都不可识别。do-calculus正是用来判断更广泛的观测与实验信息能否识别目标。</p>
+</section>
+</section>
+<section id="目标敏感的调整集与图不确定性" class="level3" data-number="6.1.3">
+<h3 data-number="6.1.3" class="anchored" data-anchor-id="目标敏感的调整集与图不确定性"><span class="header-section-number">6.1.3</span> 目标敏感的调整集与图不确定性</h3>
+<p>考虑图：基线健康 <span class="math inline">\(L\)</span> 影响治疗 <span class="math inline">\(X\)</span>、中介依从 <span class="math inline">\(M\)</span> 和结果 <span class="math inline">\(Y\)</span>；<span class="math inline">\(X\)</span> 影响 <span class="math inline">\(M\)</span> 与 <span class="math inline">\(Y\)</span>；<span class="math inline">\(M\)</span> 影响 <span class="math inline">\(Y\)</span>；治疗后的不良反应 <span class="math inline">\(R\)</span> 同时受 <span class="math inline">\(X\)</span> 与未测易感性 <span class="math inline">\(U\)</span> 影响，<span class="math inline">\(U\)</span> 也影响 <span class="math inline">\(Y\)</span>。 若目标是 <span class="math inline">\(X\)</span> 对 <span class="math inline">\(Y\)</span> 的总效应，调整 <span class="math inline">\(L\)</span> 可以阻断 <span class="math inline">\(X\leftarrow L\rightarrow Y\)</span> 和经 <span class="math inline">\(L\rightarrow M\rightarrow Y\)</span> 的后门；不应调整 <span class="math inline">\(M\)</span>，因为它承载部分总效应；也不应调整 <span class="math inline">\(R\)</span>，因为 <span class="math inline">\(X\rightarrow R\leftarrow U\rightarrow Y\)</span> 是碰撞路径，给定 <span class="math inline">\(R\)</span> 会打开它。 若目标是受控直接效应，研究者想比较在固定 <span class="math inline">\(M=m\)</span> 时的处理。此时需要识别联合干预 <span class="math inline">\(\operatorname{do}(X=x,M=m)\)</span>。<span class="math inline">\(L\)</span> 同时混杂 <span class="math inline">\(X\)</span>—<span class="math inline">\(Y\)</span> 和 <span class="math inline">\(M\)</span>—<span class="math inline">\(Y\)</span>，可在适当序贯条件下调整；若存在治疗诱导的 <span class="math inline">\(M\)</span>—<span class="math inline">\(Y\)</span> 混杂，则普通中介回归不够。目标改变使”应该控制什么”改变，没有一份脱离目标的永久控制变量清单。 若目标是实际治疗者中的ATT，调整集的图形充分性可相同，但标准化或权重分布改为处理者。图解决路径，目标人群解决加权；两项都要写清。</p>
+<section id="选择图中的调整" class="level5">
+<h5 class="anchored" data-anchor-id="选择图中的调整">选择图中的调整</h5>
+<p>设医院入组 <span class="math inline">\(S\)</span> 同时受疾病严重度 <span class="math inline">\(L\)</span> 和早期症状 <span class="math inline">\(Y_0\)</span> 影响，而 <span class="math inline">\(Y_0\)</span> 又预测最终结局 <span class="math inline">\(Y\)</span>。只分析 <span class="math inline">\(S=1\)</span> 会改变 <span class="math inline">\(L,Y_0\)</span> 的联合分布。若 <span class="math inline">\(L,Y_0\)</span> 完整测量且给定后选择与未来潜在结果独立，可以对选择概率加权；若早期症状只在入组者中测量，目标人群分布缺失，单靠样本内部无法恢复。 图形分析应把 <span class="math inline">\(S\)</span> 明确画出，而不是把”便利样本”当普通总体。选择有时发生多次：进入数据库、满足完整记录、通过排除标准、留到随访。每次条件化都可能打开路径。把选择过程分节点表示，能区分需要治疗权重、删失权重还是迁移权重。</p>
+</section>
+<section id="调整与精度的区分" class="level5">
+<h5 class="anchored" data-anchor-id="调整与精度的区分">调整与精度的区分</h5>
+<p>变量进入估计有两种理由。因果理由是阻断偏差路径；统计理由是提高精度。随机试验中基线结果强预测因子不是混杂，因为处理已随机，但调整它常降低方差。观察研究中工具变量强预测处理却不预测结果，加入倾向模型可能制造极端权重而不减少混杂。 因此报告应分列：哪些变量为识别所必需，哪些为效率加入，哪些用于缺失或选择模型。若结果对效率变量选择高度敏感，可能提示模型外推或重叠问题，而不只是”稳健性更好”。</p>
+</section>
+<section id="dag不确定性下的共同调整集" class="level5">
+<h5 class="anchored" data-anchor-id="dag不确定性下的共同调整集">DAG不确定性下的共同调整集</h5>
+<p>假设 <span class="math inline">\(Z\)</span> 与 <span class="math inline">\(X\)</span> 的时间关系明确，但 <span class="math inline">\(Z\)</span> 对 <span class="math inline">\(Y\)</span> 是直接共同原因还是仅通过另一个已测变量 <span class="math inline">\(C\)</span> 作用不确定。可枚举两幅图，寻找在两图都阻断后门且不含禁止后代的集合。若 <span class="math inline">\(\{Z,C\}\)</span> 在一图包含冗余变量、在另一图必需，但两图均安全，可选择共同集；若一图把 <span class="math inline">\(C\)</span> 视为碰撞点，另一图把它视为混杂，就不存在简单共同方案，应收集定向证据或分别报告。 这种多图分析比用统计筛选决定变量更诚实。它把结构争议保留到结果解释中，并指出哪条边最值得通过时间测量、机制知识或干预澄清。</p>
+</section>
+</section>
+</section>
+<section id="do-calculus反事实与中介分析" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="do-calculus反事实与中介分析"><span class="header-section-number">6.2</span> do-calculus、反事实与中介分析</h2>
+<section id="三条演算规则与识别算法" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="三条演算规则与识别算法"><span class="header-section-number">6.2.1</span> 三条演算规则与识别算法</h3>
+<p>给定一个因果图和若干观测或实验分布，<strong>do-calculus</strong>判断含干预的目标表达式能否转化为可由现有数据计算的表达式。它不是从数据自动发现图，也不是一种数值估计器。演算的输入已经包含因果结构假设；输出是识别公式或识别失败证明。 先约定图操作。<span class="math inline">\(G_{\bar X}\)</span> 表示删除所有指向 <span class="math inline">\(X\)</span> 的箭头，模拟对 <span class="math inline">\(X\)</span> 的干预；<span class="math inline">\(G_{\underline Z}\)</span> 表示删除所有从 <span class="math inline">\(Z\)</span> 发出的箭头，用于判断把行动交换为观察的条件；<span class="math inline">\(G_{\bar X,\underline Z}\)</span> 同时实施两种删除。<span class="math inline">\(Z(W)\)</span> 表示在 <span class="math inline">\(G_{\bar X}\)</span> 中不是任何 <span class="math inline">\(W\)</span> 节点祖先的那些 <span class="math inline">\(Z\)</span> 节点。</p>
+<section id="三条规则" class="level5">
+<h5 class="anchored" data-anchor-id="三条规则">三条规则</h5>
+<p>对互不相交的变量集合 <span class="math inline">\(X,Y,Z,W\)</span>，do-calculus的标准形式如下<span class="citation" data-cites="pearl1995 pearl2009">(<a href="../references.html#ref-pearl1995" role="doc-biblioref">Pearl 1995年</a>, <a href="../references.html#ref-pearl2009" role="doc-biblioref">2009年</a>)</span>。</p>
+</section>
+<section id="规则一插入或删除观察" class="level4">
+<h4 class="anchored" data-anchor-id="规则一插入或删除观察">规则一：插入或删除观察</h4>
+<p>若 <span class="math display">\[(Y\perp\!\!\!\perp Z\mid X,W)_{G_{\bar X}},\]</span> 则 <span class="math display">\[P(y\mid\operatorname{do}(x),z,w)=P(y\mid\operatorname{do}(x),w).\]</span> 直观上，在切断指向 <span class="math inline">\(X\)</span> 的边后，给定 <span class="math inline">\(X,W\)</span>，观察 <span class="math inline">\(Z\)</span> 不再提供关于 <span class="math inline">\(Y\)</span> 的信息，于是可以删除该观察条件。</p>
+</section>
+<section id="规则二行动与观察交换" class="level4">
+<h4 class="anchored" data-anchor-id="规则二行动与观察交换">规则二：行动与观察交换</h4>
+<p>若 <span class="math display">\[(Y\perp\!\!\!\perp Z\mid X,W)_{G_{\bar X,\underline Z}},\]</span> 则 <span class="math display">\[P(y\mid\operatorname{do}(x),\operatorname{do}(z),w)
+=P(y\mid\operatorname{do}(x),z,w).\]</span> 这里删除 <span class="math inline">\(Z\)</span> 的出边，是为了检验 <span class="math inline">\(Z\)</span> 除了作为对其后果的行动之外，是否还通过其他路径携带与 <span class="math inline">\(Y\)</span> 有关的信息。条件成立时，对 <span class="math inline">\(Z\)</span> 的干预可由观察 <span class="math inline">\(Z\)</span> 代替，或反向交换。</p>
+</section>
+<section id="规则三插入或删除行动" class="level4">
+<h4 class="anchored" data-anchor-id="规则三插入或删除行动">规则三：插入或删除行动</h4>
+<p>若 <span class="math display">\[(Y\perp\!\!\!\perp Z\mid X,W)_{G_{\bar X,\overline{Z(W)}}},\]</span> 则 <span class="math display">\[P(y\mid\operatorname{do}(x),\operatorname{do}(z),w)
+=P(y\mid\operatorname{do}(x),w).\]</span> 它说明当相关图中对 <span class="math inline">\(Z\)</span> 的行动不再影响 <span class="math inline">\(Y\)</span> 时，可以删除该行动。<span class="math inline">\(Z(W)\)</span> 的祖先限制保证不会不当地删除影响已观察条件 <span class="math inline">\(W\)</span> 的行动。</p>
+<blockquote class="blockquote">
+<p><strong>关键辨析</strong></p>
+<p>三条规则的左右两边、条件变量和删边图必须同时正确。把规则一写成普通条件概率等式、把规则二写成两个不同 <span class="math inline">\(X\)</span> 值之间的交换，或省略规则三的祖先限制，都会改变定理内容。</p>
+</blockquote>
+<section id="从规则到识别算法" class="level5">
+<h5 class="anchored" data-anchor-id="从规则到识别算法">从规则到识别算法</h5>
+<p>使用规则可以手工推导后门和前门公式，但复杂图中需要系统算法。ID算法递归利用祖先集、截断因子分解和图中的<strong>C-component</strong>识别 <span class="math inline">\(P_x(y)\)</span>；若遇到称为<strong>hedge</strong>的图结构，则给出不可识别证据<span class="citation" data-cites="shpitserpearl2006">(<a href="../references.html#ref-shpitserpearl2006" role="doc-biblioref">Shpitser 和 Pearl 2006年</a>)</span>。do-calculus对非参数DAG中的干预分布识别是完备的：如果目标可从观测分布识别，就存在由规则与概率运算得到的推导。 完备性是相对于模型类和数据类型的。加入线性、单调性、参数限制、代理变量或多环境数据，原本非参数不可识别的目标可能变得可识别；反过来，图若错误，正确演算也会得到错误科学结论。 识别结果也可能只是一条复杂泛函，有限样本中难以稳定估计。因此实际工作仍需检查正值性、维度、平滑性和估计器。符号可识别不等于统计上容易。</p>
+</section>
+</section>
+</section>
+<section id="结构反事实效应分解与实际因果" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="结构反事实效应分解与实际因果"><span class="header-section-number">6.2.2</span> 结构反事实、效应分解与实际因果</h3>
+<p>在SCM中，反事实把同一外生背景 <span class="math inline">\(U=u\)</span> 固定，并改变一个或多个结构方程。给定个体证据 <span class="math inline">\(E=e\)</span>，反事实查询 <span class="math inline">\(P(Y_x=y\mid E=e)\)</span> 可按三步理解：</p>
+<ol type="1">
+<li><p><strong>溯因</strong>：用证据更新外生变量分布，得到 <span class="math inline">\(P(U\mid E=e)\)</span>；</p></li>
+<li><p><strong>行动</strong>：以 <span class="math inline">\(X:=x\)</span> 替换 <span class="math inline">\(X\)</span> 的方程；</p></li>
+<li><p><strong>预测</strong>：在修改后的模型中由更新后的 <span class="math inline">\(U\)</span> 推出 <span class="math inline">\(Y\)</span>。</p></li>
+</ol>
+<p>设 <span class="math display">\[X:=U_X,\qquad Y:=2X+U_Y.\]</span> 观察某单位 <span class="math inline">\(X=1,Y=3\)</span>，可推得 <span class="math inline">\(U_Y=1\)</span>。询问”若该单位的 <span class="math inline">\(X\)</span> 被设为0”，保持 <span class="math inline">\(U_Y=1\)</span>，得到 <span class="math inline">\(Y_0=1\)</span>。这与总体干预平均不同：反事实利用了该单位的实际证据来推断背景。</p>
+<p>固定同一个 <span class="math inline">\(U\)</span> 是跨世界同一性的来源，也是强模型假设。若结构方程或外生变量表示不充分，个体反事实可能比平均干预更脆弱。</p>
+<section id="总效应与直接效应" class="level5">
+<h5 class="anchored" data-anchor-id="总效应与直接效应">总效应与直接效应</h5>
+<p>在 <span class="math inline">\(X\rightarrow M\rightarrow Y\)</span> 且可能有 <span class="math inline">\(X\rightarrow Y\)</span> 时，总效应比较 <span class="math display">\[E(Y_x)-E(Y_{x'}).\]</span> <strong>受控直接效应</strong>把中介固定为同一指定值 <span class="math inline">\(m\)</span>： <span class="math display">\[\operatorname{CDE}(m)=E(Y_{x,m}-Y_{x',m}).\]</span> 它回答在外部同时设定处理和中介时，改变处理的效应。</p>
+<p><strong>自然直接效应</strong>试图让中介保持在基准处理下”自然会取的值”： <span class="math display">\[\operatorname{NDE}=E\{Y_{x,M_{x'}}-Y_{x',M_{x'}}\}.\]</span> <strong>自然间接效应</strong>则比较中介在两处理状态下的变化，同时把结果方程中的处理保持固定。这样的嵌套反事实同时引用不同世界，通常需要比总效应更强的跨世界独立假设。</p>
+<p>传统”总效应=直接效应+间接效应”只在指定尺度与定义下成立。非线性模型、处理—中介交互、处理诱导的中介—结果混杂都会使简单回归系数差失效。若处理影响一个随后同时影响中介和结果的变量，经典自然效应往往不能仅由标准观测数据识别。 近年来的<strong>干预型直接和间接效应</strong>以随机化中介分布代替个体的自然中介值，减少某些跨世界解释负担，但回答的是不同政策问题。选择效应定义应由实质问题决定：是要把中介设为固定值、改变中介分布，还是理解个体自然路径。</p>
+</section>
+<section id="实际因果与责任" class="level5">
+<h5 class="anchored" data-anchor-id="实际因果与责任">实际因果与责任</h5>
+<p>SCM也能形式化”在这个具体情境中，<span class="math inline">\(X=x\)</span> 是否导致 <span class="math inline">\(Y=y\)</span>“。Halpern与Pearl路线通常要求：事实中原因和结果都发生；在某种允许的结构应急情形下改变原因会改变结果；候选原因满足最小性<span class="citation" data-cites="halpern2016">(<a href="../references.html#ref-halpern2016" role="doc-biblioref">Halpern 2016年</a>)</span>。为处理先占和过度决定，定义会考虑将部分变量固定在实际值或替代值。 实际因果定义对模型粒度和正常性排序敏感。在森林火灾模型中只用”雷击、纵火、火灾”三个二元变量，与加入湿度、点燃时刻和两条传播路径的模型，可能给出不同个例判断。法律责任还涉及可预见性、义务和主观过错，不能由结构方程中的实际原因自动推出。</p>
+</section>
+<section id="反事实概率能从哪里来" class="level5">
+<h5 class="anchored" data-anchor-id="反事实概率能从哪里来">反事实概率能从哪里来</h5>
+<p>干预分布 <span class="math inline">\(P(Y_x)\)</span> 在一致性语义下可与 <span class="math inline">\(P(Y\mid\operatorname{do}(x))\)</span> 联系，但联合反事实如 <span class="math inline">\(P(Y_x,Y_{x'})\)</span> 不能一般地由两个边缘干预分布决定。随机试验告诉我们不同人群在不同处理下的边缘分布，却没有让同一人的两个潜在结果同时出现。 要识别获益概率 <span class="math inline">\(P(Y_1=1,Y_0=0)\)</span>，通常需要单调性、功能形式、秩不变或其他跨世界约束；否则只能给出界限。把模型软件输出的个体反事实概率当作数据直接估计值，会掩盖这些约束。</p>
+</section>
+</section>
+<section id="演算实例反事实图与错误诊断" class="level3" data-number="6.2.3">
+<h3 data-number="6.2.3" class="anchored" data-anchor-id="演算实例反事实图与错误诊断"><span class="header-section-number">6.2.3</span> 演算实例、反事实图与错误诊断</h3>
+<ol type="1">
+<li><p>明确目标是总体干预、条件干预、路径效应还是个体反事实；</p></li>
+<li><p>给出完整图和每个节点的时间、测量及因果含义；</p></li>
+<li><p>在每次规则应用中写明操作后的图与d-分离条件；</p></li>
+<li><p>将最终表达式限定在实际可获得的数据分布；</p></li>
+<li><p>区分非参数识别、参数识别和估计便利；</p></li>
+<li><p>对关键跨世界或模块性假设给出科学解释和敏感性分析。</p></li>
+</ol>
+<section id="前门公式的演算思路" class="level5">
+<h5 class="anchored" data-anchor-id="前门公式的演算思路">前门公式的演算思路</h5>
+<p>在标准前门图中，先按观察到的中介状态使用全概率公式： <span class="math display">\[P(y\mid\operatorname{do}(x))=\sum_m P(m\mid\operatorname{do}(x))
+P(y\mid\operatorname{do}(x),m).\]</span> 由于 <span class="math inline">\(X\)</span> 与 <span class="math inline">\(M\)</span> 没有开放后门，规则二允许把第一项中对 <span class="math inline">\(X\)</span> 的行动换成观察，得 <span class="math inline">\(P(m\mid x)\)</span>。在第二项中，规则二先把观察 <span class="math inline">\(m\)</span> 换成行动 <span class="math inline">\(\operatorname{do}(m)\)</span>；又因为 <span class="math inline">\(M\)</span> 截断 <span class="math inline">\(X\)</span> 到 <span class="math inline">\(Y\)</span> 的全部有向路径，规则三随后删除对 <span class="math inline">\(X\)</span> 的行动，得到 <span class="math inline">\(P(y\mid\operatorname{do}(m))\)</span>。这里每次交换都对应不同的删边图，不能把两步合并成一次普通条件化。</p>
+<p>对 <span class="math inline">\(M\)</span> 到 <span class="math inline">\(Y\)</span> 的效应，<span class="math inline">\(X\)</span> 阻断其后门路径 <span class="math inline">\(M\leftarrow X\leftarrow U\rightarrow Y\)</span>，所以 <span class="math display">\[P(y\mid\operatorname{do}(m))=\sum_{x'}P(y\mid m,x')P(x').\]</span> 组合便得到 <span class="math display">\[P(y\mid\operatorname{do}(x))=\sum_m P(m\mid x)
+\sum_{x'}P(y\mid m,x')P(x').\]</span> 推导的意义不是记忆双重求和，而是看到每一步行动—观察交换由哪条路径条件支持。若存在 <span class="math inline">\(U_M\rightarrow M,Y\)</span>，第二步失败；若存在未经 <span class="math inline">\(M\)</span> 的直接路径 <span class="math inline">\(X\rightarrow Y\)</span>，删除行动失败。</p>
+</section>
+<section id="双世界图与反事实独立" class="level5">
+<h5 class="anchored" data-anchor-id="双世界图与反事实独立">双世界图与反事实独立</h5>
+<p>潜在结果中的某些跨世界条件很难从单一DAG直观看出。<strong>单世界干预图</strong>（SWIG）把干预节点拆成固定值与随机部分，将同一干预世界内的反事实独立读成图分离<span class="citation" data-cites="richardsonrobins2013">(<a href="../references.html#ref-richardsonrobins2013" role="doc-biblioref">Richardson 和 Robins 2013年</a>)</span>。这有助于翻译 <span class="math inline">\(Y(a)\perp\!\!\!\perp A\mid L\)</span> 等条件。 自然直接效应中的 <span class="math inline">\(Y_{x,M_{x'}}\)</span> 同时引用 <span class="math inline">\(x\)</span> 与 <span class="math inline">\(x'\)</span> 两个世界，不能由一个普通单世界图完全表示。常见识别依赖中介在一个处理世界中的值与结果在另一个设置中的反事实关系。随机试验分别随机化处理和中介，也未必直接观察这种联合分布。 这说明为什么自然效应比总效应脆弱。若政策问题实际是”把中介分布改善到某个可实施水平”，干预型效应可能更匹配行动，并避免对个体自然中介的强解释。但它不是同一问题的弱假设版本，而是改换了查询。</p>
+</section>
+<section id="反事实界限的简单例子" class="level5">
+<h5 class="anchored" data-anchor-id="反事实界限的简单例子">反事实界限的简单例子</h5>
+<p>在随机试验中观察二元结果，设 <span class="math inline">\(p_1=P(Y_1=1)\)</span>、<span class="math inline">\(p_0=P(Y_0=1)\)</span>。获益比例 <span class="math display">\[P(Y_1=1,Y_0=0)\]</span> 不能由两个边缘概率唯一确定，但Fréchet界给出 <span class="math display">\[\max(0,p_1-p_0)\le P(Y_1=1,Y_0=0)
+\le \min(p_1,1-p_0).\]</span> 若再假定处理不会伤害任何人，即 <span class="math inline">\(Y_1\ge Y_0\)</span>，获益比例缩为 <span class="math inline">\(p_1-p_0\)</span>。精度完全来自单调性，而不是试验额外观察了联合反事实。</p>
+<p>这个例子适用于理解”个体获益概率”模型。模型给出比上述界限更窄的数字时，必定使用了特征、函数形式或跨世界依赖假设。报告应把这些假设与随机化识别的边缘效应区分。</p>
+</section>
+<section id="演算错误的诊断方法" class="level5">
+<h5 class="anchored" data-anchor-id="演算错误的诊断方法">演算错误的诊断方法</h5>
+<p>检查一条do推导时，可以逐行提出三问：左右两边改变了观察还是行动？所用图究竟删除入边还是出边？条件独立是否在该操作图中成立？再把最终公式代入一个简单SCM数值模拟；若等式在满足图的模型中失败，说明推导有错。 符号软件可以执行ID算法，但手工标注每一步仍有教学价值。它让领域专家看见识别依赖哪条缺边，而缺边往往正是最需要实质审查的假设。</p>
+</section>
+</section>
+</section>
+<section id="识别工作的深化与边界" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="识别工作的深化与边界"><span class="header-section-number">6.3</span> 识别工作的深化与边界</h2>
+<section id="识别层级与完整工作记录" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="识别层级与完整工作记录"><span class="header-section-number">6.3.1</span> 识别层级与完整工作记录</h3>
+<p>后门、前门、工具变量与do-calculus经常被并列成四种”方法”，仿佛研究者可按软件熟悉程度任选。实际上它们对应不同结构信息。后门利用足以阻断处理与结果非因果路径的测量变量；前门利用一个截断有向路径且其自身混杂可处理的中介；工具变量利用只通过处理影响结果的外生变化；do-calculus则是对一般图中观察与行动表达式进行系统转换的规则。 选择顺序应从图与数据开始。若存在可靠的处理前调整集，标准化通常最透明。若关键共同原因未测，但有满足前门条件的中介，前门可能识别总体效应；条件非常强，不能因图形看似相似就套用。工具变量在相关性、独立性、排除限制和单调性下通常识别局部效应，而非总体ATE。复杂图无法由熟悉准则处理时，ID算法能够判断非参数识别或给出hedge证据。</p>
+<p>方法之间还会给出不同目标。按工具变量估计的服从者平均效应，与调整得到的总体平均效应数值不同不必表示一方错误；它们可能针对不同人群。前门公式依赖中介分布，政策若改变了中介的定义或测量过程，迁移也会失败。报告必须把识别结构和目标量同时命名。</p>
+<section id="从图到公式的完整工作记录" class="level5">
+<h5 class="anchored" data-anchor-id="从图到公式的完整工作记录">从图到公式的完整工作记录</h5>
+<p>一份图形识别记录至少包含原图、目标查询、允许使用的数据分布、每次图操作和最终表达式。以调整为例，不应只给出公式，还要列出所有从处理进入的后门路径，说明调整集如何阻断，并检查集合不含处理后后代。以do-calculus为例，每一步都应注明删除入边或出边后的图以及成立的d-分离。 公式得到后还需检查可估计性。标准化可能要求数据中不存在的协变量组合；前门双重求和可能在连续高维中极难稳定估计；ID算法给出的表达式可能包含多个条件密度和边缘化。非参数识别只说明无限数据下目标由分布唯一决定，不保证有限样本中有可接受精度。 反向检查同样重要。把最终公式放入一个符合图的简单结构方程模拟，验证数值是否恢复干预效应；再故意加入一条被排除的边，观察哪一步等式失败。这种最小反例能暴露符号推导中被省略的条件，也便于向领域专家解释识别为何依赖某条缺边。</p>
+</section>
+</section>
+<section id="中介含义与不可识别证明" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="中介含义与不可识别证明"><span class="header-section-number">6.3.2</span> 中介含义与不可识别证明</h3>
+<p>“效应有多少通过<span class="math inline">\(M\)</span>发生”可能指至少三种问题。受控直接效应把所有人的中介设为同一值；自然直接效应让中介取基准处理下该个体自然会有的值；干预型效应则从某个可定义的中介分布随机赋值。三者的干预对象、跨世界要求和政策含义不同。 若中介是”抑郁程度”，把它固定为同一数值未必对应可实施干预；不同治疗达到同一量表分数可能通过不同机制影响结果。自然效应的嵌套反事实具有直观分解意义，却常依赖处理诱导的中介—结果混杂不存在等强假设。干预型效应更接近改变服务分配或风险分布，但它回答的是群体政策而非个体自然路径。 中介测量还可能是结果过程的一部分。治疗影响就医频率，就医频率又决定中介是否被记录；只分析有测量者会引入选择。时间变化中介与反馈需要纵向定义，简单把一个随访值放入回归并比较处理系数，通常不能识别任何标准路径效应。</p>
+<section id="不可识别证明具有正面价值" class="level5">
+<h5 class="anchored" data-anchor-id="不可识别证明具有正面价值">不可识别证明具有正面价值</h5>
+<p>当ID算法返回hedge，结论不是”软件失败”，而是在给定图和观测分布下存在至少两个因果模型产生相同观测数据却给出不同目标值。这是一种明确的知识界限。它告诉研究者继续增加同类观测样本不会解决问题，必须获得实验、额外变量、跨环境分布或更强结构假设。 不可识别证明也可以比较设计价值。若测量某个候选变量能够破坏hedge，研究者就有理由优先收集它；若随机化某个上游节点使目标可识别，可以评估试验成本；若只能通过功能形式识别，则应把结果标记为参数依赖，并用替代模型检查。 在写作中明确”不知道”往往比给出脆弱点估计更有贡献。它把争论从算法性能转向缺失信息：究竟需要何种干预、测量或领域承诺。因果推断的完备性不是保证所有问题都有答案，而是尽可能清楚地区分可由当前信息回答与不能回答的查询。</p>
+</section>
+</section>
+<section id="完整识别档案同一问题的三种图" class="level3" data-number="6.3.3">
+<h3 data-number="6.3.3" class="anchored" data-anchor-id="完整识别档案同一问题的三种图"><span class="header-section-number">6.3.3</span> 完整识别档案：同一问题的三种图</h3>
+<p>设<span class="math inline">\(A\)</span>是治疗，<span class="math inline">\(Y\)</span>是结局，目标都是<span class="math inline">\(P(Y\mid\operatorname{do}(A=a))\)</span>。下面三幅图只改变少数结构承诺，识别结果却完全不同。这种并列比较比背诵公式更能显示公式中的信息来源。</p>
+<figure class="figure">
+<img class="web-tikz figure-img" src="../assets/tikz/06-identification-calculus-02.svg" alt="因果结构示意图">
+</figure>
+<p>第一幅图中，<span class="math inline">\(L\)</span>阻断唯一后门路径，因而 <span class="math display">\[P(y\mid\operatorname{do}(a))=\sum_lP(y\mid a,l)P(l).\]</span> 这一等式使用的不是”<span class="math inline">\(L\)</span>对<span class="math inline">\(Y\)</span>预测准确”，而是给定<span class="math inline">\(L\)</span>后处理没有其他开放的非因果路径。若另有未测<span class="math inline">\(U\)</span>同时影响<span class="math inline">\(A,Y\)</span>，等式第一步就不再成立。</p>
+<p>第二幅图允许<span class="math inline">\(A,Y\)</span>有未测混杂，但<span class="math inline">\(A\)</span>对<span class="math inline">\(Y\)</span>的所有作用经<span class="math inline">\(M\)</span>传递，<span class="math inline">\(A\)</span>到<span class="math inline">\(M\)</span>没有未阻断后门，而<span class="math inline">\(M\)</span>到<span class="math inline">\(Y\)</span>的后门可由<span class="math inline">\(A\)</span>阻断。在这些条件下， <span class="math display">\[P(y\mid\operatorname{do}(a))=
+\sum_m P(m\mid a)\sum_{a'}P(y\mid m,a')P(a').\]</span> 内层对<span class="math inline">\(a'\)</span>的求和不是多余技巧，而是用观察到的处理分布阻断<span class="math inline">\(M\leftarrow A\leftarrow U\rightarrow Y\)</span>。若<span class="math inline">\(A\)</span>还有一条不经<span class="math inline">\(M\)</span>的直接边，前门公式不再识别总效应。</p>
+<p>第三幅图既没有可调整的<span class="math inline">\(L\)</span>，也没有满足条件的中介或外生工具。观测<span class="math inline">\(P(A,Y)\)</span>可以同时由”<span class="math inline">\(A\)</span>对<span class="math inline">\(Y\)</span>作用较强、<span class="math inline">\(U\)</span>较弱”和”<span class="math inline">\(A\)</span>几乎没有作用、<span class="math inline">\(U\)</span>造成大部分关联”的模型生成。增加同类样本可更精确地知道<span class="math inline">\(P(A,Y)\)</span>，却不能在两个结构解释之间做出选择。</p>
+<blockquote class="blockquote">
+<p><strong>完整算例：把识别推导写成审计轨迹</strong></p>
+<p>对第一幅图，先写目标<span class="math inline">\(E{Y(a)}\)</span>，再对<span class="math inline">\(L\)</span>标准化： <span class="math display">\[\begin{align*}
+E{Y(a)}
+&amp;=\sum_l E{Y(a)\mid L=l}P(l)\\
+&amp;=\sum_l E{Y(a)\mid A=a,L=l}P(l)\\
+&amp;=\sum_l E(Y\mid A=a,L=l)P(l).
+\end{align*}\]</span> 第一个等号是全概率展开；第二个等号使用<span class="math inline">\(Y(a)\perp\!\!\!\perp A\mid L\)</span>；第三个等号使用一致性。正值性保证需要的<span class="math inline">\(E(Y\mid A=a,L=l)\)</span>在目标层中有数据含义。这种逐行标注使领域争议可以定位：若某个病情层的处理由医生完全决定，问题在正值性；若还有未记录病情同时影响处方和结局，问题在可交换性。</p>
+</blockquote>
+<div class="table-responsive web-table">
+<table class="table">
+<thead>
+<tr>
+<th>
+档案项
+</th>
+<th>
+应保存的内容
+</th>
+<th>
+最常见的失败
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+图与版本
+</td>
+<td>
+原图、争议边、选择与测量节点
+</td>
+<td>
+只保存一张美化后图像
+</td>
+</tr>
+<tr>
+<td>
+目标与数据
+</td>
+<td>
+干预分布、反事实或路径效应；可用分布
+</td>
+<td>
+默认只有一个观测数据集
+</td>
+</tr>
+<tr>
+<td>
+规则轨迹
+</td>
+<td>
+每步图操作、d-分离条件与等式
+</td>
+<td>
+只引用“由do-calculus可得”
+</td>
+</tr>
+<tr>
+<td>
+可估计性
+</td>
+<td>
+支持、维度、连续处理和样本量风险
+</td>
+<td>
+把非参数识别误作精确估计
+</td>
+</tr>
+<tr>
+<td>
+反例
+</td>
+<td>
+破坏一条缺边或条件后的模拟结果
+</td>
+<td>
+只展示有利于主结论的模型
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote class="blockquote">
+<p><strong>失败诊断：用识别公式反推因果图</strong></p>
+<p>一个数据集能稳定估计后门公式，不证明真实结构就是第一幅图。不同DAG可对同一观测分布给出相同标准化数值，而在其他干预或环境下分歧。识别分析的条件句是”若该图与其语义成立，则目标等于此表达式”，不是”因为表达式可计算，图已被证实”。图的证据需要时间、制度、机制和新干预共同提供。</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>本章小结</strong></p>
+<p>图形调整以阻断非因果路径、保留目标因果路径为原则。后门准则给出标准化公式；中介、碰撞点、工具变量和处理后变量各有不同角色，不能按预测能力机械控制。前门和工具变量显示，协变量调整失败时仍可能在更强结构假设下识别特定效应。 do-calculus通过三条带有精确删边图条件的规则，把干预分布转换为可用数据表达式；ID算法把这种推理系统化。结构反事实以溯因、行动、预测连接实际证据与替代世界。直接、间接和实际因果查询需要比总效应更强、更具体的模型，尤其要警惕跨世界假设和模型粒度。</p>
+</blockquote>
+<blockquote class="blockquote">
+<p><strong>自测与研讨</strong></p>
+<ol type="1">
+<li><p>为一个包含共同原因、中介和碰撞点的五节点DAG找出总效应的最小调整集。</p></li>
+<li><p>为什么控制处理后的病情指标可能同时产生过度调整与碰撞点偏差？</p></li>
+<li><p>逐步解释前门公式的两个内层因果关系如何识别。</p></li>
+<li><p>工具变量估计的目标为何常是局部效应而非ATE？</p></li>
+<li><p>写出三条do-calculus规则，并逐一解释横线和下划线图操作。</p></li>
+<li><p>为什么do-calculus完备不意味着它能从任意数据发现正确因果图？</p></li>
+<li><p>用一个线性结构方程完成溯因—行动—预测三步。</p></li>
+<li><p>比较受控直接效应与自然直接效应所对应的干预问题和识别假设。</p></li>
+</ol>
+</blockquote>
+</section>
+</section>
+<section id="延伸阅读" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="延伸阅读">延伸阅读</h2>
+<p>后门、前门和do-calculus的原始系统论述见@pearl2009。一般调整准则见@shpitser2010与<span class="citation" data-cites="perkovic2018">Perković 等 (<a href="../references.html#ref-perkovic2018" role="doc-biblioref">2018年</a>)</span>。工具变量的局部平均效应解释见@angrist1996；应用中的图形变量选择可结合@hernanrobins2020阅读。</p>
+<p>三条规则与图操作以@pearl1995和<span class="citation" data-cites="pearl2009">Pearl (<a href="../references.html#ref-pearl2009" role="doc-biblioref">2009年, 第3章</a>)</span>为准。识别完备性与ID算法见@shpitserpearl2006。SWIG的原始技术报告见@richardsonrobins2013；中介分析可读@pearl2001mediation与<span class="citation" data-cites="vanderweele2015">VanderWeele (<a href="../references.html#ref-vanderweele2015" role="doc-biblioref">2015年</a>)</span>；实际因果的模型化见@halpern2016。</p>
+<p>一般识别条件和完整因果层级算法可依次阅读@tianpearl2002与<span class="citation" data-cites="shpitserpearl2008">Shpitser 和 Pearl (<a href="../references.html#ref-shpitserpearl2008" role="doc-biblioref">2008年</a>)</span>；当直接实验目标不可操纵而只能进行替代实验时，<span class="math inline">\(z\)</span>-可识别性见@bareinboimpearl2012。调整集的可计算检查可结合@textor2016，但软件输出必须由图假设解释。</p>
+<p>工具变量的识别愿景、限制和单调性解释可对照@hernanrobins2006iv与<span class="citation" data-cites="swansonhernan2018">Swanson 和 Hernán (<a href="../references.html#ref-swansonhernan2018" role="doc-biblioref">2018年</a>)</span>。路径特定效应的图形可识别性见@avin2005；自然直接和间接效应的早期交换条件见@robinsgreenland1992，半参数效率、多重稳健与敏感性分析见@tchetgentshpitser2012。</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-angrist1996" class="csl-entry" role="listitem">
+Angrist, Joshua D., Guido W. Imbens, 和 Donald B. Rubin. 1996年. <span>《Identification of Causal Effects Using Instrumental Variables》</span>. <em>Journal of the American Statistical Association</em> 91 (434): 444～55. <a href="https://doi.org/10.1080/01621459.1996.10476902">https://doi.org/10.1080/01621459.1996.10476902</a>.
+</div>
+<div id="ref-halpern2016" class="csl-entry" role="listitem">
+Halpern, Joseph Y. 2016年. <em>Actual Causality</em>. MIT Press.
+</div>
+<div id="ref-pearl1995" class="csl-entry" role="listitem">
+Pearl, Judea. 1995年. <span>《Causal Diagrams for Empirical Research》</span>. <em>Biometrika</em> 82 (4): 669～88. <a href="https://doi.org/10.1093/biomet/82.4.669">https://doi.org/10.1093/biomet/82.4.669</a>.
+</div>
+<div id="ref-pearl2009" class="csl-entry" role="listitem">
+Pearl, Judea. 2009年. <em>Causality: Models, Reasoning, and Inference</em>. 2 版. Cambridge University Press.
+</div>
+<div id="ref-perkovic2018" class="csl-entry" role="listitem">
+Perković, Emilija, Johannes Textor, Markus Kalisch, 和 Marloes H. Maathuis. 2018年. <span>《Complete Graphical Characterization and Construction of Adjustment Sets in Markov Equivalence Classes of Ancestral Graphs》</span>. <em>Journal of Machine Learning Research</em> 18 (220): 1～62. <a href="https://jmlr.org/papers/v18/16-319.html">https://jmlr.org/papers/v18/16-319.html</a>.
+</div>
+<div id="ref-richardsonrobins2013" class="csl-entry" role="listitem">
+Richardson, Thomas S., 和 James M. Robins. 2013年. <em>Single World Intervention Graphs (SWIGs): A Unification of the Counterfactual and Graphical Approaches to Causality</em>. Working Paper No. 128. Center for Statistics; the Social Sciences, University of Washington. <a href="https://csss.uw.edu/files/working-papers/2013/wp128.pdf">https://csss.uw.edu/files/working-papers/2013/wp128.pdf</a>.
+</div>
+<div id="ref-shpitserpearl2006" class="csl-entry" role="listitem">
+Shpitser, Ilya, 和 Judea Pearl. 2006年. <span>《Identification of Joint Interventional Distributions in Recursive Semi-Markovian Causal Models》</span>. <em>Proceedings of the Twenty-First National Conference on Artificial Intelligence</em>, 1219～26. <a href="https://aaai.org/Papers/AAAI/2006/AAAI06-191.pdf">https://aaai.org/Papers/AAAI/2006/AAAI06-191.pdf</a>.
+</div>
+<div id="ref-shpitserpearl2008" class="csl-entry" role="listitem">
+Shpitser, Ilya, 和 Judea Pearl. 2008年. <span>《Complete Identification Methods for the Causal Hierarchy》</span>. <em>Journal of Machine Learning Research</em> 9: 1941～79. <a href="https://www.jmlr.org/papers/v9/shpitser08a.html">https://www.jmlr.org/papers/v9/shpitser08a.html</a>.
+</div>
+<div id="ref-shpitser2010" class="csl-entry" role="listitem">
+Shpitser, Ilya, Tyler J. VanderWeele, 和 James M. Robins. 2010年. <span>《On the Validity of Covariate Adjustment for Estimating Causal Effects》</span>. <em>Proceedings of the Twenty-Sixth Conference on Uncertainty in Artificial Intelligence</em>, 527～36. <a href="https://event.cwi.nl/uai2010/papers/UAI2010_0016.pdf">https://event.cwi.nl/uai2010/papers/UAI2010_0016.pdf</a>.
+</div>
+<div id="ref-swansonhernan2018" class="csl-entry" role="listitem">
+Swanson, Sonja A., 和 Miguel A. Hernán. 2018年. <span>《The Challenging Interpretation of Instrumental Variable Estimates under Monotonicity》</span>. <em>International Journal of Epidemiology</em> 47 (4): 1289～97. <a href="https://doi.org/10.1093/ije/dyx038">https://doi.org/10.1093/ije/dyx038</a>.
+</div>
+<div id="ref-vanderweele2015" class="csl-entry" role="listitem">
+VanderWeele, Tyler J. 2015年. <em>Explanation in Causal Inference: Methods for Mediation and Interaction</em>. Oxford University Press.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/chongliuphil\.github\.io\/causal-inference-reader\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../manuscript/05-scm-graphs.html" class="pagination-link" aria-label="结构因果模型与图形语言">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">结构因果模型与图形语言</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../manuscript/07-design-estimation.html" class="pagination-link" aria-label="研究设计、估计方法与不确定性">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">研究设计、估计方法与不确定性</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>因果推理深度读本</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/edit/main/manuscript/06-identification-calculus.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/issues/new" class="toc-action"><i class="bi empty"></i>反馈问题</a></li><li><a href="https://github.com/ChongLiuPhil/causal-inference-reader/blob/main/manuscript/06-identification-calculus.qmd" class="toc-action"><i class="bi empty"></i>查看代码</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
