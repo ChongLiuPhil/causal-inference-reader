@@ -1,0 +1,86 @@
+name: Validate and Publish Quarto Book
+
+# Canonical body source: manuscript/*.qmd. PRs validate only; main publishes.
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "manuscript/**"
+      - "assets/**"
+      - "references.bib"
+      - "book.css"
+      - "_quarto.yml"
+      - "index.qmd"
+      - "references.qmd"
+      - "scripts/check_quarto_source.py"
+      - ".github/workflows/publish-book.yml"
+  push:
+    branches: [main]
+    paths:
+      - "manuscript/**"
+      - "assets/**"
+      - "references.bib"
+      - "book.css"
+      - "_quarto.yml"
+      - "index.qmd"
+      - "references.qmd"
+      - "scripts/check_quarto_source.py"
+      - ".github/workflows/publish-book.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: quarto-book-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Validate canonical sources
+        run: python scripts/check_quarto_source.py
+
+      - name: Render complete HTML book
+        run: quarto render --to html
+
+      - name: Validate reader output
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s _book/index.html
+          test -s _book/manuscript/01-questions.html
+          test -s _book/manuscript/04-potential-outcomes-identification.html
+          test -s _book/manuscript/07-design-estimation.html
+          test -s _book/manuscript/11-synthesis-open-problems.html
+          test -s _book/manuscript/appendix-A-comparative-topics.html
+          test -s _book/references.html
+          find _book/assets -type f -print -quit | grep -q .
+          grep -R -q 'MathJax' _book --include='*.html'
+          grep -R -q 'role="doc-biblioref"' _book --include='*.html'
+          grep -q 'nav-page-next' _book/manuscript/04-potential-outcomes-identification.html
+          grep -q 'nav-page-previous' _book/manuscript/04-potential-outcomes-identification.html
+          ! grep -R -E 'WEBTABLE|WEBTIKZ|begin\{tikzpicture\}|web-assets/' _book --include='*.html'
+
+      - name: Upload rendered book for inspection
+        uses: actions/upload-artifact@v7
+        with:
+          name: causal-inference-reader-html
+          path: _book/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Publish verified HTML to GitHub Pages branch
+        if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
+          render: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

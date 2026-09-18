@@ -1,0 +1,180 @@
+/* Online reading layer for 因果推理深度读本.
+   Keep the visual system close to the print book while prioritizing screen reading. */
+
+:root {
+  --reader-deepblue: #173B57;
+  --reader-accent: #9A5A36;
+  --reader-warmgray: #F3F1EC;
+}
+
+body {
+  font-family: "Noto Serif CJK SC", "Source Han Serif SC", "Songti SC", "STSong", serif;
+  line-height: 1.82;
+}
+
+.navbar,
+.sidebar-title,
+.sidebar-item-text,
+.quarto-title-block,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Noto Sans CJK SC", "Source Han Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+h1,
+h2 {
+  color: var(--reader-deepblue);
+}
+
+h3,
+h4 {
+  color: var(--reader-accent);
+}
+
+main.content {
+  min-width: 0;
+}
+
+main.content > *,
+main.content figure,
+main.content .quarto-figure,
+main.content .cell,
+main.content .cell-output,
+main.content .cell-output-display {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+main.content p,
+main.content li,
+main.content blockquote,
+main.content figcaption,
+main.content .figure-caption,
+main.content caption,
+main.content h1,
+main.content h2,
+main.content h3,
+main.content h4,
+main.content h5,
+main.content h6,
+.quarto-title-block .title,
+.quarto-title-block .subtitle,
+.quarto-title-block .quarto-title-meta {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+main.content strong,
+main.content em,
+main.content a {
+  overflow-wrap: anywhere;
+}
+
+main.content blockquote {
+  margin: 1.4rem 0;
+  padding: 0.9rem 1.1rem;
+  border-left: 0.24rem solid var(--reader-deepblue);
+  background: var(--reader-warmgray);
+  color: inherit;
+}
+
+main.content blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+main.content img,
+main.content svg,
+main.content canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+main.content .web-tikz {
+  display: block;
+  margin: 1.5rem auto;
+  max-height: 34rem;
+}
+
+main.content .math,
+main.content .math *,
+main.content mjx-container,
+main.content mjx-container *,
+main.content .katex,
+main.content .katex * {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+main.content .math,
+main.content mjx-container,
+main.content .katex {
+  white-space: nowrap;
+}
+
+.math.display,
+span.math.display,
+div.math.display,
+mjx-container[display="true"],
+.katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+main.content pre,
+main.content .table-responsive,
+main.content .web-table {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+main.content .web-table table {
+  width: 100%;
+  min-width: 34rem;
+  border-collapse: collapse;
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+main.content .web-table th,
+main.content .web-table td {
+  padding: 0.55rem 0.65rem;
+  border-bottom: 1px solid var(--bs-border-color, #dee2e6);
+  vertical-align: top;
+}
+
+main.content .web-table th {
+  color: var(--reader-deepblue);
+  background: var(--reader-warmgray);
+  font-weight: 650;
+}
+
+.quarto-sidebar .sidebar-item-container .active {
+  color: var(--reader-accent);
+  font-weight: 650;
+}
+
+@media (min-width: 992px) {
+  main.content {
+    max-width: 840px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  body {
+    line-height: 1.72;
+  }
+
+  main.content .web-table table {
+    min-width: 30rem;
+  }
+}

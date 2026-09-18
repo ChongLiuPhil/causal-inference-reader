@@ -1,6 +1,8 @@
 # Project build directories
 build/
 tmp/
+_book/
+web-assets/tikz/
 
 # LaTeX build artifacts
 *.aux
@@ -43,3 +45,4 @@ Thumbs.db
 ~$*.docx
 ~$*.xlsx
 ~$*.pptx
+.quarto/

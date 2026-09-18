@@ -1,0 +1,66 @@
+project:
+  type: book
+  output-dir: _book
+  resources:
+    - assets/**
+
+book:
+  title: "因果推理深度读本"
+  subtitle: "从哲学问题到现代形式方法"
+  author: "ChongLiuPhil"
+  site-url: https://chongliuphil.github.io/causal-inference-reader/
+  repo-url: https://github.com/ChongLiuPhil/causal-inference-reader
+  repo-branch: main
+  repo-actions: [edit, issue, source]
+  search: true
+  page-navigation: true
+  chapters:
+    - index.qmd
+    - manuscript/frontmatter-preface.qmd
+    - manuscript/frontmatter-guide.qmd
+    - part: "第一部　问题、历史与哲学"
+      chapters:
+        - manuscript/01-questions.qmd
+        - manuscript/02-history.qmd
+        - manuscript/03-philosophies.qmd
+    - part: "第二部　识别、结构与估计"
+      chapters:
+        - manuscript/04-potential-outcomes-identification.qmd
+        - manuscript/05-scm-graphs.qmd
+        - manuscript/06-identification-calculus.qmd
+        - manuscript/07-design-estimation.qmd
+    - part: "第三部　发现、迁移与应用"
+      chapters:
+        - manuscript/08-discovery.qmd
+        - manuscript/09-transportability.qmd
+        - manuscript/10-causal-ml-applications.qmd
+        - manuscript/11-synthesis-open-problems.qmd
+    - references.qmd
+  appendices:
+    - manuscript/appendix-A-comparative-topics.qmd
+    - manuscript/appendix-B-glossary-learning.qmd
+    - manuscript/appendix-C-exercises.qmd
+    - manuscript/appendix-D-primary-reading.qmd
+  page-footer:
+    left: "因果推理深度读本"
+    right: "Built with Quarto"
+
+bibliography: references.bib
+lang: zh-CN
+
+crossref:
+  appendix-title: "附录"
+  appendix-delim: "："
+
+format:
+  html:
+    theme: cosmo
+    css: book.css
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    number-depth: 3
+    citations-hover: true
+    footnotes-hover: true
+    html-math-method: mathjax
+    link-external-newwindow: true
