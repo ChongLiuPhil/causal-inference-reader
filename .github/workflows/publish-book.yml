@@ -12,6 +12,7 @@ on:
       - "_quarto.yml"
       - "index.qmd"
       - "references.qmd"
+      - "scripts/check_project_state.py"
       - "scripts/check_quarto_source.py"
       - ".github/workflows/publish-book.yml"
   push:
@@ -24,6 +25,7 @@ on:
       - "_quarto.yml"
       - "index.qmd"
       - "references.qmd"
+      - "scripts/check_project_state.py"
       - "scripts/check_quarto_source.py"
       - ".github/workflows/publish-book.yml"
 
@@ -43,6 +45,9 @@ jobs:
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
+
+      - name: Validate project governance
+        run: python scripts/check_project_state.py
 
       - name: Validate canonical sources
         run: python scripts/check_quarto_source.py
@@ -66,7 +71,7 @@ jobs:
           grep -R -q 'role="doc-biblioref"' _book --include='*.html'
           grep -q 'nav-page-next' _book/manuscript/04-potential-outcomes-identification.html
           grep -q 'nav-page-previous' _book/manuscript/04-potential-outcomes-identification.html
-          ! grep -R -E 'WEBTABLE|WEBTIKZ|begin\{tikzpicture\}|web-assets/' _book --include='*.html'
+          ! grep -R -E 'WEBTABLE|WEBTIKZ|begin\\{tikzpicture\\}|web-assets/' _book --include='*.html'
 
       - name: Upload rendered book for inspection
         uses: actions/upload-artifact@v7
