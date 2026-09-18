@@ -1,13 +1,21 @@
 schema_version: 1
 publish: false
 
+language:
+  default: auto
+  fallback: en
+  supported:
+    - en
+    - zh
+  detect_from_browser: true
+
 title:
   zh: 因果推理深度读本
   en: Causal Inference Reader
 
 summary:
-  zh: ""
-  en: ""
+  zh: "一部中文深度自学型读本，将因果哲学、潜在结果、结构因果模型、因果发现、可迁移性与因果机器学习贯通起来。"
+  en: "An advanced Chinese self-study reader connecting the philosophy of causation with potential outcomes, structural causal models, causal discovery, transportability, and causal machine learning."
 
 status:
   zh: ""
