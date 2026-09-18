@@ -24,11 +24,11 @@
 
 **分类：** FORM / PROTOCOL  
 **决定：** LaTeX→QMD 只允许作为一次性迁移；迁移完成后删除 LaTeX/TinyTeX/TikZ/dvisvgm 迁移 machinery 和旧 canonical 痕迹。  
-**状态：** migration machinery removed; repository residue cleanup in progress.
+**状态：** migration machinery removed; old Makefile/PDF and stale QMD migration headers removed on collaboration-upgrade branch.
 
 ## 2026-09-18 — D005
 
 **分类：** PROTOCOL  
 **决定：** 参考 `ChongLiuPhil/Human-AI-Research-Collaboration-Protocol` 建立项目适配的 HARC-lite 协作层，采用“仓库状态高于聊天记忆、零上下文接管、CONTENT/FORM/PROTOCOL/SOURCE 路由、Decision Log、Working Memory、高影响不确定性不猜测”等机制；不复制第二套正文，也不宣称完整 HARC conformance。  
 **上游参考 commit：** `e741c43c5cd158c43910e3832c7d757226717a97`  
-**状态：** implementing.
+**状态：** implemented on `harc-collaboration-upgrade`; pending CI/review/merge.
