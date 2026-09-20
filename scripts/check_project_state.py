@@ -24,14 +24,17 @@ required_files = [
     "book.css",
     "scripts/check_quarto_source.py",
     ".github/workflows/publish-book.yml",
+    "project.yaml",
+    "website.yaml",
+    "project-stack.yaml",
+    "project-stack.lock.yaml",
+    "scripts/check_stack_consistency.py",
 ]
 
 forbidden_paths = [
     "main.tex",
     "bookstyle.tex",
     "chapters",
-    "project.yaml",
-    "website.yaml",
     "epub.css",
     "web-manuscript",
     "web-assets",

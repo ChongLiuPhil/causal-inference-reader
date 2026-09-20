@@ -11,11 +11,16 @@ on:
       - "CITATION.cff"
       - "README.md"
       - "Makefile"
+      - "project.yaml"
+      - "website.yaml"
+      - "project-stack.yaml"
+      - "project-stack.lock.yaml"
       - ".gitignore"
       - "core/**"
       - "docs/working-memory/**"
       - "evidence/**"
       - "scripts/check_project_state.py"
+      - "scripts/check_stack_consistency.py"
       - ".github/PULL_REQUEST_TEMPLATE.md"
       - ".github/workflows/project-governance.yml"
   push:
@@ -29,11 +34,16 @@ on:
       - "CITATION.cff"
       - "README.md"
       - "Makefile"
+      - "project.yaml"
+      - "website.yaml"
+      - "project-stack.yaml"
+      - "project-stack.lock.yaml"
       - ".gitignore"
       - "core/**"
       - "docs/working-memory/**"
       - "evidence/**"
       - "scripts/check_project_state.py"
+      - "scripts/check_stack_consistency.py"
       - ".github/PULL_REQUEST_TEMPLATE.md"
       - ".github/workflows/project-governance.yml"
 
@@ -46,6 +56,13 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
-
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Install stack validation dependency
+        run: python -m pip install "PyYAML==6.0.3"
       - name: Validate repository collaboration state
         run: python scripts/check_project_state.py
+      - name: Validate stack mapping
+        run: python scripts/check_stack_consistency.py
