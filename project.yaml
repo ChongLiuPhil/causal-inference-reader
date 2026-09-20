@@ -1,0 +1,38 @@
+schema_version: 1
+id: causal-inference-reader
+repository: ChongLiuPhil/causal-inference-reader
+
+title:
+  zh: "因果推理深度读本"
+  en: "Causal Inference: A Deep Reader"
+
+kind: book-project
+status: active
+areas: [causation, philosophy-of-science]
+topics: [causal-inference, potential-outcomes, structural-causal-models, causal-discovery]
+
+source_of_truth:
+  overview_en: README.md
+  overview_zh: README.zh-CN.md
+  manuscript: manuscript/
+  bibliography: references.bib
+  book_config: _quarto.yml
+
+governance:
+  profile: HARC-lite
+  protocol_source: ChongLiuPhil/Human-AI-Research-Collaboration-Protocol
+  adopted_protocol_commit: e741c43c5cd158c43910e3832c7d757226717a97
+  context_mode: repository-backed
+
+stack:
+  manifest: project-stack.yaml
+  lock: project-stack.lock.yaml
+
+website:
+  metadata: website.yaml
+  default_publish: true
+
+notes: >
+  Existing HARC-lite files remain project-native and are functionally mapped into
+  the AHICP compatibility layer. PPF adoption is intentionally deferred; the
+  existing GitHub Pages publication path is not changed by this stack migration.

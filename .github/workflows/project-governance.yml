@@ -10,13 +10,11 @@ on:
       - "CONTRIBUTING.md"
       - "CITATION.cff"
       - "README.md"
-      - "Makefile"
-      - ".gitignore"
+      - "Makefile"\n      - "project.yaml"\n      - "website.yaml"\n      - "project-stack.yaml"\n      - "project-stack.lock.yaml"\n      - ".gitignore"
       - "core/**"
       - "docs/working-memory/**"
       - "evidence/**"
-      - "scripts/check_project_state.py"
-      - ".github/PULL_REQUEST_TEMPLATE.md"
+      - "scripts/check_project_state.py"\n      - "scripts/check_stack_consistency.py"\n      - ".github/PULL_REQUEST_TEMPLATE.md"
       - ".github/workflows/project-governance.yml"
   push:
     branches: [main]
@@ -47,5 +45,11 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v7
 
+      - name: Install stack validation dependency
+        run: python -m pip install "PyYAML==6.0.3"
+
       - name: Validate repository collaboration state
         run: python scripts/check_project_state.py
+
+      - name: Validate stack mapping
+        run: python scripts/check_stack_consistency.py

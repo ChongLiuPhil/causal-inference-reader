@@ -1,0 +1,23 @@
+schema_version: 1
+publish: true
+project_id: causal-inference-reader
+language:
+  default: auto
+  fallback: en
+  supported: [en, zh]
+  detect_from_browser: true
+title:
+  zh: "因果推理深度读本"
+  en: "Causal Inference: A Deep Reader"
+status:
+  zh: "公开 Web Edition 已获发布授权；当前仍沿用既有 GitHub Pages 路线，仓库内构建通过，但 provider 侧 Pages source binding 仍需完成后才能视为公网验收完成。"
+  en: "The public Web Edition is authorized and retains the existing GitHub Pages route. Repository builds pass, but provider-side Pages source binding still must be completed before public runtime acceptance is complete."
+summary:
+  zh: "一部贯通因果哲学、潜在结果、结构因果模型、因果发现、可迁移性与因果机器学习的中文深度自学读本。"
+  en: "A Chinese deep self-study reader connecting philosophy of causation, potential outcomes, structural causal models, causal discovery, transportability, and causal machine learning."
+areas: [causation, philosophy-of-science]
+featured: false
+links:
+  - https://chongliuphil.github.io/causal-inference-reader/
+publication_notes: >
+  Stack adoption does not change the current GitHub Pages provider or imply PPF adoption.
