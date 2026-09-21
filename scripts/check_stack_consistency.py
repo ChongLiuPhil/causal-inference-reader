@@ -74,16 +74,22 @@ if publishing.get("publication.web.visibility") != "public":
 if lock.get("resolved.ppf") != stack.get("components.publishing.template_source_commit"):
     fail("PPF lock drift")
 
-if stack.get("components.governance.template_source_commit") != "ed5a60b1016497472072db108072ace59bcdb65d":
-    fail("unexpected current AHICP pin")
+if stack.get("components.governance.template_source_commit") != "02d0b3c02ca23073c760b6e0f761a468e0235a1c":
+    fail("unexpected AHICP template pin")
+if stack.get("components.governance.project_adopted_commit") != "ed5a60b1016497472072db108072ace59bcdb65d":
+    fail("unexpected AHICP adopted pin")
 if ahicp.get("ahicp.adopted_protocol_commit") != "ed5a60b1016497472072db108072ace59bcdb65d":
     fail("AHICP manifest pin drift")
-if stack.get("components.publishing.template_source_commit") != "e660b48fb216c28c8faa1f0fe2d0816401e1de2c":
-    fail("unexpected current PPF pin")
-if stack.get("components.portfolio_interface.template_source_commit") != "79d64b12275a5cc7c09236b144bf4213fa7afc5e":
-    fail("unexpected current Vault Interface pin")
-if stack.get("starter.adopted_commit") != "4889739d448a9bf68bedb42ce3182315eda0caeb":
-    fail("unexpected current Starter pin")
+if stack.get("components.publishing.template_source_commit") != "9a6005de85f032095e36eea03fda317e73126538":
+    fail("unexpected PPF template pin")
+if stack.get("components.publishing.project_adopted_commit") != "e660b48fb216c28c8faa1f0fe2d0816401e1de2c":
+    fail("unexpected PPF adopted pin")
+if stack.get("components.portfolio_interface.template_source_commit") != "592c6e2e938f995b7b3e7df07a72f7f1e2c50c5a":
+    fail("unexpected Vault Interface template pin")
+if stack.get("components.portfolio_interface.project_adopted_commit") != "79d64b12275a5cc7c09236b144bf4213fa7afc5e":
+    fail("unexpected Vault Interface adopted pin")
+if stack.get("starter.adopted_commit") != "05857086e240cbd269eae91af8419ea0921c01fa":
+    fail("unexpected Starter source revision")
 
 if lock.get("resolved.ahicp") != stack.get("components.governance.template_source_commit"):
     fail("AHICP lock drift")
@@ -94,4 +100,4 @@ if lock.get("resolved.starter") != stack.get("starter.adopted_commit"):
 if website.get("publish") is not True:
     fail("website metadata conflicts with the already-authorized public Web Edition")
 
-print("Project stack v2 consistency passed: current AHICP/PPF/Vault/Starter pins align, HARC-lite history is retained, and the existing GitHub Pages route/provider-binding gate is preserved.")
+print("Project stack v2 consistency passed: Stack v2 template/adopted revisions align, HARC-lite history is retained, and the existing GitHub Pages route/provider-binding gate is preserved.")
