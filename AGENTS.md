@@ -1,6 +1,6 @@
 # AGENTS.md — 因果推理深度读本协作契约
 
-本项目采用受 Human–AI Research Collaboration Protocol 启发的轻量协作层。它不是对上游 HARC 的逐文件复制；项目只保留对长期维护这本 Quarto 读本有直接价值的机制。
+本项目保留受 Human–AI Research Collaboration Protocol 启发的 HARC-lite 作为 project-native 历史治理层，并以 current AHICP 作为当前协议入口。两者都不复制第二套正文；AHICP functional mapping 只负责定位既有项目权威与当前状态。
 
 ## 1. 权威来源
 
@@ -55,6 +55,8 @@ AI 生成的新论点、新术语、新章节结构、新解释或新形式规�
 7. 历史性材料若主要承担哲学史、思想史或思想研究功能，应如实标明，不以“哲学”标签抹去研究类型差别。
 
 ## 6. 形式与发布要求
+
+PPF 现用于记录现有 GitHub Pages 生命周期，但不切换 provider。公开 Web Edition 已获授权；repository build / `gh-pages` branch publish 成功与 provider-side Pages source/binding 的最终 runtime 验收必须分开记录。
 
 - 当前只构建 HTML。
 - PR 必须完整渲染并验证，但不得覆盖生产站点。
