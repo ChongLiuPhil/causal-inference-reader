@@ -1,0 +1,75 @@
+ahicp_context_interface:
+  version: "0.1-draft"
+  mode: "repository-backed-legacy-functional-mapping"
+  authoritative_store: "github"
+  canonical_language: "zh-CN"
+
+  control_plane:
+    manifest: "AHICP_MANIFEST.yaml"
+    context_interface: "AHICP_CONTEXT_INTERFACE.yaml"
+    legacy_manifest: "HARC_MANIFEST.yaml"
+    legacy_context_interface: "HARC_CONTEXT_INTERFACE.yaml"
+    start_here: "START_HERE.md"
+    agent_contract: "AGENTS.md"
+    authoritative_session_copy: false
+
+  working_memory:
+    current_focus: "docs/working-memory/current-focus.md"
+    task_plan: "docs/working-memory/task-plan.md"
+    work_log: "docs/working-memory/work-log.md"
+    default_reads:
+      - "docs/working-memory/current-focus.md"
+      - "docs/working-memory/task-plan.md"
+    work_log_default_read: false
+
+  context_policy:
+    retrieval: "selective-on-demand"
+    working_memory_first: true
+    cache_authority: "none"
+    read_latest_before_high_impact_action: true
+    read_latest_before_write: true
+    invalidate_touched_cache_after_write: true
+    write_through_repository: true
+
+  task_routes:
+    CONTENT:
+      required:
+        - "core/CONTENT_CORE.md"
+        - "core/DECISION_LOG.md"
+        - "_quarto.yml"
+      optional:
+        - "manuscript/*.qmd"
+        - "references.bib"
+        - "evidence/source-policy.md"
+    FORM:
+      required:
+        - "core/FORM_CORE.md"
+        - "core/DECISION_LOG.md"
+        - "_quarto.yml"
+      optional:
+        - "book.css"
+        - ".github/workflows/publish-book.yml"
+    PROTOCOL:
+      required:
+        - "AHICP_MANIFEST.yaml"
+        - "AHICP_CONTEXT_INTERFACE.yaml"
+        - "core/DECISION_LOG.md"
+        - "docs/working-memory/current-focus.md"
+        - "docs/working-memory/task-plan.md"
+    SOURCE:
+      required:
+        - "evidence/source-policy.md"
+        - "references.bib"
+    PUBLICATION:
+      required:
+        - "publishing.yaml"
+        - "website.yaml"
+        - ".github/workflows/publish-book.yml"
+        - "docs/working-memory/current-focus.md"
+
+  failure_states:
+    - "WORKING-MEMORY-STALE"
+    - "REVISION-CONFLICT"
+    - "SOURCE-INTEGRITY-UNCLEAR"
+    - "PUBLICATION-PROVIDER-BINDING-UNVERIFIED"
+    - "PUBLICATION-AUTHORIZATION-UNCLEAR"
