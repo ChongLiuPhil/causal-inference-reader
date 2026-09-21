@@ -1,0 +1,64 @@
+schema: ppf/v0.1
+framework:
+  source: ChongLiuPhil/Personal-Publishing-Framework
+  adopted_version: 0.1.1-draft
+  adopted_commit: e660b48fb216c28c8faa1f0fe2d0816401e1de2c
+
+project:
+  id: causal-inference-reader
+  type: quarto-book
+  title: "Causal Inference: A Deep Reader"
+
+source:
+  canonical: git
+  branch: main
+  visibility: public
+
+publication:
+  web:
+    format: html
+    mode: continuous
+    enabled: true
+    authorization_state: authorized
+    visibility: public
+    access:
+      mode: none
+      implementation: null
+      policy_ref: null
+
+deployment:
+  web:
+    provider: github-pages
+    enabled: true
+    status: repository-publish-active-provider-binding-unverified
+    output_directory: _book
+    production_url: null
+    integration_mode: github-actions-gh-pages-branch
+    build_contract: ".github/workflows/publish-book.yml"
+    current_provider: github-pages
+    target_provider: github-pages
+    current_production_url: null
+    target_production_url: "https://chongliuphil.github.io/causal-inference-reader/"
+    migration_status: provider-binding-pending
+    integration_state: REPOSITORY_VALIDATED
+    authorization_state: AUTHORIZED
+    cutover_state: BLOCKED
+    readiness:
+      repository_visibility: public
+      gh_pages_branch_publish: verified
+      repository_build: verified
+      provider_source_binding: human-setting-required
+      runtime_http_verification: pending
+    observed_state_path: "docs/working-memory/current-focus.md"
+    provider_url: null
+    canonical_identity:
+      type: provider-native-target
+      url: "https://chongliuphil.github.io/causal-inference-reader/"
+
+release:
+  require_explicit_release: true
+  continuous_web_is_release: false
+
+archive:
+  preserve_source: true
+  preserve_release_artifacts: true
