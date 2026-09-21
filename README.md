@@ -37,13 +37,13 @@ The shared principles are a single QMD source, book-level and chapter-level navi
 A new human collaborator or AI Agent should begin with:
 
 1. `START_HERE.md`
-2. `HARC_MANIFEST.yaml`
-3. `HARC_CONTEXT_INTERFACE.yaml`
+2. `AHICP_MANIFEST.yaml`
+3. `AHICP_CONTEXT_INTERFACE.yaml`
 4. `AGENTS.md`
 5. `docs/working-memory/current-focus.md`
 6. `docs/working-memory/task-plan.md`
 
-The collaboration layer is a project-specific HARC-lite adaptation inspired by [Human–AI Research Collaboration Protocol](https://github.com/ChongLiuPhil/Human-AI-Research-Collaboration-Protocol). It persists decisions and handoff state without duplicating the book manuscript and does not claim full HARC conformance.
+The project keeps its HARC-lite history as the project-native governance layer and uses current AHICP as the present protocol entry. The mapping persists decisions and handoff state without duplicating the manuscript.
 
 ## Build and check
 
