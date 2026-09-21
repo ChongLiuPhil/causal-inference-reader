@@ -1,0 +1,64 @@
+ahicp:
+  protocol_name: "AI-Assisted Human Inquiry and Creation Protocol"
+  adopted_protocol_version: "0.3.0-draft"
+  adopted_protocol_commit: "ed5a60b1016497472072db108072ace59bcdb65d"
+  profile: "research-standard-legacy-functional-mapping"
+  repository: "ChongLiuPhil/causal-inference-reader"
+  canonical_language: "zh-CN"
+
+  compatibility:
+    project_native_framework: "HARC-lite"
+    legacy_manifest: "HARC_MANIFEST.yaml"
+    legacy_context_interface: "HARC_CONTEXT_INTERFACE.yaml"
+    legacy_adopted_commit: "e741c43c5cd158c43910e3832c7d757226717a97"
+    legacy_paths_retained: true
+    rule: "Current AHICP control files are additive and do not rewrite HARC-lite history or D001-D008."
+
+  bootstrap:
+    start_here: "START_HERE.md"
+    session_context_bootstrap: "SESSION_CONTEXT_BOOTSTRAP.md"
+    context_interface: "AHICP_CONTEXT_INTERFACE.yaml"
+    agent_contract: "AGENTS.md"
+
+  state:
+    content_core: "core/CONTENT_CORE.md"
+    form_core: "core/FORM_CORE.md"
+    decision_log: "core/DECISION_LOG.md"
+    working_memory_current_focus: "docs/working-memory/current-focus.md"
+    working_memory_task_plan: "docs/working-memory/task-plan.md"
+    working_memory_work_log: "docs/working-memory/work-log.md"
+    manuscript: "manuscript/*.qmd"
+    bibliography: "references.bib"
+    source_policy: "evidence/source-policy.md"
+    framework_status: null
+    working_argument_map: null
+
+  profile_deviations:
+    - id: "AHICP-CIR-DEV-001"
+      role: "framework-state"
+      local_rule: "This learning/synthesis reader does not create a project-wide Framework Status or Argument Map merely for protocol symmetry."
+      human_basis: "D006-D008 and existing HARC-lite project scope."
+
+  required_read_order:
+    - "AHICP_MANIFEST.yaml"
+    - "AHICP_CONTEXT_INTERFACE.yaml"
+    - "START_HERE.md"
+    - "SESSION_CONTEXT_BOOTSTRAP.md"
+    - "AGENTS.md"
+    - "docs/working-memory/current-focus.md"
+    - "docs/working-memory/task-plan.md"
+    - "core/CONTENT_CORE.md"
+    - "core/FORM_CORE.md"
+    - "core/DECISION_LOG.md"
+    - "_quarto.yml"
+
+  invariants:
+    - "Repository state outranks chat memory."
+    - "manuscript/*.qmd remains the only canonical body source."
+    - "AI proposals are not human decisions."
+    - "Existing HARC-lite decisions remain valid."
+    - "PR validation must not publish production."
+    - "Public Web publication is authorized, but provider runtime acceptance is distinct from repository build success."
+    - "The current GitHub Pages route is preserved until a separate explicit provider decision changes it."
+    - "Future output formats must render from the same QMD source."
+    - "Long-term LaTeX/TinyTeX/TikZ/dvisvgm migration machinery remains forbidden."

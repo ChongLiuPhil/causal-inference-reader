@@ -10,14 +10,16 @@
 
 在进行实质性正文、结构、构建或发布修改前，依次读取：
 
-1. `HARC_MANIFEST.yaml`
-2. `HARC_CONTEXT_INTERFACE.yaml`
-3. `AGENTS.md`
-4. `docs/working-memory/current-focus.md`
-5. `docs/working-memory/task-plan.md`
-6. 与当前任务相关的 `core/CONTENT_CORE.md`、`core/FORM_CORE.md`、`core/DECISION_LOG.md`
-7. `_quarto.yml`
-8. 与任务直接相关的 `manuscript/*.qmd`、`references.bib`、`assets/` 或 workflow
+1. `AHICP_MANIFEST.yaml`
+2. `AHICP_CONTEXT_INTERFACE.yaml`
+3. `START_HERE.md`
+4. `SESSION_CONTEXT_BOOTSTRAP.md`
+5. `AGENTS.md`
+6. `docs/working-memory/current-focus.md`
+7. `docs/working-memory/task-plan.md`
+8. 与当前任务相关的 `core/CONTENT_CORE.md`、`core/FORM_CORE.md`、`core/DECISION_LOG.md`
+9. `_quarto.yml`
+10. 与任务直接相关的 `manuscript/*.qmd`、`references.bib`、`assets/` 或 workflow
 
 ## 当前不可违反的结构约束
 
@@ -42,3 +44,13 @@
 - 本次修改应验证哪些章节、引文、资源或发布行为？
 
 如果这些问题无法从仓库回答，先修复项目状态记录，不要靠猜测继续。
+
+
+## 当前协议与发布控制面
+
+- current AHICP: `0.3.0-draft @ ed5a60b1016497472072db108072ace59bcdb65d`
+- project-native HARC-lite: 保留 `HARC_MANIFEST.yaml` / `HARC_CONTEXT_INTERFACE.yaml` 及既有决定
+- PPF: `0.1.1-draft @ e660b48fb216c28c8faa1f0fe2d0816401e1de2c`
+- GitHub Pages provider route：保持不变
+- public Web authorization：已存在且保持不变
+- provider-side Pages source/binding：仍需完成最终验收；不得把 gh-pages 分支发布成功自动写成 runtime verified

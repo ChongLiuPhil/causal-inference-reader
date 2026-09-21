@@ -9,6 +9,11 @@ required_files = [
     "AGENTS.md",
     "HARC_MANIFEST.yaml",
     "HARC_CONTEXT_INTERFACE.yaml",
+    "AHICP_MANIFEST.yaml",
+    "AHICP_CONTEXT_INTERFACE.yaml",
+    "AHICP_ADOPTION.md",
+    "SESSION_CONTEXT_BOOTSTRAP.md",
+    "publishing.yaml",
     "CONTRIBUTING.md",
     "core/CONTENT_CORE.md",
     "core/FORM_CORE.md",
@@ -109,6 +114,28 @@ if manifest.is_file():
     ):
         if required not in manifest_text:
             errors.append(f"manifest invariant missing: {required}")
+
+ahicp_manifest = root / "AHICP_MANIFEST.yaml"
+if ahicp_manifest.is_file():
+    ahicp_text = ahicp_manifest.read_text(encoding="utf-8")
+    if "ed5a60b1016497472072db108072ace59bcdb65d" not in ahicp_text:
+        errors.append("current AHICP pin missing from AHICP_MANIFEST.yaml")
+    if "HARC_MANIFEST.yaml" not in ahicp_text:
+        errors.append("AHICP manifest no longer retains HARC-lite compatibility path")
+
+publishing = root / "publishing.yaml"
+if publishing.is_file():
+    publishing_text = publishing.read_text(encoding="utf-8")
+    for marker in (
+        "current_provider: github-pages",
+        "target_provider: github-pages",
+        "authorization_state: authorized",
+        "visibility: public",
+        "cutover_state: BLOCKED",
+        "provider_source_binding: human-setting-required",
+    ):
+        if marker not in publishing_text:
+            errors.append(f"publishing lifecycle invariant missing: {marker}")
 
 if errors:
     print("Project governance validation failed:", file=sys.stderr)

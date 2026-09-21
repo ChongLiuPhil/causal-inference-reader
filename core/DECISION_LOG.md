@@ -50,3 +50,10 @@
 **分类：** FORM  
 **决定：** Web Edition 与未来电子出版/排版形式参考作者的 `What-Remains-Human-Epistemic-Agency-and-Human-Value-in-the-Age-of-AI` 和 `epistemology-textbook` 项目：同一 QMD 源、左侧全书目录、右侧本章目录、稳定长文宽度、响应式数学/表格/图形、明确参考文献收束区，以及未来多格式由同一源生成。参考项目特有的私有部署、评论系统或研究治理不自动复制。  
 **状态：** active project decision; implemented and CI-validated through PR #6.
+
+## 2026-09-21 — D009
+
+**分类：** PROTOCOL / FORM  
+**决定：** 按当前 Inquiry Publishing Stack 对本项目执行升级：current AHICP `0.3.0-draft @ ed5a60b1016497472072db108072ace59bcdb65d` 作为当前协议入口，既有 HARC-lite 继续作为 project-native 历史治理层；采用 PPF `0.1.1-draft @ e660b48fb216c28c8faa1f0fe2d0816401e1de2c` 记录现有 GitHub Pages 生命周期，但不改变 provider、公开授权或 canonical QMD。现有 repository workflow / `gh-pages` 发布链已验证；provider-side Pages source/binding 与公网 runtime 验收继续作为独立外部 gate。Vault Interface 与 Starter 同步到当前 pinned revisions。  
+**状态：** validated in PR #9; if this record is read from `main`, the upgrade is implemented. Provider-side Pages source/binding remains a separate unresolved external gate.  
+

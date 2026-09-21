@@ -20,4 +20,4 @@ featured: false
 links:
   - https://chongliuphil.github.io/causal-inference-reader/
 publication_notes: >
-  Stack adoption does not change the current GitHub Pages provider or imply PPF adoption.
+  Current Stack adoption records the already-authorized GitHub Pages Web lifecycle under PPF without changing provider. Repository/gh-pages publication is validated; provider-side Pages source binding and runtime acceptance remain pending.

@@ -36,6 +36,8 @@ project=scalars(read("project.yaml"))
 website=scalars(read("website.yaml"))
 stack=scalars(read("project-stack.yaml"))
 lock=scalars(read("project-stack.lock.yaml"))
+publishing=scalars(read("publishing.yaml"))
+ahicp=scalars(read("AHICP_MANIFEST.yaml"))
 
 if stack.get("schema") != "inquiry-publishing-stack/v2":
     fail("project stack must use v2")
@@ -53,14 +55,35 @@ if stack.get("components.portfolio_interface.adoption_state") != "active":
 if project.get("governance.adopted_protocol_commit") != stack.get("components.governance.project_native.adopted_commit"):
     fail("legacy HARC functional mapping no longer matches project.yaml")
 
-if stack.get("components.publishing.adoption_state") != "deferred":
-    fail("research-book pilot must not silently adopt or change the publication framework")
-if stack.get("components.publishing.template_source_commit") is not None:
-    fail("deferred PPF must not claim a template source revision")
-if stack.get("components.publishing.project_adopted_commit") is not None:
-    fail("deferred PPF must not claim a project-adopted revision")
-if lock.get("resolved.ppf") is not None:
-    fail("PPF lock must remain null while PPF adoption is deferred")
+if stack.get("components.publishing.adoption_state") != "active":
+    fail("PPF lifecycle mapping must remain active after D009")
+if stack.get("components.publishing.profile") != "quarto-book-github-pages-project-native":
+    fail("PPF must map the existing GitHub Pages route rather than invent a new provider")
+if publishing.get("deployment.web.current_provider") != "github-pages":
+    fail("publishing.yaml provider drift: current provider must remain GitHub Pages")
+if publishing.get("deployment.web.target_provider") != "github-pages":
+    fail("publishing.yaml target provider drift")
+if publishing.get("deployment.web.integration_state") != "REPOSITORY_VALIDATED":
+    fail("repository publication chain must remain validated")
+if publishing.get("deployment.web.cutover_state") != "BLOCKED":
+    fail("provider-side Pages binding must remain an explicit unresolved gate")
+if publishing.get("publication.web.authorization_state") != "authorized":
+    fail("public Web authorization drift")
+if publishing.get("publication.web.visibility") != "public":
+    fail("public Web visibility drift")
+if lock.get("resolved.ppf") != stack.get("components.publishing.template_source_commit"):
+    fail("PPF lock drift")
+
+if stack.get("components.governance.template_source_commit") != "ed5a60b1016497472072db108072ace59bcdb65d":
+    fail("unexpected current AHICP pin")
+if ahicp.get("ahicp.adopted_protocol_commit") != "ed5a60b1016497472072db108072ace59bcdb65d":
+    fail("AHICP manifest pin drift")
+if stack.get("components.publishing.template_source_commit") != "e660b48fb216c28c8faa1f0fe2d0816401e1de2c":
+    fail("unexpected current PPF pin")
+if stack.get("components.portfolio_interface.template_source_commit") != "79d64b12275a5cc7c09236b144bf4213fa7afc5e":
+    fail("unexpected current Vault Interface pin")
+if stack.get("starter.adopted_commit") != "4889739d448a9bf68bedb42ce3182315eda0caeb":
+    fail("unexpected current Starter pin")
 
 if lock.get("resolved.ahicp") != stack.get("components.governance.template_source_commit"):
     fail("AHICP lock drift")
@@ -71,4 +94,4 @@ if lock.get("resolved.starter") != stack.get("starter.adopted_commit"):
 if website.get("publish") is not True:
     fail("website metadata conflicts with the already-authorized public Web Edition")
 
-print("Project stack v2 consistency passed: legacy governance mapped, public metadata standardized, PPF deferred, and existing Pages route preserved.")
+print("Project stack v2 consistency passed: current AHICP/PPF/Vault/Starter pins align, HARC-lite history is retained, and the existing GitHub Pages route/provider-binding gate is preserved.")
