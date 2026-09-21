@@ -34,3 +34,14 @@ Authorial/pedagogical alignment and Web Edition form alignment are implemented a
 - Stable decisions: `core/DECISION_LOG.md`
 - Content positioning: `core/CONTENT_CORE.md`
 - Build/publish rules: `core/FORM_CORE.md`
+
+## CURRENT_STACK
+
+- adoption: IN REVIEW / PR validation pending
+- AHICP: current `0.3.0-draft`; HARC-lite history retained
+- PPF: active lifecycle contract around existing GitHub Pages route
+- Vault Interface / Starter: current pins recorded in `project-stack.yaml`
+- Web authorization: public / authorized
+- repository + gh-pages publishing: verified by existing workflow
+- provider-side Pages source/binding + runtime HTTP: still unverified external gate
+- provider change: none
