@@ -42,13 +42,13 @@ https://chongliuphil.github.io/causal-inference-reader/
 新的协作者或 AI Agent 应依次阅读：
 
 1. `START_HERE.md`
-2. `HARC_MANIFEST.yaml`
-3. `HARC_CONTEXT_INTERFACE.yaml`
+2. `AHICP_MANIFEST.yaml`
+3. `AHICP_CONTEXT_INTERFACE.yaml`
 4. `AGENTS.md`
 5. `docs/working-memory/current-focus.md`
 6. `docs/working-memory/task-plan.md`
 
-本项目参考 [Human–AI Research Collaboration Protocol](https://github.com/ChongLiuPhil/Human-AI-Research-Collaboration-Protocol) 建立项目适配的 HARC-lite 协作层，用于持久化决定和交接状态，不复制第二套正文，也不宣称完整 HARC conformance。
+本项目保留 HARC-lite 作为 project-native 历史治理层，并使用 current AHICP 作为当前协议入口；functional mapping 用于持久化决定和交接状态，不复制第二套正文。
 
 ## 检查与构建
 
