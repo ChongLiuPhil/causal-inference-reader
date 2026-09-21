@@ -9,7 +9,7 @@
 - WM-T003 — 修复首次 main Pages 发布的 gh-pages bootstrap 并完成生产分支发布 — COMPLETED
 - WM-T004 — 实际验证公共站点首页、章节 1/4/7/11、附录、数学、引文、图片和前后导航 — BLOCKED / WAITING-PAGES-SOURCE
 - WM-T005 — 对齐项目性质、问题导向哲学观与作者其他 Quarto book 的出版形式 — COMPLETED
-- WM-T006 — current AHICP / PPF / Vault / Starter upgrade — IN REVIEW
+- WM-T006 — current AHICP / PPF / Vault / Starter upgrade — VALIDATED / PR #9; if this file is on `main`, the upgrade is merged
 
 ## NEXT ACTIONS
 
@@ -41,4 +41,4 @@
 ## SYNC DEFECTS
 
 - 公共 Pages 可访问性尚未完成最终验收。
-- current Stack adoption 在 PR 合并前保持 validation-pending；provider binding 不因 Stack upgrade 自动解决。
+- current Stack adoption has passed PR validation; provider binding remains independently unresolved and is not solved by the Stack upgrade.
