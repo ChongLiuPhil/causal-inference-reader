@@ -23,10 +23,23 @@ governance:
   protocol_source: ChongLiuPhil/Human-AI-Research-Collaboration-Protocol
   adopted_protocol_commit: e741c43c5cd158c43910e3832c7d757226717a97
   context_mode: repository-backed
+  current_protocol_entry: AHICP
+  ahicp_manifest: AHICP_MANIFEST.yaml
+  ahicp_context_interface: AHICP_CONTEXT_INTERFACE.yaml
+  ahicp_adopted_protocol_version: 0.3.0-draft
+  ahicp_adopted_commit: ed5a60b1016497472072db108072ace59bcdb65d
 
 stack:
   manifest: project-stack.yaml
   lock: project-stack.lock.yaml
+
+publishing:
+  framework: Personal-Publishing-Framework
+  adopted_framework_version: 0.1.1-draft
+  adopted_framework_commit: e660b48fb216c28c8faa1f0fe2d0816401e1de2c
+  contract: publishing.yaml
+  current_web_provider: github-pages
+  provider_runtime_status: binding-unverified
 
 website:
   metadata: website.yaml
@@ -34,5 +47,6 @@ website:
 
 notes: >
   Existing HARC-lite files remain project-native and are functionally mapped into
-  the AHICP compatibility layer. PPF adoption is intentionally deferred; the
-  existing GitHub Pages publication path is not changed by this stack migration.
+  the current AHICP compatibility layer. PPF now records the existing GitHub Pages
+  publication lifecycle without changing provider or public authorization. The
+  provider-side Pages source/binding remains the external runtime acceptance gate.
