@@ -37,7 +37,7 @@ Authorial/pedagogical alignment and Web Edition form alignment are implemented a
 
 ## CURRENT_STACK
 
-- adoption: IN REVIEW / PR validation pending
+- adoption: VALIDATED via PR #9; Project Governance Run #24 + Quarto PR Run #41 SUCCESS. If this record is read from `main`, PR #9 has been merged.
 - AHICP: current `0.3.0-draft`; HARC-lite history retained
 - PPF: active lifecycle contract around existing GitHub Pages route
 - Vault Interface / Starter: current pins recorded in `project-stack.yaml`
