@@ -12,9 +12,13 @@ AI can assist with retrieval, verification, synthesis, argument reconstruction, 
 
 The project also adopts a problem-driven view of philosophy. Philosophical research is not identical with studying what earlier philosophers thought. History of philosophy, intellectual history, history of ideas, and direct philosophical inquiry can inform one another, but they perform different tasks. Historical material is used to clarify questions, reconstruct arguments, compare conceptual frameworks, and test answers rather than to substitute the study of figures for philosophy itself.
 
-## Online book
+## Online edition status
 
-https://chongliuphil.github.io/causal-inference-reader/
+**Public runtime acceptance is pending.** The intended GitHub Pages address is `https://chongliuphil.github.io/causal-inference-reader/`; an independent check on 2026-09-22 returned HTTP 404. It should not currently be treated as a verified online reading link.
+
+The public Web Edition is authorized, but provider-side Pages source binding and runtime verification remain outstanding, as recorded in [website.yaml](website.yaml). Successful rendering or publication to the `gh-pages` branch does not by itself establish a working public site.
+
+For now, browse the [manuscript source](manuscript/) or use the local preview commands below. This status correction does not change the manuscript, publication authorization, or delivery provider.
 
 ## Canonical source
 
@@ -60,7 +64,7 @@ make preview
 
 ## CI and publishing
 
-Pull requests validate governance, canonical sources, and the complete HTML book without publishing production. Merge or push to `main` renders the complete `_book/` and publishes GitHub Pages.
+The book-validation workflow validates governance, canonical sources, and the complete HTML book for changes matching its pull-request path filters, without publishing production. Merge or push to `main` renders the complete `_book/` and publishes verified HTML to the `gh-pages` branch. Public availability additionally requires correct provider-side Pages source binding and runtime verification.
 
 A production content change is complete only after the `main` workflow succeeds and the public Pages site is verified.
 
