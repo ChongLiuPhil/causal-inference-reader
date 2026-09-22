@@ -14,9 +14,13 @@
 
 仓库采用 Quarto 和 repository-backed 协作方式：正文、长期决定、当前工作状态和发布规则都有明确的 canonical 位置。
 
-## 在线版
+## 在线版状态
 
-https://chongliuphil.github.io/causal-inference-reader/
+**公网访问仍待验收。** 预期 GitHub Pages 地址为 `https://chongliuphil.github.io/causal-inference-reader/`；2026-09-22 的独立检查返回 HTTP 404，目前不能把它作为已验证可用的在线阅读链接。
+
+公开 Web Edition 已获授权，但 provider 侧 Pages 发布源绑定及公网验证仍待完成，具体状态见 [website.yaml](website.yaml)。完整构建通过或成功推送至 `gh-pages` 分支，并不单独证明公共网站已经可用。
+
+目前可浏览[正文源文件](manuscript/)，或使用下方命令在本地预览。本次状态修正不改变书稿、公开发布授权或交付平台。
 
 ## Canonical source
 
@@ -65,7 +69,7 @@ make preview
 
 ## CI 与生产发布
 
-Pull request 会验证治理状态、canonical source 和完整 HTML book，但不会发布生产站点。合并或 push 到 `main` 后完整渲染 `_book/` 并发布 GitHub Pages。
+书籍验证工作流会对符合 pull-request 路径过滤条件的修改验证治理状态、canonical source 和完整 HTML book，但不会发布生产站点。合并或 push 到 `main` 后完整渲染 `_book/`，并将验证后的 HTML 发布到 `gh-pages` 分支。公共网站是否可访问，还取决于 provider 侧 Pages 发布源绑定及实际公网验证。
 
 生产内容修改只有在 `main` workflow 成功且公共 Pages 实际验证后才视为完成。
 
