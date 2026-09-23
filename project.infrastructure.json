@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "id": "causal-inference-reader",
+    "slug": "causal-inference-reader"
+  },
+  "github": {
+    "owner": "ChongLiuPhil",
+    "repository": "causal-inference-reader",
+    "repositoryVisibility": "public",
+    "productionBranch": "main"
+  },
+  "cloudflare": {
+    "platform": "workers",
+    "worker": "causal-inference-reader",
+    "applicationVisibility": "private",
+    "previewVisibility": "private",
+    "accessMode": "account-wide-access",
+    "publicBypass": false,
+    "customDomain": null
+  },
+  "deployment": {
+    "provider": "cloudflare-workers-builds",
+    "productionBranch": "main",
+    "previewDeployments": false,
+    "previewProtection": true
+  },
+  "release": {
+    "state": "public",
+    "openSource": true
+  },
+  "policy": {
+    "privateByDefault": true,
+    "paidServicesAllowed": false,
+    "requiresApprovedPublicTransition": true
+  }
+}
