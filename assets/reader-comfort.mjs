@@ -7,6 +7,19 @@ export const READER_DEFAULTS = Object.freeze({
 });
 export const READER_THEMES = Object.freeze(['paper', 'warm', 'sage', 'night']);
 
+// GitHub Pages hosts multiple books on the same origin. Never restore another
+// repository's bookmark (or a crafted destination) in this book's settings.
+export function isCurrentBookPath(path) {
+  if (typeof path !== 'string' || !path.startsWith('/causal-inference-reader/') ||
+      /[\\\u0000-\u001f\u007f]/.test(path)) return false;
+  try {
+    const parsed = new URL(path, 'https://reader.invalid');
+    return parsed.origin === 'https://reader.invalid' &&
+      parsed.pathname.startsWith('/causal-inference-reader/') &&
+      !/[\\\u0000-\u001f\u007f]/.test(decodeURIComponent(path));
+  } catch { return false; }
+}
+
 export function normalizeReaderPreferences(value = {}) {
   const input = value && typeof value === 'object' ? value : {};
   const theme = input.theme === 'dark' ? 'night' : input.theme === 'light' ? 'paper' : input.theme;
@@ -49,7 +62,7 @@ function initReaderComfort() {
     bookmark: 'Save bookmark', saved: 'Saved bookmarks', continue: 'Continue reading',
     all: 'All', book: 'Book', papers: 'Papers', searchScope: 'Search in',
     themeNames: ['Soft white', 'Warm paper', 'Sage green', 'Night'],
-    remove: 'Remove bookmark'
+    remove: 'Remove bookmark', decrease: 'Decrease text size', increase: 'Increase text size'
   } : {
     settings: '阅读设置', appearance: '阅读背景', fontSize: '正文字号',
     spacing: '行距', width: '版心宽度', font: '正文字体', serif: '宋体／衬线',
@@ -57,11 +70,15 @@ function initReaderComfort() {
     bookmark: '添加书签', saved: '我的书签', continue: '继续上次阅读',
     all: '全书', book: '专著', papers: '论文', searchScope: '搜索范围',
     themeNames: ['柔白', '暖纸', '浅绿', '深夜'],
-    remove: '删除书签'
+    remove: '删除书签', decrease: '减小正文字号', increase: '增大正文字号'
   };
   const storage = {
-    get(key) { try { return localStorage.getItem(key); } catch { return null; } },
-    set(key, value) { try { localStorage.setItem(key, value); } catch {} }
+    get(key) { try {
+      // Read older global keys once for migration, then write only book-local
+      // keys so unrelated github.io projects cannot overwrite this book.
+      return localStorage.getItem('causal-inference-reader:' + key) ?? localStorage.getItem(key);
+    } catch { return null; } },
+    set(key, value) { try { localStorage.setItem('causal-inference-reader:' + key, value); } catch {} }
   };
   let saved = null;
   try { saved = JSON.parse(storage.get('reader-preferences-v1') || 'null'); } catch {}
@@ -85,9 +102,9 @@ function initReaderComfort() {
       '<p class="reader-setting-heading">' + t.appearance + '</p>',
       '<div class="reader-theme-options">' + themes + '</div>',
       '<div class="reader-setting-row"><label for="reader-size-input">' + t.fontSize + '</label>',
-        '<button type="button" data-reader-size-step="-1" aria-label="A minus">A−</button>',
+        '<button type="button" data-reader-size-step="-1" aria-label="' + t.decrease + '">A−</button>',
         '<output data-reader-size-output for="reader-size-input">19px</output>',
-        '<button type="button" data-reader-size-step="1" aria-label="A plus">A+</button></div>',
+        '<button type="button" data-reader-size-step="1" aria-label="' + t.increase + '">A+</button></div>',
       '<input type="range" id="reader-size-input" data-reader-size-range min="16" max="26" step="1" value="19">',
       '<div class="reader-setting-row"><label for="reader-leading-select">' + t.spacing + '</label>',
         '<select id="reader-leading-select" data-reader-leading>',
@@ -125,13 +142,13 @@ function initReaderComfort() {
   function bookmarks() {
     try { const rows = JSON.parse(storage.get('reader-bookmarks-v1') || '[]');
       return Array.isArray(rows) ? rows.filter(row => row && typeof row.path === 'string' &&
-        /^\/(?!\/)/.test(row.path) && typeof row.title === 'string').slice(0, 20) : [];
+        isCurrentBookPath(row.path) && typeof row.title === 'string').slice(0, 20) : [];
     } catch { return []; }
   }
   function renderSavedReading() {
     lastContainer.replaceChildren();
     const last = (() => { try { return JSON.parse(storage.get('reader-last-location-v1')); } catch { return null; } })();
-    if (last && typeof last.path === 'string' && /^\/(?!\/)/.test(last.path) &&
+    if (last && typeof last.path === 'string' && isCurrentBookPath(last.path) &&
         last.path.split('#')[0] !== location.pathname) {
       const link = document.createElement('a');
       link.href = last.path;
