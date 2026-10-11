@@ -32,5 +32,11 @@ test('active HTML profile includes reader assets and retains native search', () 
   assert.ok(conf.includes('assets/includes/reader-comfort.html'));
   assert.ok(conf.includes('search: true'));
   assert.ok(conf.includes('toc: true'));
-  assert.ok(read('assets/includes/reader-comfort.html').includes('/causal-inference-reader/assets/reader-comfort.mjs'));
+  assert.ok(read('assets/includes/reader-comfort.html').includes('/assets/reader-comfort.mjs'));
+});
+
+test('public Pages subpath uses Quarto root-relative resource rewriting',()=>{
+ const include=read('assets/includes/reader-comfort.html');
+ assert.ok(!include.includes('/causal-inference-reader/assets/'));
+ assert.match(include,/src="\/assets\/reader-comfort\.mjs"/);
 });
