@@ -2,6 +2,12 @@
 
 **状态：** ACTIVE
 
+## 2026-10-11 — 阅读器跨项目隔离（草稿 PR #15）
+
+本轮 FORM-only：对 GitHub Pages 同域下的阅读偏好、书签、继续阅读键添加本书命名空间，仅接受本书路径，并改善手机浮动工具与无障碍标签。修改限于阅读前端、测试和相关文档；正文、Pages 提供商及发布策略不变。
+
+**状态：** PR #15 待合并。两项 PR workflow（完整 Quarto 和阅读布局测试）已报告 SUCCESS；尚未验收 `main` 的 GitHub Pages provider binding 与公网真实交互，不能将 PR 结果当生产成功。下一步复核/合并 PR 后执行生产验收。
+
 ## CURRENT_STAGE
 
 Authorial/pedagogical alignment and Web Edition form alignment are implemented and CI-validated; public GitHub Pages source binding remains the external blocker.
