@@ -1,0 +1,13 @@
+name: Reader layout parity
+on:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  verify-reader-ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/reader-comfort.test.mjs
