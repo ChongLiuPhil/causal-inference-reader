@@ -75,7 +75,7 @@ crossref:
 format:
   html:
     theme: cosmo
-    css: book.css
+    css: [book.css, assets/reader-comfort.css]
     toc: true
     toc-title: "本章目录"
     toc-depth: 3
@@ -86,3 +86,5 @@ format:
     code-copy: false
     html-math-method: mathjax
     link-external-newwindow: true
+    include-after-body:
+      - assets/includes/reader-comfort.html
