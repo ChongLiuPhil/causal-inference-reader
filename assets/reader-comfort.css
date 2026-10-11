@@ -107,7 +107,7 @@ html[data-reader-theme] .parallel-page .reader-inner { max-width: 1320px; }
 .reader-settings:not([open]) .reader-settings-panel { display: none; }
 .reader-settings--floating {
   position: fixed; right: max(1rem, env(safe-area-inset-right));
-  bottom: max(1rem, env(safe-area-inset-bottom)); z-index: 2050;
+  bottom: calc(5rem + env(safe-area-inset-bottom)); z-index: 2050;
 }
 .reader-settings--floating .reader-settings-panel { top: auto; bottom: calc(100% + 8px); }
 .reader-setting-heading { font-size: .9em; font-weight: 700; margin: .35em 0 .75em; }

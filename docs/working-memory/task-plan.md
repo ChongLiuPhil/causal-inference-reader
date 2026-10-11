@@ -2,6 +2,8 @@
 
 **状态：** ACTIVE TASK PLAN
 
+- WM-T007 — GitHub Pages 同源书签与阅读器交互隔离（FORM）— IMPLEMENTED / DRAFT PR #15；等待审核合并与部署后的真实手机/桌面验收。保留 WM-T004 的 Pages source/binding 阻塞。
+
 ## ACTIVE TASKS
 
 - WM-T001 — 建立 HARC-lite 项目治理层并清理误导协作的旧 LaTeX 构建残留 — COMPLETED
