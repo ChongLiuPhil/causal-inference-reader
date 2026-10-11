@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {READER_DEFAULTS, READER_THEMES, normalizeReaderPreferences} from '../assets/reader-comfort.mjs';
+import {READER_DEFAULTS, READER_THEMES, normalizeReaderPreferences, isCurrentBookPath} from '../assets/reader-comfort.mjs';
 const root = new URL('../', import.meta.url);
 const read = path => readFileSync(new URL(path, root), 'utf8');
 test('reference reading themes and typographic preferences remain consistent', () => {
@@ -39,4 +39,18 @@ test('public Pages subpath uses Quarto root-relative resource rewriting',()=>{
  const include=read('assets/includes/reader-comfort.html');
  assert.ok(!include.includes('/causal-inference-reader/assets/'));
  assert.match(include,/src="\/assets\/reader-comfort\.mjs"/);
+});
+
+test('bookmarks are restricted to this GitHub Pages book, not the shared github.io origin', () => {
+  for (const path of ['/causal-inference-reader/', '/causal-inference-reader/manuscript/01-questions.html',
+    '/causal-inference-reader/manuscript/01-questions.html#问题']) {
+    assert.equal(isCurrentBookPath(path), true, path);
+  }
+  for (const path of ['/', '//evil.example/path', '/other-book/chapter.html',
+    '/causal-inference-reader/../other-book/', '/causal-inference-reader/%2e%2e/other-book/',
+    '/causal-inference-reader/%0a', '/causal-inference-reader/%5cpath']) {
+    assert.equal(isCurrentBookPath(path), false, path);
+  }
+  assert.match(read('assets/reader-comfort.mjs'), /causal-inference-reader:' \+ key/);
+  assert.match(read('assets/reader-comfort.css'), /bottom: calc\(5rem \+ env\(safe-area-inset-bottom\)\)/);
 });
